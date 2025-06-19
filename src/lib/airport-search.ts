@@ -772,7 +772,7 @@ function formatAirportResult(code: string, info: AirportInfo): AirportSearchResu
   const type = info.type || 'domestic';
   const customs = info.customs || false;
   const priority = info.priority || 0;
-  
+
   return {
     code,
     chinese: info.chinese,
@@ -911,7 +911,7 @@ export function findAirportsByCountry(
  */
 function checkSpecialRegionSearch(query: string, limit: number): AirportSearchResult[] | null {
   const queryLower = query.toLowerCase().trim();
-  
+
   // 特殊行政区映射
   const specialRegions: Record<string, { chinese: string; english: string; code: string }> = {
     'hk': { chinese: '香港', english: 'Hong Kong', code: 'HK' },
@@ -1012,7 +1012,7 @@ export function searchAirports(query: string, limit: number = 10): AirportSearch
   const countryResults = searchByCountryCode(query, limit);
   if (countryResults && countryResults.length > 0) {
     return countryResults;
-  }
+    }
 
   // 常规搜索逻辑
   const results: AirportSearchResult[] = [];
@@ -1028,8 +1028,8 @@ export function searchAirports(query: string, limit: number = 10): AirportSearch
         info.english.toLowerCase().includes(queryLower) ||
         info.country.includes(query)) {
       results.push(formatAirportResult(code, info));
+      }
     }
-  }
 
   // 按优先级和类型排序
   return results
@@ -1043,7 +1043,7 @@ export function searchAirports(query: string, limit: number = 10): AirportSearch
         return a.type === 'international' ? -1 : 1;
       }
       // 按代码字母顺序
-      return a.code.localeCompare(b.code);
+    return a.code.localeCompare(b.code);
     })
     .slice(0, limit);
 }
