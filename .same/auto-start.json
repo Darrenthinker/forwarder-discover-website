@@ -1,0 +1,13 @@
+{
+  "autoStart": {
+    "enabled": false,
+    "command": "bun run dev",
+    "port": 3000,
+    "name": "国际货运智能报价系统",
+    "description": "全球机场数据库 + 货物解析 + 智能搜索 + 报价生成"
+  },
+  "preview": {
+    "url": "http://localhost:3000",
+    "autoOpen": false
+  }
+}

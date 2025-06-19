@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 国际货运智能报价系统 - 启动指南</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        h1 { color: #fff; text-align: center; margin-bottom: 2rem; }
+        .command {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            border-left: 4px solid #4CAF50;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 0.5rem;
+            transition: background 0.3s;
+        }
+        .btn:hover { background: #45a049; }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .status {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 国际货运智能报价系统</h1>
+
+        <div class="status">
+            <h3>📍 当前状态</h3>
+            <p id="status">检测中...</p>
+            <a href="http://localhost:3000" class="btn" target="_blank">访问应用</a>
+        </div>
+
+        <h2>🎯 快速启动</h2>
+        <p>选择以下任意一种方式启动应用：</p>
+
+        <h3>方式1: 智能启动脚本 (推荐)</h3>
+        <div class="command">node autostart.js</div>
+
+        <h3>方式2: 快速启动</h3>
+        <div class="command">node start.js</div>
+
+        <h3>方式3: 传统方式</h3>
+        <div class="command">bun run dev</div>
+
+        <h2>✨ 功能亮点</h2>
+        <div class="features">
+            <div class="feature">
+                <h4>🌍 全球机场数据库</h4>
+                <p>823个国际机场</p>
+            </div>
+            <div class="feature">
+                <h4>📦 智能货物解析</h4>
+                <p>50+种格式支持</p>
+            </div>
+            <div class="feature">
+                <h4>✈️ 机场代码识别</h4>
+                <p>自动匹配完整信息</p>
+            </div>
+            <div class="feature">
+                <h4>💰 运价计算</h4>
+                <p>实时计费重量计算</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <p><strong>版本:</strong> v161 | <strong>技术栈:</strong> Next.js + TypeScript + Bun</p>
+        </div>
+    </div>
+
+    <script>
+        // 检测服务器状态
+        function checkServer() {
+            fetch('http://localhost:3000')
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById('status').innerHTML = '✅ 服务器运行中 - <a href="http://localhost:3000" style="color: #4CAF50;">点击访问</a>';
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('status').innerHTML = '❌ 服务器未启动 - 请使用上述命令启动';
+                });
+        }
+
+        // 页面加载时检测
+        checkServer();
+
+        // 每5秒检测一次
+        setInterval(checkServer, 5000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>航空公司布局设计演示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .filter-active {
+            background-color: #ef4444;
+            color: white;
+            border-color: #ef4444;
+        }
+        .filter-inactive {
+            background-color: white;
+            color: #6b7280;
+            border-color: #d1d5db;
+        }
+        .tab-active {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        .tab-inactive {
+            background-color: white;
+            color: #6b7280;
+            border-color: #d1d5db;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-2xl font-bold text-gray-900 mb-6">📋 航空公司布局优化演示</h1>
+
+        <!-- 搜索框 -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">目的地</label>
+            <input
+                type="text"
+                value="日本"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                readonly
+            >
+        </div>
+
+        <!-- 搜索结果下拉框 -->
+        <div class="border border-gray-200 rounded-lg bg-white shadow-lg">
+
+            <!-- 统计信息行 - 优化布局 -->
+            <div class="px-4 py-3 bg-blue-50 border-b border-gray-200">
+                <div class="flex items-center justify-between">
+                    <!-- 左侧：统计信息 + 机场类型筛选 -->
+                    <div class="flex items-center space-x-3">
+                        <span class="text-sm text-blue-600">日本 • 找到33/33 个机场</span>
+
+                        <!-- 机场类型筛选 - 紧凑布局 -->
+                        <div class="flex items-center space-x-1">
+                            <button class="px-2 py-1 text-xs rounded border filter-active transition-colors" id="intlFilter">
+                                🟢 国际机场
+                            </button>
+                            <button class="px-2 py-1 text-xs rounded border filter-inactive transition-colors" id="domFilter">
+                                🔵 国内机场
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 右侧：机场/航空公司切换 -->
+                    <div class="flex items-center space-x-1" id="tabContainer">
+                        <button class="px-3 py-1 text-sm rounded border tab-active transition-colors" id="airportTabTop">
+                            🛩️ 机场
+                        </button>
+                        <button class="px-3 py-1 text-sm rounded border tab-inactive transition-colors" id="airlineTabTop">
+                            ✈️ 航空公司
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 搜索结果列表 -->
+            <div class="max-h-96 overflow-y-auto">
+                <!-- 机场搜索结果 -->
+                <div id="airportResultsNew">
+                    <div class="px-4 py-3 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
+                        <div class="flex items-center">
+                            <span class="inline-block w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            <div class="flex-1">
+                                <div class="flex items-center">
+                                    <span class="font-medium text-blue-600 mr-2">NRT</span>
+                                    <span class="text-gray-600 mr-2">东京成田</span>
+                                    <span class="text-sm text-gray-500">Narita International Airport</span>
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">日本 JP · 亚洲</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-4 py-3 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
+                        <div class="flex items-center">
+                            <span class="inline-block w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            <div class="flex-1">
+                                <div class="flex items-center">
+                                    <span class="font-medium text-blue-600 mr-2">HND</span>
+                                    <span class="text-gray-600 mr-2">东京羽田</span>
+                                    <span class="text-sm text-gray-500">Tokyo Haneda Airport</span>
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">日本 JP · 亚洲</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-4 py-3 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
+                        <div class="flex items-center">
+                            <span class="inline-block w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            <div class="flex-1">
+                                <div class="flex items-center">
+                                    <span class="font-medium text-blue-600 mr-2">KIX</span>
+                                    <span class="text-gray-600 mr-2">大阪关西</span>
+                                    <span class="text-sm text-gray-500">Kansai International Airport</span>
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">日本 JP · 亚洲</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 航空公司搜索结果 -->
+                <div id="airlineResultsNew" class="hidden">
+                    <div class="px-4 py-3 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
+                        <div class="flex items-center">
+                            <span class="inline-block w-2 h-2 bg-red-500 rounded-full mr-3"></span>
+                            <div class="flex-1">
+                                <div class="flex items-center">
+                                    <span class="font-medium text-red-600 mr-3 w-8">JL</span>
+                                    <span class="text-gray-900 font-medium mr-3">日本航空</span>
+                                    <span class="text-sm text-gray-500">Japan Airlines</span>
+                                    <span class="ml-auto text-xs bg-red-100 text-red-700 px-2 py-1 rounded">寰宇一家</span>
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">日本 JP · 全服务航空公司 · 主要枢纽: NRT, HND</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-4 py-3 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
+                        <div class="flex items-center">
+                            <span class="inline-block w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                            <div class="flex-1">
+                                <div class="flex items-center">
+                                    <span class="font-medium text-blue-600 mr-3 w-8">NH</span>
+                                    <span class="text-gray-900 font-medium mr-3">全日空</span>
+                                    <span class="text-sm text-gray-500">All Nippon Airways</span>
+                                    <span class="ml-auto text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">星空联盟</span>
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">日本 JP · 全服务航空公司 · 主要枢纽: NRT, HND</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-4 py-3 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
+                        <div class="flex items-center">
+                            <span class="inline-block w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                            <div class="flex-1">
+                                <div class="flex items-center">
+                                    <span class="font-medium text-orange-600 mr-3 w-8">MM</span>
+                                    <span class="text-gray-900 font-medium mr-3">乐桃航空</span>
+                                    <span class="text-sm text-gray-500">Peach Aviation</span>
+                                    <span class="ml-auto text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded">LCC</span>
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">日本 JP · 低成本航空公司 · 主要枢纽: KIX, NRT</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-4 py-3 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
+                        <div class="flex items-center">
+                            <span class="inline-block w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                            <div class="flex-1">
+                                <div class="flex items-center">
+                                    <span class="font-medium text-purple-600 mr-3 w-8">JW</span>
+                                    <span class="text-gray-900 font-medium mr-3">香草航空</span>
+                                    <span class="text-sm text-gray-500">Vanilla Air</span>
+                                    <span class="ml-auto text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">LCC</span>
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">日本 JP · 低成本航空公司 · 主要枢纽: NRT</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-4 py-3 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
+                        <div class="flex items-center">
+                            <span class="inline-block w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            <div class="flex-1">
+                                <div class="flex items-center">
+                                    <span class="font-medium text-green-600 mr-3 w-8">JX</span>
+                                    <span class="text-gray-900 font-medium mr-3">日本越洋航空</span>
+                                    <span class="text-sm text-gray-500">Japan Transocean Air</span>
+                                    <span class="ml-auto text-xs bg-green-100 text-green-700 px-2 py-1 rounded">区域</span>
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">日本 JP · 区域航空公司 · 主要枢纽: OKA</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="px-4 py-3 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
+                        <div class="flex items-center">
+                            <span class="inline-block w-2 h-2 bg-indigo-500 rounded-full mr-3"></span>
+                            <div class="flex-1">
+                                <div class="flex items-center">
+                                    <span class="font-medium text-indigo-600 mr-3 w-8">BC</span>
+                                    <span class="text-gray-900 font-medium mr-3">天马航空</span>
+                                    <span class="text-sm text-gray-500">Skymark Airlines</span>
+                                    <span class="ml-auto text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded">LCC</span>
+                                </div>
+                                <div class="text-xs text-gray-400 mt-1">日本 JP · 低成本航空公司 · 主要枢纽: HND</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 设计说明 -->
+        <div class="mt-6 space-y-4">
+            <!-- 设计亮点 -->
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h3 class="font-medium text-green-900 mb-2">✨ 设计亮点</h3>
+                <ul class="text-sm text-green-800 space-y-1">
+                    <li>• <strong>充分利用空间</strong>：将国际/国内机场筛选左移，为航空公司功能腾出空间</li>
+                    <li>• <strong>保持原有逻辑</strong>：机场筛选功能完全保留，只是位置调整</li>
+                    <li>• <strong>视觉平衡</strong>：左侧统计+筛选，右侧功能切换，布局均衡</li>
+                    <li>• <strong>无侵入性</strong>：不改变现有UI结构，只优化空间利用</li>
+                </ul>
+            </div>
+
+            <!-- 布局对比 -->
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <h3 class="font-medium text-blue-900 mb-2">📐 布局对比</h3>
+                <div class="text-sm text-blue-800 space-y-2">
+                    <div>
+                        <strong>原布局：</strong><br>
+                        <code class="bg-blue-100 px-2 py-1 rounded text-xs">日本 • 找到33/33 个机场 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [国际机场] [国内机场]</code>
+                    </div>
+                    <div>
+                        <strong>新布局：</strong><br>
+                        <code class="bg-blue-100 px-2 py-1 rounded text-xs">日本 • 找到33/33 个机场 [国际机场] [国内机场] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [🛩️ 机场] [✈️ 航空公司]</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 航空公司信息展示 -->
+            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                <h3 class="font-medium text-purple-900 mb-2">✈️ 航空公司信息展示</h3>
+                <ul class="text-sm text-purple-800 space-y-1">
+                    <li>• <strong>航司代码</strong>：JL, NH, MM (左侧固定宽度)</li>
+                    <li>• <strong>中英文名称</strong>：日本航空 / Japan Airlines</li>
+                    <li>• <strong>类型标签</strong>：寰宇一家、星空联盟、LCC (右侧彩色标签)</li>
+                    <li>• <strong>详细信息</strong>：国家、公司类型、主要枢纽</li>
+                    <li>• <strong>颜色区分</strong>：不同类型航司使用不同颜色圆点</li>
+                </ul>
+            </div>
+
+            <!-- 交互逻辑 -->
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <h3 class="font-medium text-yellow-900 mb-2">🔄 交互逻辑</h3>
+                <ul class="text-sm text-yellow-800 space-y-1">
+                    <li>• <strong>智能显示</strong>：只在搜索国家时显示航空公司选项</li>
+                    <li>• <strong>统计同步</strong>：切换时自动更新统计信息</li>
+                    <li>• <strong>筛选保留</strong>：机场的国际/国内筛选功能完全保留</li>
+                    <li>• <strong>无缝切换</strong>：机场和航空公司间流畅切换</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 切换功能
+        const airportTabTop = document.getElementById('airportTabTop');
+        const airlineTabTop = document.getElementById('airlineTabTop');
+        const airportResultsNew = document.getElementById('airportResultsNew');
+        const airlineResultsNew = document.getElementById('airlineResultsNew');
+
+        airportTabTop.addEventListener('click', function() {
+            airportTabTop.className = 'px-3 py-1 text-sm rounded border tab-active transition-colors';
+            airlineTabTop.className = 'px-3 py-1 text-sm rounded border tab-inactive transition-colors';
+            airportResultsNew.classList.remove('hidden');
+            airlineResultsNew.classList.add('hidden');
+        });
+
+        airlineTabTop.addEventListener('click', function() {
+            airlineTabTop.className = 'px-3 py-1 text-sm rounded border tab-active transition-colors';
+            airportTabTop.className = 'px-3 py-1 text-sm rounded border tab-inactive transition-colors';
+            airlineResultsNew.classList.remove('hidden');
+            airportResultsNew.classList.add('hidden');
+        });
+
+        // 机场筛选功能演示
+        const intlFilter = document.getElementById('intlFilter');
+        const domFilter = document.getElementById('domFilter');
+
+        intlFilter.addEventListener('click', function() {
+            intlFilter.className = 'px-2 py-1 text-xs rounded border filter-active transition-colors';
+            domFilter.className = 'px-2 py-1 text-xs rounded border filter-inactive transition-colors';
+        });
+
+        domFilter.addEventListener('click', function() {
+            domFilter.className = 'px-2 py-1 text-xs rounded border filter-active transition-colors';
+            intlFilter.className = 'px-2 py-1 text-xs rounded border filter-inactive transition-colors';
+        });
+    </script>
+</body>
+</html>

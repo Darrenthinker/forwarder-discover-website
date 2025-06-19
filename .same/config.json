@@ -1,0 +1,29 @@
+{
+  "projectName": "国际货运智能报价系统",
+  "description": "全球机场数据库 + 货物解析 + 智能搜索 + 报价生成",
+  "autoStart": {
+    "enabled": true,
+    "command": "bun run dev",
+    "port": 3000,
+    "host": "0.0.0.0",
+    "delay": 1000
+  },
+  "preview": {
+    "url": "http://localhost:3000",
+    "autoOpen": true,
+    "title": "智能货运报价系统"
+  },
+  "server": {
+    "type": "nextjs",
+    "framework": "Next.js 15",
+    "packageManager": "bun",
+    "command": "bun run dev",
+    "port": 3000,
+    "host": "0.0.0.0"
+  },
+  "troubleshooting": {
+    "autoRestart": true,
+    "healthCheck": true,
+    "killOnRestart": true
+  }
+}

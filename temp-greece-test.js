@@ -1,0 +1,1 @@
+console.log('Testing Greece airports:'); import('./src/lib/airport-search.ts').then(m => { const results = m.searchAirports('希腊', 40); console.log('希腊机场数量:', results.filter(a => a.country === '希腊').length); const top10 = results.filter(a => a.country === '希腊').slice(0, 10); top10.forEach(a => console.log(a.code, '-', a.chinese, '(' + a.priority + ')')); });
