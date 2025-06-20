@@ -291,7 +291,7 @@ New York, NY`,
       setOriginAirport(null);
       setDestinationAirport(null);
     }
-  }, [cargoText]);
+  }, [cargoText, parseCargoText]);
 
   // 示例数据加载函数
   const loadSampleData = (key: keyof typeof sampleData) => {

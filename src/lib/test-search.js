@@ -1,5 +1,7 @@
+import { globalAirports, searchAirports } from './airport-search.ts';
+
 // 测试HKG和MFM是否在globalAirports中
-const { globalAirports, searchAirports } = require('./airport-search.ts');
+// const { globalAirports, searchAirports } = require('./airport-search.ts');
 
 console.log('=== 测试港澳机场数据 ===');
 console.log('HKG存在:', !!globalAirports.HKG);
