@@ -348,7 +348,7 @@ export function parseCargoText(text: string): Partial<CargoInfo> {
   ];
 
   // 尝试匹配三元组格式 - 只有在BOM格式没有匹配时才执行
-  if (!bomMatch || !bomMatch.length) {
+  if (!bomMatch) {
     for (const pattern of triplePatterns) {
       const match = correctedText.match(pattern);
       if (match) {
