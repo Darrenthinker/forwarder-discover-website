@@ -1,6 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  basePath: '/calculator',
   // 简化配置，避免重启问题
   poweredByHeader: false,
 
