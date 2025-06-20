@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { parseCargoText, calculateCargoMetrics, getCargoTypeByDensity, type CargoInfo, type CalculationResult } from "@/lib/cargo-parser";
+import { parseCargoText, calculateCargoMetrics, getCargoTypeByDensity, type CargoInfo, type CalculationResult, type DimensionDetail } from "@/lib/cargo-parser";
 import { generateQuotes, type Quote } from "@/lib/freight-rates";
 import { AirportSearch } from "@/components/airport-search";
 import { findAirportByCode, type AirportSearchResult } from "@/lib/airport-search";
@@ -243,7 +243,7 @@ New York, NY`,
         const airportResult = findAirportByCode(destCode);
         if (airportResult) {
           setDestinationAirport(airportResult);
-          setDestination(`${airportResult.code} - ${airportResult.chinese} | ${airportResult.english} | ${airportResult.country} · ${airportResult.continent}`);
+          setDestination(`${airportResult.code} - ${airportResult.chinese} | ${airportResult.english} | ${airportResult.countryWithCode || airportResult.country || ''} · ${airportResult.continent || ''}`);
         } else {
           setDestination(destCode);
         }
@@ -266,7 +266,7 @@ New York, NY`,
                   setOrigin(`${airportResult.code} - ${airportResult.chinese}`);
                 } else {
                   setDestinationAirport(airportResult);
-                  setDestination(`${airportResult.code} - ${airportResult.chinese} | ${airportResult.english} | ${airportResult.country} · ${airportResult.continent}`);
+                  setDestination(`${airportResult.code} - ${airportResult.chinese} | ${airportResult.english} | ${airportResult.country || ''} · ${airportResult.continent || ''}`);
                 }
                 break;
               }
@@ -294,13 +294,13 @@ New York, NY`,
 
     // 只有在 destinationAirport 变化时才更新显示
     if (destinationAirport) {
-      setDestination(`${destinationAirport.code} - ${destinationAirport.chinese} | ${destinationAirport.english} | ${destinationAirport.country} · ${destinationAirport.continent}`);
+      setDestination(`${destinationAirport.code} - ${destinationAirport.chinese} | ${destinationAirport.english} | ${destinationAirport.countryWithCode || destinationAirport.country || ''} · ${destinationAirport.continent || ''}`);
     }
-  }, [cargoText, destinationAirport, parseCargoText]);
+  }, [cargoText, destinationAirport]);
 
   // 示例数据加载函数
-  const loadSampleData = (key: keyof typeof sampleData) => {
-    setCargoText(sampleData[key]);
+  const loadSampleData = (key: string) => {
+    setCargoText(sampleData[key as keyof typeof sampleData]);
   };
 
   // 生成报价
@@ -353,16 +353,16 @@ New York, NY`,
             />
             <div className="mt-2">
               <div className="grid grid-cols-8 gap-1">
-                <Button variant="outline" size="sm" onClick={() => loadSampleData('traditional', '洛杉矶')}>传统格式示例</Button>
-                <Button variant="outline" size="sm" onClick={() => loadSampleData('newFormat', '洛杉矶')}>批量格式示例</Button>
-                <Button variant="outline" size="sm" onClick={() => loadSampleData('latest', '洛杉矶')}>单托格式示例</Button>
-                <Button variant="outline" size="sm" onClick={() => loadSampleData('table', '洛杉矶')}>表格格式示例</Button>
-                <Button variant="outline" size="sm" onClick={() => loadSampleData('boxSpec', '洛杉矶')}>箱规格式示例</Button>
-                <Button variant="outline" size="sm" onClick={() => loadSampleData('commodity', '洛杉矶')}>商品格式示例</Button>
+                <Button variant="outline" size="sm" onClick={() => loadSampleData('traditional')}>传统格式示例</Button>
+                <Button variant="outline" size="sm" onClick={() => loadSampleData('newFormat')}>批量格式示例</Button>
+                <Button variant="outline" size="sm" onClick={() => loadSampleData('latest')}>单托格式示例</Button>
+                <Button variant="outline" size="sm" onClick={() => loadSampleData('table')}>表格格式示例</Button>
+                <Button variant="outline" size="sm" onClick={() => loadSampleData('boxSpec')}>箱规格式示例</Button>
+                <Button variant="outline" size="sm" onClick={() => loadSampleData('commodity')}>商品格式示例</Button>
                 <Button variant="outline" size="sm" onClick={() => loadSampleData('multiCrate')}>多Crate格式示例</Button>
                 <Button variant="outline" size="sm" onClick={() => loadSampleData('simpleCrate')}>简化Crate示例</Button>
-                <Button variant="outline" size="sm" onClick={() => loadSampleData('pallet', '洛杉矶')}>托盘格式示例</Button>
-                <Button variant="outline" size="sm" onClick={() => loadSampleData('multiSize', '洛杉矶')}>多尺寸格式示例</Button>
+                <Button variant="outline" size="sm" onClick={() => loadSampleData('pallet')}>托盘格式示例</Button>
+                <Button variant="outline" size="sm" onClick={() => loadSampleData('multiSize')}>多尺寸格式示例</Button>
                 <Button variant="outline" size="sm" onClick={() => loadSampleData('air')}>空运格式示例</Button>
                 <Button variant="outline" size="sm" onClick={() => loadSampleData('moreAirport')}>更多机场代码示例</Button>
                 <Button variant="outline" size="sm" onClick={() => loadSampleData('box')}>木箱格式示例</Button>
@@ -435,7 +435,7 @@ New York, NY`,
                 onChange={(airport) => {
                   setDestinationAirport(airport);
                   if (airport) {
-                    setDestination(`${airport.code} - ${airport.chinese} | ${airport.english} | ${airport.countryWithCode || airport.country} · ${airport.continent}`);
+                    setDestination(`${airport.code} - ${airport.chinese} | ${airport.english} | ${airport.countryWithCode || airport.country || ''} · ${airport.continent || ''}`);
                   }
                 }}
                 onCodeChange={(code) => {
@@ -444,7 +444,7 @@ New York, NY`,
                     const airportResult = findAirportByCode(code);
                     if (airportResult) {
                       setDestinationAirport(airportResult);
-                      setDestination(`${airportResult.code} - ${airportResult.chinese} | ${airportResult.english} | ${airportResult.country} · ${airportResult.continent}`);
+                      setDestination(`${airportResult.code} - ${airportResult.chinese} | ${airportResult.english} | ${airportResult.country || ''} · ${airportResult.continent || ''}`);
                     }
                   }
                 }}
@@ -504,7 +504,7 @@ New York, NY`,
             {parsedCargo.dimensionDetails && parsedCargo.dimensionDetails.length > 0 && (
               <div className="border-t pt-4">
                 <h4 className="text-sm font-medium text-gray-700 mb-3">尺寸明细</h4>
-                {parsedCargo.dimensionDetails.map((detail: any, index: number) => (
+                {parsedCargo.dimensionDetails.map((detail: DimensionDetail, index: number) => (
                   <div key={index} className="grid grid-cols-6 gap-2 py-2">
                     <span className="text-sm text-gray-700">
                       {detail.length} × {detail.width} × {detail.height} cm
@@ -562,14 +562,14 @@ New York, NY`,
               <div className="p-3 bg-orange-50 rounded-lg text-center">
                 <Label className="text-sm text-muted-foreground block mb-1">体积重</Label>
                 <p className="text-xl font-bold text-orange-600">
-                  {Math.round(Number.parseFloat(calculations.totalVolume) * 167)} kg
+                  {Math.round(calculations.totalVolume * 167)} kg
                 </p>
               </div>
 
               <div className="p-3 bg-red-50 rounded-lg text-center">
                 <Label className="text-sm text-muted-foreground block mb-1">计费重量</Label>
                 <p className="text-xl font-bold text-red-600">
-                  {Math.max(calculations.totalWeight, Math.round(Number.parseFloat(calculations.totalVolume) * 167))} kg
+                  {Math.max(calculations.totalWeight, Math.round(calculations.totalVolume * 167))} kg
                 </p>
               </div>
 

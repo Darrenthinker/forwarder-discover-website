@@ -56,7 +56,11 @@ try {
   console.log(`6. 最多结果查询'${bestQuery}': ${maxResults}个航空公司`);
 
 } catch (error) {
-  console.log(`❌ 导入模块失败: ${error.message}`);
+  if (error instanceof Error) {
+    console.log(`❌ 导入模块失败: ${error.message}`);
+  } else {
+    console.log('❌ 导入模块失败:', error);
+  }
 }
 
 console.log('\n🔍 调试完成！');

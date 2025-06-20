@@ -1,8 +1,32 @@
 // 自动化测试和修复系统
 import { parseCargoText, calculateCargoMetrics, type CargoInfo, type CalculationResult } from './cargo-parser';
 
+// 期望结果类型定义
+interface ExpectedResult {
+  name?: string;
+  weight?: number;
+  volume?: number;
+  pallets?: number;
+  pieces?: number;
+  packageType?: 'pallets' | 'boxes' | 'pieces' | 'wooden_boxes';
+  origin?: string;
+  destinationCode?: string;
+  destination?: string;
+  dimensionsCount?: number;
+  unit?: 'm' | 'cm' | 'mm';
+  isElectric?: boolean;
+}
+
+// 测试用例类型定义
+interface TestCase {
+  id: number;
+  name: string;
+  input: string;
+  expected: ExpectedResult;
+}
+
 // 测试数据样本
-export const TEST_DATA_SAMPLES = [
+export const TEST_DATA_SAMPLES: TestCase[] = [
   {
     id: 1,
     name: "传统格式数据",
@@ -229,7 +253,7 @@ export function runBatchTest(): TestResult[] {
 function validateExpectedResults(
   parsed: Partial<CargoInfo>,
   calculated: CalculationResult,
-  expected: any
+  expected: ExpectedResult
 ): string[] {
   const errors: string[] = [];
 
@@ -307,7 +331,7 @@ function validateExpectedResults(
 
 // 生成修复建议
 function generateRepairRecommendations(
-  testCase: any,
+  testCase: TestCase,
   parsed: Partial<CargoInfo>,
   calculated: CalculationResult | null
 ): string[] {
@@ -325,13 +349,13 @@ function generateRepairRecommendations(
       break;
 
     case 2: // 批量格式
-      if (!parsed.weight || parsed.weight !== testCase.expected.weight) {
+      if (!parsed.weight || (testCase.expected.weight && parsed.weight !== testCase.expected.weight)) {
         recommendations.push('修复"单个托盘XXkg"重量计算逻辑');
       }
       break;
 
     case 4: // 箱规格式
-      if (!parsed.weight || Math.abs(parsed.weight - testCase.expected.weight) > 0.1) {
+      if (!parsed.weight || (testCase.expected.weight && Math.abs(parsed.weight - testCase.expected.weight) > 0.1)) {
         recommendations.push('修复箱规格式的重量计算：一件重×箱数');
       }
       break;
