@@ -8,6 +8,7 @@ export interface AirportInfo {
   type: 'international' | 'domestic' | 'regional';
   customs: boolean;
   priority: number; // 1-100, 数字越大优先级越高
+  continent: string;
 }
 
 // ================================================================
@@ -26,7 +27,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 100
+    priority: 100,
+    continent: '亚洲'
   },
 
   'HKG': {
@@ -35,7 +37,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 99  // 亚洲货运之王
+    priority: 99,  // 亚洲货运之王
+    continent: '亚洲'
   },
 
   'CAN': {
@@ -44,7 +47,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 98
+    priority: 98,
+    continent: '亚洲'
   },
 
   'PEK': {
@@ -53,7 +57,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 97
+    priority: 97,
+    continent: '亚洲'
   },
 
   'SZX': {
@@ -62,7 +67,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 96
+    priority: 96,
+    continent: '亚洲'
   },
 
   'PKX': {
@@ -71,7 +77,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 95
+    priority: 95,
+    continent: '亚洲'
   },
 
   'TFU': {
@@ -80,7 +87,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 94
+    priority: 94,
+    continent: '亚洲'
   },
 
   // ================================================================
@@ -93,7 +101,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 94
+    priority: 94,
+    continent: '亚洲'
   },
 
   'CTU': {
@@ -102,7 +111,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 93
+    priority: 93,
+    continent: '亚洲'
   },
 
   'SHA': {
@@ -111,7 +121,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'domestic',
     customs: false,
-    priority: 92
+    priority: 92,
+    continent: '亚洲'
   },
 
   'KMG': {
@@ -120,7 +131,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 91
+    priority: 91,
+    continent: '亚洲'
   },
 
   'XMN': {
@@ -129,7 +141,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 90
+    priority: 90,
+    continent: '亚洲'
   },
 
   'NKG': {
@@ -138,7 +151,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 89
+    priority: 89,
+    continent: '亚洲'
   },
 
   'WUH': {
@@ -147,7 +161,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 88
+    priority: 88,
+    continent: '亚洲'
   },
 
   'CGO': {
@@ -156,7 +171,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 87
+    priority: 87,
+    continent: '亚洲'
   },
 
   'TSN': {
@@ -165,7 +181,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 86
+    priority: 86,
+    continent: '亚洲'
   },
 
   'CKG': {
@@ -174,7 +191,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 85
+    priority: 85,
+    continent: '亚洲'
   },
 
   // ================================================================
@@ -187,7 +205,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 84
+    priority: 84,
+    continent: '亚洲'
   },
 
   'SJW': {
@@ -196,7 +215,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 83
+    priority: 83,
+    continent: '亚洲'
   },
 
   'MFM': {
@@ -205,7 +225,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 82  // 重要的国际机场
+    priority: 82,  // 重要的国际机场
+    continent: '亚洲'
   },
 
   'CSX': {
@@ -214,7 +235,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 81
+    priority: 81,
+    continent: '亚洲'
   },
 
   'NNG': {
@@ -223,7 +245,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 80
+    priority: 80,
+    continent: '亚洲'
   },
 
   'FOC': {
@@ -232,7 +255,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 79
+    priority: 79,
+    continent: '亚洲'
   },
 
   'HAK': {
@@ -241,7 +265,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 79
+    priority: 79,
+    continent: '亚洲'
   },
 
   'SYA': {
@@ -250,7 +275,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 78
+    priority: 78,
+    continent: '亚洲'
   },
 
   'HRB': {
@@ -259,7 +285,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 77
+    priority: 77,
+    continent: '亚洲'
   },
 
   'SHE': {
@@ -268,7 +295,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 76
+    priority: 76,
+    continent: '亚洲'
   },
 
   'DLC': {
@@ -277,7 +305,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 75
+    priority: 75,
+    continent: '亚洲'
   },
 
   // ================================================================
@@ -290,7 +319,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 74
+    priority: 74,
+    continent: '亚洲'
   },
 
   'JJN': {
@@ -299,7 +329,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 73
+    priority: 73,
+    continent: '亚洲'
   },
 
   'WNZ': {
@@ -308,7 +339,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 72
+    priority: 72,
+    continent: '亚洲'
   },
 
   'URC': {
@@ -317,7 +349,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 71
+    priority: 71,
+    continent: '亚洲'
   },
 
   'LHW': {
@@ -326,7 +359,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 70
+    priority: 70,
+    continent: '亚洲'
   },
 
   'XIY': {
@@ -335,7 +369,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 69
+    priority: 69,
+    continent: '亚洲'
   },
 
   'TYN': {
@@ -344,7 +379,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 68
+    priority: 68,
+    continent: '亚洲'
   },
 
   'HET': {
@@ -353,7 +389,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 67
+    priority: 67,
+    continent: '亚洲'
   },
 
   'YNT': {
@@ -362,7 +399,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 66
+    priority: 66,
+    continent: '亚洲'
   },
 
   'WEH': {
@@ -371,7 +409,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 65
+    priority: 65,
+    continent: '亚洲'
   },
 
   // ================================================================
@@ -384,7 +423,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 64
+    priority: 64,
+    continent: '亚洲'
   },
 
   'HFE': {
@@ -393,7 +433,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 63
+    priority: 63,
+    continent: '亚洲'
   },
 
   'NAN': {
@@ -402,7 +443,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 62
+    priority: 62,
+    continent: '亚洲'
   },
 
   'JMU': {
@@ -411,7 +453,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'domestic',
     customs: false,
-    priority: 61
+    priority: 61,
+    continent: '亚洲'
   },
 
   'MDG': {
@@ -420,7 +463,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'domestic',
     customs: false,
-    priority: 60
+    priority: 60,
+    continent: '亚洲'
   },
 
   'YCU': {
@@ -429,7 +473,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'domestic',
     customs: false,
-    priority: 59
+    priority: 59,
+    continent: '亚洲'
   },
 
   'JGS': {
@@ -438,7 +483,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'domestic',
     customs: false,
-    priority: 58
+    priority: 58,
+    continent: '亚洲'
   },
 
   'LYG': {
@@ -447,7 +493,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'domestic',
     customs: false,
-    priority: 57
+    priority: 57,
+    continent: '亚洲'
   },
 
   'YIW': {
@@ -456,7 +503,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'domestic',
     customs: false,
-    priority: 56
+    priority: 56,
+    continent: '亚洲'
   },
 
   'ACX': {
@@ -465,7 +513,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'domestic',
     customs: false,
-    priority: 55
+    priority: 55,
+    continent: '亚洲'
   },
 
   // ================================================================
@@ -478,7 +527,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 54
+    priority: 54,
+    continent: '亚洲'
   },
 
   'INC': {
@@ -487,7 +537,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 53
+    priority: 53,
+    continent: '亚洲'
   },
 
   'XNN': {
@@ -496,7 +547,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 52
+    priority: 52,
+    continent: '亚洲'
   },
 
   'KRL': {
@@ -505,7 +557,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'domestic',
     customs: false,
-    priority: 51
+    priority: 51,
+    continent: '亚洲'
   },
 
   'KHG': {
@@ -514,7 +567,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'international',
     customs: true,
-    priority: 50
+    priority: 50,
+    continent: '亚洲'
   },
 
   'IQN': {
@@ -523,7 +577,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'domestic',
     customs: false,
-    priority: 49
+    priority: 49,
+    continent: '亚洲'
   },
 
   'JIC': {
@@ -532,7 +587,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'domestic',
     customs: false,
-    priority: 48
+    priority: 48,
+    continent: '亚洲'
   },
 
   'THQ': {
@@ -541,7 +597,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'domestic',
     customs: false,
-    priority: 47
+    priority: 47,
+    continent: '亚洲'
   },
 
   'DNH': {
@@ -550,7 +607,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'domestic',
     customs: false,
-    priority: 46
+    priority: 46,
+    continent: '亚洲'
   },
 
   'JGN': {
@@ -559,7 +617,8 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '中国',
     type: 'domestic',
     customs: false,
-    priority: 45
+    priority: 45,
+    continent: '亚洲'
   }
 
 };

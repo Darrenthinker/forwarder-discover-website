@@ -274,6 +274,9 @@ export interface EnhancedAirportData {
 
 // 转换增强数据为基础格式
 function convertEnhancedToBasic(enhanced: EnhancedAirportData[]): Record<string, AirportInfo> {
+  if (!Array.isArray(enhanced)) {
+    return {}; // If not an array, return empty object to prevent crash
+  }
   return enhanced.reduce((acc, airport) => {
     acc[airport.iata] = {
       chinese: airport.chinese,
@@ -561,14 +564,6 @@ export const globalAirports: GlobalAirports = {
   ...romaniaBasicAirports,
   // 增强的希腊机场数据覆盖原有数据
   ...greeceBasicAirports,
-  // 增强的匈牙利机场数据覆盖原有数据
-  ...hungaryBasicAirports,
-  // 增强的爱沙尼亚机场数据覆盖原有数据
-  ...estoniaBasicAirports,
-  // 增强的拉脱维亚机场数据覆盖原有数据
-  ...latviaBasicAirports,
-  // 增强的立陶宛机场数据覆盖原有数据
-  ...lithuaniaBasicAirports,
   // 增强的塞尔维亚机场数据覆盖原有数据
   ...serbiaBasicAirports,
   // 增强的保加利亚机场数据覆盖原有数据
@@ -645,6 +640,14 @@ export const globalAirports: GlobalAirports = {
 
 // 获取机场所属洲际
 export function getAirportContinent(code: string): string {
+  const airportInfo = globalAirports[code.toUpperCase()];
+
+  // 优先从机场自身数据获取大洲信息
+  if (airportInfo && airportInfo.continent) {
+    return airportInfo.continent;
+  }
+
+  // 如果数据中没有，再进行旧的逻辑判断作为备用方案
   // 最优先检查南极洲科研站 (特殊地区优先)
   if (antarcticaResearchEnhancedAirports.some(a => a.iata === code)) return '南极洲';
 
@@ -781,7 +784,7 @@ function formatAirportResult(code: string, info: AirportInfo): AirportSearchResu
     type,
     customs,
     priority,
-    continent: getAirportContinent(info.country),
+    continent: getAirportContinent(code),
     countryWithCode: `${info.country} ${getCountryCodeByName(info.country)}`,
     displayColor: getDisplayColorByType(type)
   };
@@ -812,13 +815,16 @@ export function findAirportsByCountry(
   const results: AirportSearchResult[] = [];
 
   Object.entries(globalAirports).forEach(([code, info]) => {
-    // 根据exactMatch参数决定是精确匹配还是模糊匹配
-    const match = exactMatch
-      ? info.country.toLowerCase() === country.toLowerCase()
-      : info.country.toLowerCase().includes(country.toLowerCase());
+    // 安全检查，确保 info 和 info.country 存在
+    if (info && info.country) {
+      // 根据exactMatch参数决定是精确匹配还是模糊匹配
+      const match = exactMatch
+        ? info.country.toLowerCase() === country.toLowerCase()
+        : info.country.toLowerCase().includes(country.toLowerCase());
 
-    if (match) {
-      results.push(formatAirportResult(code, info));
+      if (match) {
+        results.push(formatAirportResult(code, info));
+      }
     }
   });
 
