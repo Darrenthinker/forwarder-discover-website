@@ -1,4 +1,4 @@
-import { parseCargoText } from './src/lib/cargo-parser.ts';
+import { parseCargoText } from './src/lib/cargo-parser';
 
 const testData = `WAW设备及配件
 2500 kgs ; 14.71 cbm ; 6托
