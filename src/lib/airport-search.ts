@@ -642,11 +642,6 @@ export const globalAirports: GlobalAirports = {
 export function getAirportContinent(code: string): string {
   const airportInfo = globalAirports[code.toUpperCase()];
 
-  // 优先从机场自身数据获取大洲信息
-  if (airportInfo && airportInfo.continent) {
-    return airportInfo.continent;
-  }
-
   // 如果数据中没有，再进行旧的逻辑判断作为备用方案
   // 最优先检查南极洲科研站 (特殊地区优先)
   if (antarcticaResearchEnhancedAirports.some(a => a.iata === code)) return '南极洲';
@@ -1025,7 +1020,7 @@ export function searchAirports(query: string, limit: number = 10): AirportSearch
   const queryLower = query.toLowerCase().trim();
 
   for (const [code, info] of Object.entries(globalAirports)) {
-    if (shouldExcludeAirportByName(info.chinese) || shouldExcludeCountry(info.country)) {
+    if (shouldExcludeAirportByName(query, info.chinese, info.country) || shouldExcludeCountry(query, info.country)) {
       continue;
     }
 
@@ -1058,7 +1053,7 @@ export function searchAirports(query: string, limit: number = 10): AirportSearch
 function searchByCountryCode(query: string, limit: number): AirportSearchResult[] | null {
   const countryInfo = getCountryInfoByCode(query.toUpperCase());
   if (countryInfo) {
-    return findAirportsByCountry(countryInfo.chinese, limit);
+    return findAirportsByCountry(countryInfo.chineseName, limit);
   }
   return null;
 }

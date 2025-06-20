@@ -3,7 +3,7 @@ export interface AirportInfo {
   chinese: string;
   english: string;
   country: string;
-  type?: string;
+  type?: 'international' | 'domestic' | 'regional';
   customs?: boolean;
   priority?: number;
 }
