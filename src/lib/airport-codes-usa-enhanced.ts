@@ -351,15 +351,6 @@ export const usaAirportsEnhanced: { [key: string]: AirportInfo } = {
     priority: 73
   },
 
-  'TPA': {
-    chinese: '坦帕',
-    english: 'Tampa International',
-    country: '美国',
-    type: 'international',
-    customs: true,
-    priority: 82
-  },
-
   'MSY': {
     chinese: '新奥尔良',
     english: 'Louis Armstrong New Orleans International',
