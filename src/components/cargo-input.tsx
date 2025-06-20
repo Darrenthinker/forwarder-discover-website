@@ -291,7 +291,12 @@ New York, NY`,
       setOriginAirport(null);
       setDestinationAirport(null);
     }
-  }, [cargoText, parseCargoText]);
+
+    // 只有在 destinationAirport 变化时才更新显示
+    if (destinationAirport) {
+      setDestination(`${destinationAirport.code} - ${destinationAirport.chinese} | ${destinationAirport.english} | ${destinationAirport.country} · ${destinationAirport.continent}`);
+    }
+  }, [cargoText, destinationAirport, parseCargoText]);
 
   // 示例数据加载函数
   const loadSampleData = (key: keyof typeof sampleData) => {
