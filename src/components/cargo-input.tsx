@@ -240,12 +240,14 @@ New York, NY`,
       // 处理目的地
       if (parsed.destination || parsed.destinationCode) {
         const destCode = parsed.destinationCode || parsed.destination;
-        const airportResult = findAirportByCode(destCode);
-        if (airportResult) {
-          setDestinationAirport(airportResult);
-          setDestination(`${airportResult.code} - ${airportResult.chinese} | ${airportResult.english} | ${airportResult.countryWithCode || airportResult.country || ''} · ${airportResult.continent || ''}`);
-        } else {
-          setDestination(destCode);
+        if (destCode) {
+          const airportResult = findAirportByCode(destCode);
+          if (airportResult) {
+            setDestinationAirport(airportResult);
+            setDestination(`${airportResult.code} - ${airportResult.chinese} | ${airportResult.english} | ${airportResult.countryWithCode || airportResult.country || ''} · ${airportResult.continent || ''}`);
+          } else {
+            setDestination(destCode);
+          }
         }
       } else {
         // 尝试智能地址解析
@@ -254,7 +256,7 @@ New York, NY`,
           const cleanLine = line.trim();
           if (cleanLine.length > 10) {
             const addressResult = parseAddressAndFindAirports(cleanLine);
-            if (addressResult.success && addressResult.primaryAirport) {
+            if (addressResult.success && addressResult.primaryAirport && addressResult.primaryAirport.code) {
               const airportResult = findAirportByCode(addressResult.primaryAirport.code);
               if (airportResult) {
                 const isChinaAddress = addressResult.address?.country === '中国' ||
