@@ -364,13 +364,22 @@ export function AirportSearch({
     // 触发onChange回调，让父组件知道选择了航空公司
     if (onChange) {
       // 创建一个类似机场的结构传递给父组件
+      const countryInfo = getCountryInfoByCode(airline.countryCode || '');
+      const countryWithCode = countryInfo
+        ? `${countryInfo.chineseName} (${countryInfo.code})`
+        : airline.country;
+
       const airlineAsAirport: AirportSearchResult = {
         code: airline.code,
         chinese: airline.name.chinese,
         english: airline.name.english,
         country: airline.country,
         continent: '', // 航空公司没有洲际信息
-        type: 'domestic' // 使用有效的机场类型
+        type: 'domestic', // 使用有效的机场类型
+        customs: false, // 航空公司无海关概念
+        priority: 0, // 默认优先级
+        countryWithCode: countryWithCode,
+        displayColor: '#6b7280' // 默认为灰色
       };
       onChange(airlineAsAirport);
     }
