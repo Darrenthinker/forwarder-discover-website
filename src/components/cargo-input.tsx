@@ -241,12 +241,12 @@ New York, NY`,
       if (parsed.destination || parsed.destinationCode) {
         const destCode = parsed.destinationCode || parsed.destination;
         if (destCode) {
-          const airportResult = findAirportByCode(destCode);
-          if (airportResult) {
-            setDestinationAirport(airportResult);
+        const airportResult = findAirportByCode(destCode);
+        if (airportResult) {
+          setDestinationAirport(airportResult);
             setDestination(`${airportResult.code} - ${airportResult.chinese} | ${airportResult.english} | ${airportResult.countryWithCode || airportResult.country || ''} · ${airportResult.continent || ''}`);
-          } else {
-            setDestination(destCode);
+        } else {
+          setDestination(destCode);
           }
         }
       } else {
@@ -276,7 +276,7 @@ New York, NY`,
           }
         }
 
-        if (!destinationAirport) {
+        if (!destinationAirport && !parsed.destination && !parsed.destinationCode) {
           setDestination('');
           setDestinationAirport(null);
         }
@@ -286,19 +286,22 @@ New York, NY`,
       const calculations = calculateCargoMetrics(parsed, 'air');
       setCalculations(calculations);
     } else {
+      // cargoText is empty, clear parsed data but respect manual inputs
       setParsedCargo({});
       setCalculations(null);
       setOrigin('');
-      setDestination('');
       setOriginAirport(null);
+      if (!destinationAirport) {
+        setDestination('');
       setDestinationAirport(null);
+    }
     }
 
     // 只有在 destinationAirport 变化时才更新显示
     if (destinationAirport) {
       setDestination(`${destinationAirport.code} - ${destinationAirport.chinese} | ${destinationAirport.english} | ${destinationAirport.countryWithCode || destinationAirport.country || ''} · ${destinationAirport.continent || ''}`);
     }
-  }, [cargoText, destinationAirport]);
+  }, [cargoText, destinationAirport, parseCargoText, findAirportByCode, parseAddressAndFindAirports, calculateCargoMetrics]);
 
   // 示例数据加载函数
   const loadSampleData = (key: string) => {
@@ -441,8 +444,8 @@ New York, NY`,
                   }
                 }}
                 onCodeChange={(code) => {
+                  setDestination(code);
                   if (code.length === 3) {
-                    setDestination(code);
                     const airportResult = findAirportByCode(code);
                     if (airportResult) {
                       setDestinationAirport(airportResult);
