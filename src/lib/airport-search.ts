@@ -913,12 +913,12 @@ export function findAirportsByCountry(
 function checkSpecialRegionSearch(query: string, limit: number): AirportSearchResult[] | null {
   const queryLower = query.toLowerCase().trim();
 
-  // 特殊行政区映射
-  const specialRegions: Record<string, { chinese: string; english: string; code: string }> = {
-    'hk': { chinese: '香港', english: 'Hong Kong', code: 'HK' },
-    'mo': { chinese: '澳门', english: 'Macau', code: 'MO' },
-    'tw': { chinese: '台湾', english: 'Taiwan', code: 'TW' },
-    'pr': { chinese: '波多黎各', english: 'Puerto Rico', code: 'PR' }
+  // 特殊行政区映射 - 直接搜索机场名称而不是国家
+  const specialRegions: Record<string, { chinese: string; english: string; code: string; airports: string[] }> = {
+    'hk': { chinese: '香港', english: 'Hong Kong', code: 'HK', airports: ['HKG'] },
+    'mo': { chinese: '澳门', english: 'Macau', code: 'MO', airports: ['MFM'] },
+    'tw': { chinese: '台湾', english: 'Taiwan', code: 'TW', airports: [] }, // 台湾机场通过国家搜索处理
+    'pr': { chinese: '波多黎各', english: 'Puerto Rico', code: 'PR', airports: [] }
   };
 
   // 检查是否为特殊行政区代码或名称
@@ -927,7 +927,21 @@ function checkSpecialRegionSearch(query: string, limit: number): AirportSearchRe
         info.chinese === query ||
         info.english.toLowerCase().includes(queryLower) ||
         info.chinese.includes(query)) {
-      return findAirportsByCountry(info.chinese, limit);
+      
+      // 对于香港和澳门，直接返回对应的机场
+      if (info.airports.length > 0) {
+        const results: AirportSearchResult[] = [];
+        for (const airportCode of info.airports) {
+          const airport = findAirportByCode(airportCode);
+          if (airport) {
+            results.push(airport);
+          }
+        }
+        return results;
+      } else {
+        // 对于其他地区，使用国家搜索
+        return findAirportsByCountry(info.chinese, limit);
+      }
     }
   }
 

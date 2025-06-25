@@ -506,13 +506,9 @@ export function AirportSearch({
                     <span className="text-blue-700 font-medium">
                       {searchStats.countryName} • 已显示 {searchStats.displayedCount}/{searchStats.totalCount} 个机场
                     </span>
-                  ) : allResults.length > results.length ? (
-                    <span className="text-blue-700">
-                      找到 {allResults.length} 个机场 • 已显示前 {results.length} 个
-                    </span>
                   ) : (
-                    <span className="text-blue-700">
-                      找到 {results.length} 个机场
+                    <span className="text-blue-700 font-medium">
+                      已显示 {results.length}/{allResults.length} 个机场
                     </span>
                   )
                 ) : (
