@@ -57,7 +57,7 @@ try {
 
 } catch (error) {
   if (error instanceof Error) {
-    console.log(`❌ 导入模块失败: ${error.message}`);
+  console.log(`❌ 导入模块失败: ${error.message}`);
   } else {
     console.log('❌ 导入模块失败:', error);
   }

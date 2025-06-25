@@ -812,13 +812,13 @@ export function findAirportsByCountry(
   Object.entries(globalAirports).forEach(([code, info]) => {
     // 安全检查，确保 info 和 info.country 存在
     if (info && info.country) {
-      // 根据exactMatch参数决定是精确匹配还是模糊匹配
-      const match = exactMatch
-        ? info.country.toLowerCase() === country.toLowerCase()
-        : info.country.toLowerCase().includes(country.toLowerCase());
+    // 根据exactMatch参数决定是精确匹配还是模糊匹配
+    const match = exactMatch
+      ? info.country.toLowerCase() === country.toLowerCase()
+      : info.country.toLowerCase().includes(country.toLowerCase());
 
-      if (match) {
-        results.push(formatAirportResult(code, info));
+    if (match) {
+      results.push(formatAirportResult(code, info));
       }
     }
   });

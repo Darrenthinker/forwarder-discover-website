@@ -163,14 +163,19 @@ export function AirportSearch({
 
     if (query.trim().length >= 1) {
       // 🚀 智能搜索：获取所有搜索结果，然后分页显示
-      const searchResults = searchAirports(query, 500); // 获取更多结果
+      let searchResults = searchAirports(query, 500); // 获取更多结果
+      // 确保国际机场优先排序
+      searchResults = [
+        ...searchResults.filter(a => getAirportType(a) === 'international'),
+        ...searchResults.filter(a => getAirportType(a) !== 'international')
+      ];
       setAllResults(searchResults); // 保存所有结果
-      setResults(searchResults.slice(0, displayedCount)); // 只显示前N个
+      setResults(searchResults.slice(0, 30)); // 只显示前N个，初始30个
 
       // 🚀 新增：搜索航空公司
       const airlineSearchResults = searchAirlines(query);
       setAllAirlineResults(airlineSearchResults);
-      setAirlineResults(airlineSearchResults.slice(0, displayedAirlineCount));
+      setAirlineResults(airlineSearchResults.slice(0, 30));
 
       // 🚀 修复：当有机场结果或航空公司结果时都显示下拉框
       setIsOpen(searchResults.length > 0 || airlineSearchResults.length > 0);
@@ -222,7 +227,7 @@ export function AirportSearch({
         setSelectedAirport(null);
       }
     }
-  }, [query, onChange, displayedCount, displayedAirlineCount]);
+  }, [query, onChange]); // 只依赖 query 和 onChange
 
   // 处理输入变化
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -238,26 +243,22 @@ export function AirportSearch({
   // 显示更多结果
   const showMoreResults = () => {
     if (activeTab === 'airports') {
-      // 根据剩余机场数量智能决定每次增加的数量
       let increment = 30; // 默认增加30个
       if (searchStats && searchStats.isCountrySearch) {
         const remaining = allResults.length - results.length;
         if (remaining > 100) {
-          increment = 50; // 剩余较多时每次增加50个
+          increment = 50;
         } else if (remaining > 50) {
-          increment = 40; // 中等剩余量时增加40个
+          increment = 40;
         } else if (remaining > 20) {
-          increment = 30; // 少量剩余时增加30个
+          increment = 30;
         } else {
-          increment = remaining; // 剩余很少时显示全部
+          increment = remaining;
         }
       }
-
-      const newDisplayedCount = displayedCount + increment;
-      setDisplayedCount(newDisplayedCount);
+      const newDisplayedCount = results.length + increment;
       setResults(allResults.slice(0, newDisplayedCount));
-
-      // 更新搜索统计
+      setDisplayedCount(newDisplayedCount);
       if (searchStats) {
         setSearchStats({
           ...searchStats,
@@ -267,9 +268,9 @@ export function AirportSearch({
     } else {
       // 航空公司分页
       const increment = 20;
-      const newDisplayedCount = displayedAirlineCount + increment;
-      setDisplayedAirlineCount(newDisplayedCount);
+      const newDisplayedCount = airlineResults.length + increment;
       setAirlineResults(allAirlineResults.slice(0, newDisplayedCount));
+      setDisplayedAirlineCount(newDisplayedCount);
     }
   };
 
@@ -516,7 +517,7 @@ export function AirportSearch({
                   )
                 ) : (
                   <span className="text-blue-700">
-                    {searchStats?.countryName ? `${searchStats.countryName} • ` : ''}找到 {allAirlineResults.length} 家航空公司
+                    {searchStats?.countryName ? `${searchStats.countryName} • ` : ''}已显示 {airlineResults.length}/{allAirlineResults.length} 家航司
                   </span>
                 )}
               </div>
@@ -535,6 +536,14 @@ export function AirportSearch({
                 </div>
               ) : (
                 <div className="flex items-center space-x-4 text-blue-600 text-xs">
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span>IATA</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                    <span>非IATA</span>
+                  </div>
                   <div className="flex items-center space-x-1">
                     <span>IATA CODE</span>
                   </div>

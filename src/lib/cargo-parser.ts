@@ -857,193 +857,193 @@ export function parseCargoText(text: string): Partial<CargoInfo> {
     ];
 
     // 尝试匹配三元组格式 - 只有在BOM格式没有匹配时才执行
-    for (const pattern of triplePatterns) {
-      const match = correctedText.match(pattern);
-      if (match) {
-        const [, val1, val2, val3] = match;
-        const num1 = Number.parseFloat(val1);
-        const num2 = Number.parseFloat(val2);
-        const num3 = Number.parseFloat(val3);
+      for (const pattern of triplePatterns) {
+        const match = correctedText.match(pattern);
+        if (match) {
+          const [, val1, val2, val3] = match;
+          const num1 = Number.parseFloat(val1);
+          const num2 = Number.parseFloat(val2);
+          const num3 = Number.parseFloat(val3);
 
-        // 根据模式索引确定数值的含义
-        const patternIndex = triplePatterns.indexOf(pattern);
+          // 根据模式索引确定数值的含义
+          const patternIndex = triplePatterns.indexOf(pattern);
 
-        switch (patternIndex) {
-          case 0: // "3 crates 1808 kgs 2.54 m³" 格式 - 件数 重量 体积
-            result.pieces = num1;
-            result.weight = num2;
-            result.volume = num3;
-            result.packageType = match[0].includes('crates') ? 'boxes' : 'pieces';
-            break;
-          case 1: // "2.54 m³ 1808 kgs 3 crates" 格式 - 体积 重量 件数
-            result.volume = num1;
-            result.weight = num2;
-            result.pieces = num3;
-            result.packageType = match[0].includes('crates') ? 'boxes' : 'pieces';
-            break;
-          case 2: // "1808 kgs 3 crates 2.54 m³" 格式 - 重量 件数 体积
-            result.weight = num1;
-            result.pieces = num2;
-            result.volume = num3;
-            result.packageType = match[0].includes('crates') ? 'boxes' : 'pieces';
-            break;
-          case 3: // "BEG 60ctn 618kg 2.41cbm" 格式 - 机场代码 件数ctn 重量kg 体积cbm
-            // val1=机场代码, val2=件数, val3=重量, val4=体积
-            if (match.length >= 5) {
-              const airportCode = match[1];
-              const pieces = Number.parseFloat(match[2]);
-              const weight = Number.parseFloat(match[3]);
-              const volume = Number.parseFloat(match[4]);
+          switch (patternIndex) {
+            case 0: // "3 crates 1808 kgs 2.54 m³" 格式 - 件数 重量 体积
+              result.pieces = num1;
+              result.weight = num2;
+              result.volume = num3;
+              result.packageType = match[0].includes('crates') ? 'boxes' : 'pieces';
+              break;
+            case 1: // "2.54 m³ 1808 kgs 3 crates" 格式 - 体积 重量 件数
+              result.volume = num1;
+              result.weight = num2;
+              result.pieces = num3;
+              result.packageType = match[0].includes('crates') ? 'boxes' : 'pieces';
+              break;
+            case 2: // "1808 kgs 3 crates 2.54 m³" 格式 - 重量 件数 体积
+              result.weight = num1;
+              result.pieces = num2;
+              result.volume = num3;
+              result.packageType = match[0].includes('crates') ? 'boxes' : 'pieces';
+              break;
+            case 3: // "BEG 60ctn 618kg 2.41cbm" 格式 - 机场代码 件数ctn 重量kg 体积cbm
+              // val1=机场代码, val2=件数, val3=重量, val4=体积
+              if (match.length >= 5) {
+                const airportCode = match[1];
+                const pieces = Number.parseFloat(match[2]);
+                const weight = Number.parseFloat(match[3]);
+                const volume = Number.parseFloat(match[4]);
 
-              // 设置机场代码和目的地
-              const cityName = getAirportCity(airportCode);
-              if (cityName) {
-                result.destinationCode = airportCode;
-                result.destination = formatAirportDisplay(airportCode);
+                // 设置机场代码和目的地
+                const cityName = getAirportCity(airportCode);
+                if (cityName) {
+                  result.destinationCode = airportCode;
+                  result.destination = formatAirportDisplay(airportCode);
+                }
+
+                result.pieces = pieces;
+                result.weight = weight;
+                result.volume = volume;
+                result.packageType = 'boxes'; // ctn表示箱
               }
+              break;
+            case 4: // "KHI//3400KG//12.33CBM//145CTNS" 格式 - 机场代码//重量//体积//箱数
+              // val1=机场代码, val2=重量, val3=体积, val4=箱数
+              if (match.length >= 5) {
+                const airportCode = match[1];
+                const weight = Number.parseFloat(match[2]);
+                const volume = Number.parseFloat(match[3]);
+                const pieces = Number.parseFloat(match[4]);
 
-              result.pieces = pieces;
-              result.weight = weight;
-              result.volume = volume;
-              result.packageType = 'boxes'; // ctn表示箱
-            }
-            break;
-          case 4: // "KHI//3400KG//12.33CBM//145CTNS" 格式 - 机场代码//重量//体积//箱数
-            // val1=机场代码, val2=重量, val3=体积, val4=箱数
-            if (match.length >= 5) {
-              const airportCode = match[1];
-              const weight = Number.parseFloat(match[2]);
-              const volume = Number.parseFloat(match[3]);
-              const pieces = Number.parseFloat(match[4]);
+                // 设置机场代码和目的地
+                const cityName = getAirportCity(airportCode);
+                if (cityName) {
+                  result.destinationCode = airportCode;
+                  result.destination = formatAirportDisplay(airportCode);
+                }
 
-              // 设置机场代码和目的地
-              const cityName = getAirportCity(airportCode);
-              if (cityName) {
-                result.destinationCode = airportCode;
-                result.destination = formatAirportDisplay(airportCode);
+                result.weight = weight;
+                result.volume = volume;
+                result.pieces = pieces;
+                result.packageType = 'boxes'; // CTNS表示箱
               }
+              break;
+            case 5: // "CCU 1028/1.63/35*35*35CM*38CTNS" 格式 - 机场代码 重量/体积/尺寸*箱数
+              // val1=机场代码, val2=重量, val3=体积, 后续是尺寸
+              if (match.length >= 8) {
+                const airportCode = match[1];
+                const weight = Number.parseFloat(match[2]);
+                const volume = Number.parseFloat(match[3]);
+                const length = Number.parseFloat(match[4]);
+                const width = Number.parseFloat(match[5]);
+                const height = Number.parseFloat(match[6]);
+                const pieces = Number.parseFloat(match[7]);
 
-              result.weight = weight;
-              result.volume = volume;
-              result.pieces = pieces;
-              result.packageType = 'boxes'; // CTNS表示箱
-            }
-            break;
-          case 5: // "CCU 1028/1.63/35*35*35CM*38CTNS" 格式 - 机场代码 重量/体积/尺寸*箱数
-            // val1=机场代码, val2=重量, val3=体积, 后续是尺寸
-            if (match.length >= 8) {
-              const airportCode = match[1];
-              const weight = Number.parseFloat(match[2]);
-              const volume = Number.parseFloat(match[3]);
-              const length = Number.parseFloat(match[4]);
-              const width = Number.parseFloat(match[5]);
-              const height = Number.parseFloat(match[6]);
-              const pieces = Number.parseFloat(match[7]);
+                // 设置机场代码和目的地
+                const cityName = getAirportCity(airportCode);
+                if (cityName) {
+                  result.destinationCode = airportCode;
+                  result.destination = formatAirportDisplay(airportCode);
+                  // 不要把机场信息设置为货物名称
+                }
 
-              // 设置机场代码和目的地
-              const cityName = getAirportCity(airportCode);
-              if (cityName) {
-                result.destinationCode = airportCode;
-                result.destination = formatAirportDisplay(airportCode);
-                // 不要把机场信息设置为货物名称
+                result.weight = weight;
+                result.volume = volume;
+                result.pieces = pieces;
+                result.packageType = 'boxes'; // CTNS表示箱
+
+                // 设置尺寸信息
+                result.dimensions = [{
+                  length: length,
+                  width: width,
+                  height: height,
+                  quantity: pieces,
+                  unit: 'cm' // 🔥 添加单位信息
+                }];
               }
+              break;
+            case 6: // "1028/1.63/35*35*35CM*38CTNS" 格式 - 重量/体积/尺寸*箱数（无机场代码）
+              if (match.length >= 7) {
+                const weight = Number.parseFloat(match[1]);
+                const volume = Number.parseFloat(match[2]);
+                const length = Number.parseFloat(match[3]);
+                const width = Number.parseFloat(match[4]);
+                const height = Number.parseFloat(match[5]);
+                const pieces = Number.parseFloat(match[6]);
 
-              result.weight = weight;
-              result.volume = volume;
-              result.pieces = pieces;
-              result.packageType = 'boxes'; // CTNS表示箱
+                result.weight = weight;
+                result.volume = volume;
+                result.pieces = pieces;
+                result.packageType = 'boxes'; // CTNS表示箱
 
-              // 设置尺寸信息
-              result.dimensions = [{
-                length: length,
-                width: width,
-                height: height,
-                quantity: pieces,
-                unit: 'cm' // 🔥 添加单位信息
-              }];
-            }
-            break;
-          case 6: // "1028/1.63/35*35*35CM*38CTNS" 格式 - 重量/体积/尺寸*箱数（无机场代码）
-            if (match.length >= 7) {
-              const weight = Number.parseFloat(match[1]);
-              const volume = Number.parseFloat(match[2]);
-              const length = Number.parseFloat(match[3]);
-              const width = Number.parseFloat(match[4]);
-              const height = Number.parseFloat(match[5]);
-              const pieces = Number.parseFloat(match[6]);
+                // 设置尺寸信息
+                result.dimensions = [{
+                  length: length,
+                  width: width,
+                  height: height,
+                  quantity: pieces,
+                  unit: 'cm' // 🔥 添加单位信息
+                }];
+              }
+              break;
+            case 7: // 重量/件数/体积
+              result.weight = num1;
+              result.pieces = num2;
+              result.volume = num3;
+              break;
+            case 8: // 件数/重量/体积
+              result.pieces = num1;
+              result.weight = num2;
+              result.volume = num3;
+              break;
+            case 9: // 体积/重量/件数
+              result.volume = num1;
+              result.weight = num2;
+              result.pieces = num3;
+              break;
+            case 10: // 重量/体积/件数
+              result.weight = num1;
+              result.volume = num2;
+              result.pieces = num3;
+              break;
+            case 11: // 件数/体积/重量
+              result.pieces = num1;
+              result.volume = num2;
+              result.weight = num3;
+              break;
+            case 12: // 体积/件数/重量
+              result.volume = num1;
+              result.pieces = num2;
+              result.weight = num3;
+              break;
+            case 13: // 件数 单位 / 体积 单位 / 重量 单位 (167 CTNS / 11.79 CBM / 634.60 KGS)
+              result.pieces = num1;
+              result.volume = num2;
+              result.weight = num3;
+              break;
+            case 14: // 重量 单位 / 件数 单位 / 体积 单位 (634.60 KGS / 167 CTNS / 11.79 CBM)
+              result.weight = num1;
+              result.pieces = num2;
+              result.volume = num3;
+              break;
+            case 15: // 体积 单位 / 重量 单位 / 件数 单位 (11.79 CBM / 634.60 KGS / 167 CTNS)
+              result.volume = num1;
+              result.weight = num2;
+              result.pieces = num3;
+              break;
+          }
 
-              result.weight = weight;
-              result.volume = volume;
-              result.pieces = pieces;
-              result.packageType = 'boxes'; // CTNS表示箱
+          // 设置包装类型
+          if (match[0].includes('托')) {
+            result.packageType = 'pallets';
+          } else if (match[0].includes('箱') || match[0].includes('CTNS') || match[0].includes('ctns') || match[0].includes('ctn')) {
+            result.packageType = 'boxes';
+          } else {
+            result.packageType = 'pieces';
+          }
 
-              // 设置尺寸信息
-              result.dimensions = [{
-                length: length,
-                width: width,
-                height: height,
-                quantity: pieces,
-                unit: 'cm' // 🔥 添加单位信息
-              }];
-            }
-            break;
-          case 7: // 重量/件数/体积
-            result.weight = num1;
-            result.pieces = num2;
-            result.volume = num3;
-            break;
-          case 8: // 件数/重量/体积
-            result.pieces = num1;
-            result.weight = num2;
-            result.volume = num3;
-            break;
-          case 9: // 体积/重量/件数
-            result.volume = num1;
-            result.weight = num2;
-            result.pieces = num3;
-            break;
-          case 10: // 重量/体积/件数
-            result.weight = num1;
-            result.volume = num2;
-            result.pieces = num3;
-            break;
-          case 11: // 件数/体积/重量
-            result.pieces = num1;
-            result.volume = num2;
-            result.weight = num3;
-            break;
-          case 12: // 体积/件数/重量
-            result.volume = num1;
-            result.pieces = num2;
-            result.weight = num3;
-            break;
-          case 13: // 件数 单位 / 体积 单位 / 重量 单位 (167 CTNS / 11.79 CBM / 634.60 KGS)
-            result.pieces = num1;
-            result.volume = num2;
-            result.weight = num3;
-            break;
-          case 14: // 重量 单位 / 件数 单位 / 体积 单位 (634.60 KGS / 167 CTNS / 11.79 CBM)
-            result.weight = num1;
-            result.pieces = num2;
-            result.volume = num3;
-            break;
-          case 15: // 体积 单位 / 重量 单位 / 件数 单位 (11.79 CBM / 634.60 KGS / 167 CTNS)
-            result.volume = num1;
-            result.weight = num2;
-            result.pieces = num3;
-            break;
-        }
-
-        // 设置包装类型
-        if (match[0].includes('托')) {
-          result.packageType = 'pallets';
-        } else if (match[0].includes('箱') || match[0].includes('CTNS') || match[0].includes('ctns') || match[0].includes('ctn')) {
-          result.packageType = 'boxes';
-        } else {
-          result.packageType = 'pieces';
-        }
-
-        break; // 找到匹配就停止
+          break; // 找到匹配就停止
       }
     }
   } else {
