@@ -4,173 +4,219 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-class StableDevServer {
+class StableServer {
   constructor() {
     this.process = null;
     this.restartCount = 0;
-    this.maxRestarts = 10;
-    this.restartDelay = 2000;
-    this.logFile = path.join(__dirname, 'server.log');
+    this.maxRestarts = 5;
     this.isShuttingDown = false;
-
-    // 创建日志文件
-    this.initLog();
-
-    // 处理退出信号
-    process.on('SIGINT', () => this.shutdown());
-    process.on('SIGTERM', () => this.shutdown());
-    process.on('uncaughtException', (error) => {
-      this.log(`未捕获的异常: ${error.message}`);
-      this.restart();
-    });
-  }
-
-  initLog() {
-    const logHeader = `\n=== 服务器启动日志 ${new Date().toISOString()} ===\n`;
-    fs.writeFileSync(this.logFile, logHeader);
+    this.startTime = Date.now();
   }
 
   log(message) {
-    const timestamp = new Date().toISOString();
-    const logMessage = `[${timestamp}] ${message}\n`;
-    console.log(logMessage.trim());
-    fs.appendFileSync(this.logFile, logMessage);
+    const timestamp = new Date().toLocaleString();
+    console.log(`[${timestamp}] ${message}`);
   }
 
-  start() {
-    if (this.isShuttingDown) return;
-
-    this.log('🚀 启动开发服务器...');
-
-    // 检查端口是否被占用
-    this.checkPort(3000).then(isAvailable => {
-      if (!isAvailable) {
-        this.log('⚠️ 端口3000已被占用，尝试清理...');
-        this.killPort(3000);
-        setTimeout(() => this.startServer(), 1000);
-      } else {
-        this.startServer();
+  async cleanupAndRestart() {
+    this.log('🧹 清理环境...');
+    
+    try {
+      // 清理进程
+      if (process.platform === 'win32') {
+        try {
+          const { execSync } = require('child_process');
+          execSync('taskkill /F /IM node.exe', { stdio: 'ignore' });
+        } catch (e) {
+          // 忽略错误，可能没有进程需要清理
+        }
       }
-    });
+      
+      // 等待进程清理
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // 清理缓存
+      const cacheDir = path.join(process.cwd(), '.next');
+      if (fs.existsSync(cacheDir)) {
+        fs.rmSync(cacheDir, { recursive: true, force: true });
+        this.log('✅ 已清理 .next 缓存');
+      }
+      
+    } catch (error) {
+      this.log(`⚠️ 清理过程中出现错误: ${error.message}`);
+    }
   }
 
   startServer() {
-    const command = process.platform === 'win32' ? 'bun.exe' : 'bun';
-    const args = ['run', 'dev'];
-
-    this.process = spawn(command, args, {
-      stdio: ['inherit', 'pipe', 'pipe'],
-      env: { ...process.env, NODE_ENV: 'development' }
-    });
-
-    this.log(`✅ 服务器进程启动 (PID: ${this.process.pid})`);
-
-    // 处理输出
-    this.process.stdout.on('data', (data) => {
-      const output = data.toString();
-      console.log(output);
-
-      // 检查是否成功启动
-      if (output.includes('Ready in') || output.includes('✓ Ready')) {
-        this.log('🎉 服务器启动成功！');
-        this.restartCount = 0; // 重置重启计数
+    return new Promise((resolve, reject) => {
+      if (this.isShuttingDown) {
+        resolve();
+        return;
       }
 
-      // 检查编译错误
-      if (output.includes('Error:') || output.includes('Failed to compile')) {
-        this.log('❌ 编译错误detected');
-      }
-    });
+      this.log(`🚀 启动开发服务器 (重启次数: ${this.restartCount})`);
 
-    this.process.stderr.on('data', (data) => {
-      const error = data.toString();
-      this.log(`⚠️ 错误输出: ${error}`);
-    });
+      const serverProcess = spawn('npm', ['run', 'dev'], {
+        stdio: ['inherit', 'pipe', 'pipe'],
+        shell: true,
+        cwd: process.cwd()
+      });
 
-    this.process.on('close', (code) => {
-      this.log(`🔄 服务器进程退出 (代码: ${code})`);
+      this.process = serverProcess;
 
-      if (!this.isShuttingDown) {
-        if (code !== 0 && this.restartCount < this.maxRestarts) {
-          this.log(`⏰ ${this.restartDelay/1000}秒后自动重启...`);
-          setTimeout(() => this.restart(), this.restartDelay);
-        } else if (this.restartCount >= this.maxRestarts) {
-          this.log('❌ 达到最大重启次数，服务器停止');
+      // 处理服务器输出
+      serverProcess.stdout.on('data', (data) => {
+        const output = data.toString();
+        console.log(output);
+        
+        // 检测服务器就绪状态
+        if (output.includes('Ready in') || output.includes('Local:')) {
+          this.log('✅ 服务器启动成功');
+          this.restartCount = 0; // 重置重启计数
+          resolve();
         }
-      }
-    });
+      });
 
-    this.process.on('error', (error) => {
-      this.log(`💥 进程错误: ${error.message}`);
-      this.restart();
+      serverProcess.stderr.on('data', (data) => {
+        const error = data.toString();
+        console.error(error);
+        
+        // 检测常见错误
+        if (error.includes('EADDRINUSE') || error.includes('port') || error.includes('already in use')) {
+          this.log('❌ 端口被占用，准备清理并重启...');
+          this.handleRestart();
+        }
+      });
+
+      // 处理进程退出
+      serverProcess.on('exit', (code, signal) => {
+        if (this.isShuttingDown) return;
+        
+        this.log(`⚠️ 服务器进程退出 (代码: ${code}, 信号: ${signal})`);
+        
+        if (code !== 0 && this.restartCount < this.maxRestarts) {
+          this.handleRestart();
+        } else if (this.restartCount >= this.maxRestarts) {
+          this.log('❌ 达到最大重启次数，停止重启');
+        }
+      });
+
+      // 处理进程错误
+      serverProcess.on('error', (error) => {
+        this.log(`❌ 服务器启动错误: ${error.message}`);
+        reject(error);
+      });
+
+      // 超时处理
+      setTimeout(() => {
+        if (!this.isShuttingDown) {
+          this.log('⏰ 启动超时，继续等待...');
+          resolve(); // 不要reject，让服务器继续运行
+        }
+      }, 30000);
     });
   }
 
-  restart() {
+  async handleRestart() {
     if (this.isShuttingDown) return;
-
+    
     this.restartCount++;
-    this.log(`🔄 第${this.restartCount}次重启服务器...`);
+    
+    if (this.restartCount > this.maxRestarts) {
+      this.log('❌ 超过最大重启次数，停止服务');
+      return;
+    }
 
+    this.log(`🔄 准备重启服务器 (${this.restartCount}/${this.maxRestarts})`);
+    
+    // 清理当前进程
     if (this.process) {
       this.process.kill('SIGTERM');
       this.process = null;
     }
 
-    setTimeout(() => this.start(), 1000);
+    // 清理环境并重启
+    await this.cleanupAndRestart();
+    
+    // 延迟重启
+    setTimeout(async () => {
+      try {
+        await this.startServer();
+      } catch (error) {
+        this.log(`重启失败: ${error.message}`);
+      }
+    }, 3000);
+  }
+
+  async start() {
+    this.log('🌟 启动稳定服务器管理器');
+    
+    // 初始清理
+    await this.cleanupAndRestart();
+    
+    // 启动服务器
+    try {
+      await this.startServer();
+      
+      // 设置定期健康检查
+      setInterval(() => {
+        this.healthCheck();
+      }, 60000); // 每分钟检查一次
+
+      // 处理进程退出信号
+      process.on('SIGINT', () => this.shutdown());
+      process.on('SIGTERM', () => this.shutdown());
+      
+      this.log('🎉 服务器管理器启动完成');
+      
+    } catch (error) {
+      this.log(`启动失败: ${error.message}`);
+      throw error;
+    }
+  }
+
+  healthCheck() {
+    const http = require('http');
+    
+    const req = http.get('http://localhost:3000', (res) => {
+      if (res.statusCode === 200) {
+        // 服务器正常
+      } else {
+        this.log('⚠️ 健康检查失败，准备重启');
+        this.handleRestart();
+      }
+    });
+
+    req.on('error', (error) => {
+      this.log('⚠️ 健康检查连接失败，准备重启');
+      this.handleRestart();
+    });
+
+    req.setTimeout(5000, () => {
+      req.destroy();
+      this.log('⚠️ 健康检查超时，准备重启');
+      this.handleRestart();
+    });
   }
 
   shutdown() {
-    this.isShuttingDown = true;
     this.log('🛑 正在关闭服务器...');
-
+    this.isShuttingDown = true;
+    
     if (this.process) {
       this.process.kill('SIGTERM');
-      this.process = null;
     }
-
-    this.log('✅ 服务器已关闭');
+    
     process.exit(0);
-  }
-
-  checkPort(port) {
-    return new Promise((resolve) => {
-      const net = require('net');
-      const tester = net.createServer()
-        .once('error', () => resolve(false))
-        .once('listening', () => {
-          tester.once('close', () => resolve(true)).close();
-        })
-        .listen(port);
-    });
-  }
-
-  killPort(port) {
-    try {
-      const command = process.platform === 'win32'
-        ? `netstat -ano | findstr :${port}`
-        : `lsof -ti:${port}`;
-
-      const { execSync } = require('child_process');
-      const result = execSync(command, { encoding: 'utf8' });
-
-      if (result) {
-        const killCmd = process.platform === 'win32'
-          ? `taskkill /F /PID ${result.split(/\s+/).pop()}`
-          : `kill -9 ${result.trim()}`;
-
-        execSync(killCmd);
-        this.log(`🧹 清理端口${port}成功`);
-      }
-    } catch (error) {
-      this.log(`清理端口失败: ${error.message}`);
-    }
   }
 }
 
 // 启动稳定服务器
-const server = new StableDevServer();
-server.start();
+const server = new StableServer();
+server.start().catch(error => {
+  console.error('启动失败:', error);
+  process.exit(1);
+});
 
 // 导出以供其他模块使用
-module.exports = StableDevServer;
+module.exports = StableServer;

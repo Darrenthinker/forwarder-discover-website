@@ -674,7 +674,7 @@ export function AirportSearch({
                     <div className="flex items-center space-x-3 flex-1 min-w-0">
                       {/* IATA CODE */}
                       <div className="flex items-center space-x-1">
-                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <div className={`w-2 h-2 ${airline.isIata ? 'bg-blue-500' : 'bg-gray-400'} rounded-full`}></div>
                         <span className="font-mono font-bold text-blue-600 text-sm">
                           {airline.code}
                         </span>

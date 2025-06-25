@@ -14,6 +14,7 @@ export interface Airline {
   hub?: string[];       // 主要枢纽机场
   fleetSize?: number;   // 机队规模
   active: boolean;      // 是否仍在运营
+  isIata?: boolean;     // 是否为IATA成员
 }
 
 // 航空公司数据库 - 按地区分类，按机队规模排序
@@ -256,7 +257,8 @@ const AIRLINES: Airline[] = [
     alliance: 'Oneworld',
     hub: ['HKG'],
     fleetSize: 200,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: 'HX',
@@ -268,31 +270,60 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['HKG'],
     fleetSize: 38,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: 'UO',
-    prefix: '633',
+    prefix: '128',
     icao: 'HKE',
-    name: { chinese: '香港快运航空', english: 'HK Express' },
+    name: { chinese: '香港快运航空', english: 'Hong Kong Express Airways' },
     country: '中国香港',
     countryCode: 'HK',
     type: 'LCC',
     hub: ['HKG'],
     fleetSize: 28,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: 'LD',
     prefix: '288',
-    icao: 'LDA',
-    name: { chinese: '华民航空', english: 'Air Hong Kong' },
+    icao: 'AHK',
+    name: { chinese: '香港华民航空', english: 'Air Hong Kong' },
     country: '中国香港',
     countryCode: 'HK',
     type: 'Cargo',
     hub: ['HKG'],
     fleetSize: 14,
-    active: true
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'RH',
+    prefix: '828',
+    icao: 'HKC',
+    name: { chinese: '香港货运航空', english: 'Hong Kong Air Cargo' },
+    country: '中国香港',
+    countryCode: 'HK',
+    type: 'Cargo',
+    hub: ['HKG'],
+    fleetSize: 8,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'HB',
+    prefix: '283',
+    icao: 'HGB',
+    name: { chinese: '大湾区航空', english: 'Greater Bay Airlines' },
+    country: '中国香港',
+    countryCode: 'HK',
+    type: 'FSC',
+    hub: ['HKG'],
+    fleetSize: 5,
+    active: true,
+    isIata: true
   },
   {
     code: 'KA',
@@ -302,10 +333,25 @@ const AIRLINES: Airline[] = [
     country: '中国香港',
     countryCode: 'HK',
     type: 'FSC',
-    alliance: 'Oneworld',
     hub: ['HKG'],
-    fleetSize: 0,
-    active: false
+    fleetSize: 48,
+    active: true,
+    isIata: false
+  },
+
+  // 🇲🇴 中国澳门航空公司
+  {
+    code: 'NX',
+    prefix: '675',
+    icao: 'AMU',
+    name: { chinese: '澳门航空', english: 'Air Macau' },
+    country: '中国澳门',
+    countryCode: 'MO',
+    type: 'FSC',
+    hub: ['MFM'],
+    fleetSize: 21,
+    active: true,
+    isIata: true
   },
 
   // 🇹🇼 中国台湾航空公司 (按机队规模排序)
@@ -2537,7 +2583,13 @@ export function searchAirlines(query: string): Airline[] {
     if (aCodeStartsWith && !bCodeStartsWith) return -1;
     if (!aCodeStartsWith && bCodeStartsWith) return 1;
 
-    // 4. 最后按机队规模排序
+    // 4. IATA成员优先排序
+    const aIsIata = a.isIata !== false; // 默认为true，只有明确设置为false才是非IATA
+    const bIsIata = b.isIata !== false;
+    if (aIsIata && !bIsIata) return -1;
+    if (!aIsIata && bIsIata) return 1;
+
+    // 5. 最后按机队规模排序
     return (b.fleetSize || 0) - (a.fleetSize || 0);
   });
 }
@@ -2551,7 +2603,16 @@ export function findAirlinesByCountry(country: string): Airline[] {
   return AIRLINES.filter(airline =>
     airline.country.toLowerCase().includes(normalizedCountry) ||
     airline.countryCode.toLowerCase() === normalizedCountry
-  ).sort((a, b) => (b.fleetSize || 0) - (a.fleetSize || 0));
+  ).sort((a, b) => {
+    // 1. IATA成员优先排序
+    const aIsIata = a.isIata !== false; // 默认为true，只有明确设置为false才是非IATA
+    const bIsIata = b.isIata !== false;
+    if (aIsIata && !bIsIata) return -1;
+    if (!aIsIata && bIsIata) return 1;
+
+    // 2. 按机队规模排序
+    return (b.fleetSize || 0) - (a.fleetSize || 0);
+  });
 }
 
 // 按代码查找航空公司

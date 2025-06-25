@@ -1,23 +1,49 @@
 #!/usr/bin/env bun
 
-console.log('🚀 国际货运智能报价系统 - 自动启动');
+const { spawn, execSync } = require('child_process');
 
-// 启动开发服务器
-import { spawn } from 'child_process';
+console.log('🚀 启动Next.js开发服务器...');
 
-const startServer = () => {
-  console.log('🌟 启动开发服务器...');
-  console.log('📍 访问地址: http://localhost:3000');
+// 清理可能存在的进程
+try {
+  execSync('taskkill /F /IM node.exe', { stdio: 'ignore' });
+  console.log('✅ 已清理现有进程');
+} catch (e) {
+  // 忽略错误
+}
 
-  const server = spawn('bun', ['run', 'dev'], {
+// 等待一秒
+setTimeout(() => {
+  // 启动开发服务器
+  const server = spawn('npm', ['run', 'dev'], {
     stdio: 'inherit',
     shell: true
   });
 
-  server.on('error', (err) => {
-    console.error('❌ 启动失败:', err);
+  server.on('error', (error) => {
+    console.error('❌ 启动失败:', error.message);
+    process.exit(1);
   });
-};
 
-// 立即启动
-startServer();
+  server.on('exit', (code) => {
+    if (code !== 0) {
+      console.log('⚠️ 服务器意外退出，3秒后重启...');
+      setTimeout(() => {
+        // 重新启动脚本
+        spawn('node', ['auto-start.js'], {
+          stdio: 'inherit',
+          shell: true,
+          detached: true
+        });
+      }, 3000);
+    }
+  });
+
+  // 处理退出信号
+  process.on('SIGINT', () => {
+    console.log('\n🛑 正在关闭服务器...');
+    server.kill('SIGTERM');
+    process.exit(0);
+  });
+
+}, 1000);
