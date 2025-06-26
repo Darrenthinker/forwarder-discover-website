@@ -219,7 +219,7 @@ export const globalCountriesDatabase: CountryInfo[] = [
   { code: 'CI', chinese: '科特迪瓦', english: 'Ivory Coast', continent: '非洲', hasAirports: true, airportCount: 3, internationalAirports: 1, status: 'planned', capital: '亚穆苏克罗' },
   { code: 'ML', chinese: '马里', english: 'Mali', continent: '非洲', hasAirports: true, airportCount: 3, internationalAirports: 1, status: 'planned', capital: '巴马科' },
   { code: 'BF', chinese: '布基纳法索', english: 'Burkina Faso', continent: '非洲', hasAirports: true, airportCount: 2, internationalAirports: 1, status: 'planned', capital: '瓦加杜古' },
-  { code: 'NE', chinese: '尼日尔', english: 'Niger', continent: '非洲', hasAirports: true, airportCount: 2, internationalAirports: 1, status: 'planned', capital: '尼亚美' },
+  { code: 'NE', chinese: '尼日尔', english: 'Niger', continent: '非洲', hasAirports: true, airportCount: 7, internationalAirports: 2, status: 'completed', capital: '尼亚美' },
   { code: 'GN', chinese: '几内亚', english: 'Guinea', continent: '非洲', hasAirports: true, airportCount: 2, internationalAirports: 1, status: 'planned', capital: '科纳克里' },
   { code: 'SL', chinese: '塞拉利昂', english: 'Sierra Leone', continent: '非洲', hasAirports: true, airportCount: 2, internationalAirports: 1, status: 'planned', capital: '弗里敦' },
   { code: 'LR', chinese: '利比里亚', english: 'Liberia', continent: '非洲', hasAirports: true, airportCount: 2, internationalAirports: 1, status: 'planned', capital: '蒙罗维亚' },

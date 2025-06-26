@@ -84,6 +84,7 @@ import { centralAfricaEnhancedAirports } from './airport-codes-central-africa-en
 import { southAmericaOverseasEnhancedAirports } from './airport-codes-south-america-overseas-enhanced';
 import { antarcticaResearchEnhancedAirports } from './airport-codes-antarctica-research-enhanced';
 import { timorLesteEnhancedAirports } from './airport-codes-timor-leste-enhanced';
+import { nigerEnhancedAirports } from './airport-codes-niger-enhanced';
 import { getCityPriority, extractCityName } from './city-priority';
 import { formatCountryDisplay, getCountryInfoByCode, isCountryCode, searchCountries } from './country-codes';
 import { findStandardCountryName, shouldExcludeCountry, shouldExcludeAirportByName } from './country-aliases';
@@ -470,6 +471,9 @@ const antarcticaResearchBasicAirports = convertEnhancedToBasic(antarcticaResearc
 // 转换东帝汶增强数据为基础格式
 const timorLesteBasicAirports = convertEnhancedToBasic(timorLesteEnhancedAirports);
 
+// 转换尼日尔增强数据为基础格式
+const nigerBasicAirports = convertEnhancedToBasic(nigerEnhancedAirports);
+
 // 合并所有洲际机场数据
 export const globalAirports: GlobalAirports = {
   ...oceaniaAirports,
@@ -635,7 +639,9 @@ export const globalAirports: GlobalAirports = {
   // 增强的南极洲科研站机场数据覆盖原有数据
   ...antarcticaResearchBasicAirports,
   // 增强的东帝汶机场数据覆盖原有数据
-  ...timorLesteBasicAirports
+  ...timorLesteBasicAirports,
+  // 增强的尼日尔机场数据覆盖原有数据
+  ...nigerBasicAirports
 };
 
 // 获取机场所属洲际
@@ -739,6 +745,7 @@ export function getAirportContinent(code: string): string {
   if (northAfricaEnhancedAirports.some(a => a.iata === code)) return '非洲';
   if (subSaharanAfricaEnhancedAirports.some(a => a.iata === code)) return '非洲';
   if (centralAfricaEnhancedAirports.some(a => a.iata === code)) return '非洲';
+  if (nigerEnhancedAirports.some(a => a.iata === code)) return '非洲';
 
   // 大洋洲
   if (australiaAirportsEnhanced[code]) return '大洋洲';
