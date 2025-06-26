@@ -779,7 +779,7 @@ function getDisplayColorByType(type: 'international' | 'domestic' | 'regional'):
 function formatAirportResult(code: string, info: AirportInfo): AirportSearchResult {
   const type = info.type || 'domestic';
   const customs = info.customs || false;
-  const priority = info.priority || 0;
+  const priority = info.priority !== undefined ? info.priority : 50; // 明确检查undefined，给没有priority的机场默认值50
 
   return {
     code,
@@ -833,7 +833,7 @@ export function findAirportsByCountry(
     }
   });
 
-  // 🎯 智能排序：国际机场类型 > 城市重要性 > 货运优先级 > 字母顺序
+  // 🎯 智能排序：国际机场类型 > 机场优先级 > 城市重要性 > 字母顺序
   results.sort((a, b) => {
     // 🔥 首先按机场类型排序 (国际机场绝对优先)
     const getAirportTypeScore = (airport: AirportSearchResult): number => {
@@ -859,8 +859,8 @@ export function findAirportsByCountry(
         'HKG', 'MFM',
         // 印度主要国际机场
         'DEL', 'BOM', 'BLR', 'MAA', 'HYD', 'CCU', 'AMD', 'PNQ', 'GOI', 'COK', 'TRV', 'JAI', 'LKO', 'NAG',
-        // 其他知名国际机场
-        'ICN', 'NRT', 'SIN', 'LAX', 'JFK', 'LHR', 'CDG', 'FRA', 'DXB'
+        // 其他知名国际机场（移除英国机场，让它们使用明确的type定义）
+        'ICN', 'NRT', 'SIN', 'LAX', 'JFK', 'CDG', 'FRA', 'DXB'
       ];
 
       if (knownInternationalCodes.includes(code)) return 900;
@@ -887,9 +887,9 @@ export function findAirportsByCountry(
       return typeScoreB - typeScoreA; // 国际机场优先
     }
 
-    // 🚛 首先按货运优先级排序 (数字越大优先级越高) - 这是最重要的排序
-    const priorityA = a.priority || 50;
-    const priorityB = b.priority || 50;
+    // 🚛 对于同类型机场，按优先级排序 (数字越大优先级越高) - 这是核心排序
+    const priorityA = a.priority; // 不使用默认值，保持原始值
+    const priorityB = b.priority;
     if (priorityA !== priorityB) {
       return priorityB - priorityA;
     }

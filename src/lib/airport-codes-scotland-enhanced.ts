@@ -32,47 +32,8 @@ export interface EnhancedAirportInfo {
 export const scotlandEnhancedAirports: EnhancedAirportInfo[] = [
 
   // ================================================================
-  // 📍 爱丁堡 - 苏格兰首府，重要航空枢纽
+  // 注意：EDI和GLA已在英国机场数据库中定义，此处不重复
   // ================================================================
-
-  {
-    iata: 'EDI',
-    icao: 'EGPH',
-    chinese: '爱丁堡机场',
-    english: 'Edinburgh Airport',
-    city: '爱丁堡',
-    province: '洛锡安',
-    country: '英国苏格兰',
-    isInternational: true,
-    hasCustoms: true,
-    timezone: 'GMT',
-    coordinates: { lat: 55.9500, lng: -3.3725 },
-    runways: 1,
-    priority: 100, // 🥇 苏格兰最大国际机场，首府重要门户
-    hub: ['British Airways', 'easyJet'],
-    cargo: true
-  },
-
-  // ================================================================
-  // 📍 格拉斯哥 - 苏格兰最大城市
-  // ================================================================
-
-  {
-    iata: 'GLA',
-    icao: 'EGPF',
-    chinese: '格拉斯哥机场',
-    english: 'Glasgow Airport',
-    city: '格拉斯哥',
-    province: '西苏格兰',
-    country: '英国苏格兰',
-    isInternational: true,
-    hasCustoms: true,
-    timezone: 'GMT',
-    coordinates: { lat: 55.8719, lng: -4.4331 },
-    runways: 1,
-    priority: 98, // 🏭 苏格兰最大城市，工业中心
-    cargo: true
-  },
 
   // ================================================================
   // 📍 格拉斯哥普雷斯蒂克 - 西海岸重要机场
@@ -96,67 +57,8 @@ export const scotlandEnhancedAirports: EnhancedAirportInfo[] = [
   },
 
   // ================================================================
-  // 📍 阿伯丁 - 北海石油之都
+  // 注意：ABZ、INV、DND已在英国机场数据库中定义，此处不重复
   // ================================================================
-
-  {
-    iata: 'ABZ',
-    icao: 'EGPD',
-    chinese: '阿伯丁机场',
-    english: 'Aberdeen Airport',
-    city: '阿伯丁',
-    province: '东北苏格兰',
-    country: '英国苏格兰',
-    isInternational: true,
-    hasCustoms: true,
-    timezone: 'GMT',
-    coordinates: { lat: 57.2019, lng: -2.1978 },
-    runways: 1,
-    priority: 95, // 🛢️ 北海石油之都，直升机海上作业基地
-    cargo: true
-  },
-
-  // ================================================================
-  // 📍 因弗内斯 - 高地首府
-  // ================================================================
-
-  {
-    iata: 'INV',
-    icao: 'EGPE',
-    chinese: '因弗内斯机场',
-    english: 'Inverness Airport',
-    city: '因弗内斯',
-    province: '高地',
-    country: '英国苏格兰',
-    isInternational: true,
-    hasCustoms: true,
-    timezone: 'GMT',
-    coordinates: { lat: 57.5425, lng: -4.0475 },
-    runways: 1,
-    priority: 88, // 🏔️ 苏格兰高地首府，尼斯湖门户
-    cargo: false
-  },
-
-  // ================================================================
-  // 📍 邓迪 - 东海岸重要城市
-  // ================================================================
-
-  {
-    iata: 'DND',
-    icao: 'EGPN',
-    chinese: '邓迪机场',
-    english: 'Dundee Airport',
-    city: '邓迪',
-    province: '安格斯',
-    country: '英国苏格兰',
-    isInternational: false,
-    hasCustoms: true,
-    timezone: 'GMT',
-    coordinates: { lat: 56.4525, lng: -3.0258 },
-    runways: 1,
-    priority: 82, // 🎓 科技城市，大学城
-    cargo: false
-  },
 
   // ================================================================
   // 📍 设得兰群岛
