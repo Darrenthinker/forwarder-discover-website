@@ -164,11 +164,34 @@ export function AirportSearch({
     if (query.trim().length >= 1) {
       // 🚀 智能搜索：获取所有搜索结果，然后分页显示
       let searchResults = searchAirports(query, 500); // 获取更多结果
-      // 确保国际机场优先排序
-      searchResults = [
-        ...searchResults.filter(a => getAirportType(a) === 'international'),
-        ...searchResults.filter(a => getAirportType(a) !== 'international')
-      ];
+      
+      // 🔥 确保国际机场绝对优先排序 - 增强版排序逻辑
+      searchResults = searchResults.sort((a, b) => {
+        // 1. 首先按机场类型排序（国际机场绝对优先）
+        const typeA = getAirportType(a);
+        const typeB = getAirportType(b);
+        
+        if (typeA !== typeB) {
+          return typeA === 'international' ? -1 : 1;
+        }
+        
+        // 2. 同类型机场内部按优先级排序
+        const priorityA = a.priority || 50;
+        const priorityB = b.priority || 50;
+        if (priorityA !== priorityB) {
+          return priorityB - priorityA; // 数字越大优先级越高
+        }
+        
+        // 3. 最后按机场代码排序
+        return a.code.localeCompare(b.code);
+      });
+      
+             // 调试信息：显示搜索结果统计
+       if (query.length >= 2) {
+         console.log(`🔍 搜索"${query}": 共${searchResults.length}个机场，国际${searchResults.filter(a => getAirportType(a) === 'international').length}个，前10个:`, 
+           searchResults.slice(0, 10).map(a => `${a.code}(${getAirportType(a)})`));
+       }
+      
       setAllResults(searchResults); // 保存所有结果
       setResults(searchResults.slice(0, 30)); // 只显示前N个，初始30个
 
@@ -257,8 +280,13 @@ export function AirportSearch({
         }
       }
       const newDisplayedCount = results.length + increment;
-      setResults(allResults.slice(0, newDisplayedCount));
+      const newResults = allResults.slice(0, newDisplayedCount);
+      
+      console.log(`📈 显示更多机场: ${results.length} → ${newResults.length} (总共${allResults.length}个)`);
+      
+      setResults(newResults);
       setDisplayedCount(newDisplayedCount);
+      
       if (searchStats) {
         setSearchStats({
           ...searchStats,
@@ -269,7 +297,11 @@ export function AirportSearch({
       // 航空公司分页
       const increment = 20;
       const newDisplayedCount = airlineResults.length + increment;
-      setAirlineResults(allAirlineResults.slice(0, newDisplayedCount));
+      const newAirlineResults = allAirlineResults.slice(0, newDisplayedCount);
+      
+      console.log(`📈 显示更多航司: ${airlineResults.length} → ${newAirlineResults.length} (总共${allAirlineResults.length}个)`);
+      
+      setAirlineResults(newAirlineResults);
       setDisplayedAirlineCount(newDisplayedCount);
     }
   };
@@ -445,7 +477,12 @@ export function AirportSearch({
               setShowStats(true);
             }
           }}
-          onBlur={() => {
+          onBlur={(e) => {
+            // 检查失焦的目标是否在下拉框内
+            const relatedTarget = e.relatedTarget as HTMLElement;
+            if (resultsRef.current && relatedTarget && resultsRef.current.contains(relatedTarget)) {
+              return; // 如果焦点移动到下拉框内，不关闭
+            }
             // 延迟关闭，允许点击选项
             setTimeout(() => {
               setIsOpen(false);
@@ -462,6 +499,7 @@ export function AirportSearch({
         <div
           ref={resultsRef}
           className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-96 overflow-y-auto"
+          onMouseDown={(e) => e.preventDefault()} // 防止点击下拉框时输入框失焦
         >
           {/* 🚀 新增：标签页切换（只在国家搜索时显示） */}
           {showAirlineTab && (
@@ -612,8 +650,11 @@ export function AirportSearch({
                 <div className="px-4 py-3 bg-gray-50 border-t space-y-2">
                   <button
                     onMouseDown={(e: React.MouseEvent) => e.preventDefault()} // 防止失焦
-                    onClick={showMoreResults}
-                    className="w-full px-4 py-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors text-sm font-medium"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      showMoreResults();
+                    }}
+                    className="w-full px-4 py-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100 rounded-lg transition-all duration-200 text-sm font-medium border border-blue-200 hover:border-blue-300 active:scale-95"
                   >
                     {(() => {
                       // 智能计算每次增加的数量
@@ -631,7 +672,7 @@ export function AirportSearch({
                         }
                       }
                       const willShow = Math.min(increment, remaining);
-                      return `显示更多机场 (+${willShow}个，剩余${remaining}个)`;
+                      return `🔄 显示更多机场 (+${willShow}个，剩余${remaining}个)`;
                     })()}
                   </button>
 
@@ -639,7 +680,9 @@ export function AirportSearch({
                   {allResults.length - results.length > 15 && (
                     <button
                       onMouseDown={(e: React.MouseEvent) => e.preventDefault()} // 防止失焦
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
+                        console.log(`📋 显示全部机场: ${allResults.length}个`);
                         setDisplayedCount(allResults.length);
                         setResults(allResults);
                         if (searchStats) {
@@ -649,9 +692,9 @@ export function AirportSearch({
                           });
                         }
                       }}
-                      className="w-full px-4 py-1.5 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors text-xs border border-blue-200"
+                      className="w-full px-4 py-1.5 text-blue-600 hover:text-blue-700 hover:bg-blue-50 active:bg-blue-100 rounded-lg transition-all duration-200 text-xs border border-blue-200 hover:border-blue-300 active:scale-95"
                     >
-                      显示全部 {allResults.length} 个机场
+                      📋 显示全部 {allResults.length} 个机场
                     </button>
                   )}
                 </div>
@@ -773,11 +816,13 @@ export function AirportSearch({
       {/* 统计信息提示 - 简化美观设计 */}
       {showStats && query.trim().length === 0 && (
         <div className="absolute z-40 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg p-4">
-          {/* 标题行 - 备注国家地区数量 */}
+          {/* 标题行 - 备注国家地区数量和IATA航司 */}
           <div className="text-center mb-2">
             <span className="text-sm font-semibold text-gray-900">全球机场数据库</span>
             <span className="text-xs text-gray-600 ml-1">国家地区</span>
             <span className="text-red-600 font-semibold text-xs ml-1">{countryStats.total}</span>
+            <span className="text-xs text-gray-600 ml-2">IATA航司</span>
+            <span className="text-orange-600 font-semibold text-xs ml-1">360</span>
           </div>
 
           {/* 核心统计 - 一行三个（国际机场、机场总数、南极洲） */}

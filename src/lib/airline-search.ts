@@ -71,7 +71,7 @@ const AIRLINES: Airline[] = [
     active: true
   },
   {
-    code: 'JX',
+    code: 'NU',
     prefix: '908',
     icao: 'JTA',
     name: { chinese: '日本越洋航空', english: 'Japan Transocean Air' },
@@ -80,7 +80,8 @@ const AIRLINES: Airline[] = [
     type: 'Regional',
     hub: ['OKA'],
     fleetSize: 18,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: 'JW',
@@ -366,7 +367,8 @@ const AIRLINES: Airline[] = [
     alliance: 'SkyTeam',
     hub: ['TPE'],
     fleetSize: 104,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: 'BR',
@@ -379,31 +381,34 @@ const AIRLINES: Airline[] = [
     alliance: 'Star Alliance',
     hub: ['TPE'],
     fleetSize: 82,
-    active: true
+    active: true,
+    isIata: true
   },
   {
-    code: 'GE',
-    prefix: '319',
-    icao: 'TNA',
-    name: { chinese: '立荣航空', english: 'UNI Air' },
+    code: 'JX',
+    prefix: '189',
+    icao: 'SJX',
+    name: { chinese: '星宇航空', english: 'STARLUX Airlines' },
+    country: '中国台湾',
+    countryCode: 'TW',
+    type: 'FSC',
+    hub: ['TPE'],
+    fleetSize: 28,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'B7',
+    prefix: '525',
+    icao: 'UIA',
+    name: { chinese: '立荣航空', english: 'UNI AIR' },
     country: '中国台湾',
     countryCode: 'TW',
     type: 'Regional',
     hub: ['TPE', 'KHH'],
     fleetSize: 36,
-    active: true
-  },
-  {
-    code: 'IT',
-    prefix: '538',
-    icao: 'TGW',
-    name: { chinese: '台湾虎航', english: 'Tigerair Taiwan' },
-    country: '中国台湾',
-    countryCode: 'TW',
-    type: 'LCC',
-    hub: ['TPE'],
-    fleetSize: 21,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: 'AE',
@@ -415,7 +420,21 @@ const AIRLINES: Airline[] = [
     type: 'Regional',
     hub: ['TSA', 'TPE'],
     fleetSize: 12,
-    active: true
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'IT',
+    prefix: '538',
+    icao: 'TGW',
+    name: { chinese: '台湾虎航', english: 'Tigerair Taiwan' },
+    country: '中国台湾',
+    countryCode: 'TW',
+    type: 'LCC',
+    hub: ['TPE'],
+    fleetSize: 21,
+    active: true,
+    isIata: false
   },
 
   // 🇰🇷 韩国航空公司 (按机队规模排序)

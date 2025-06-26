@@ -940,7 +940,7 @@ function checkSpecialRegionSearch(query: string, limit: number): AirportSearchRe
         return results;
       } else {
         // 对于其他地区，使用国家搜索
-        return findAirportsByCountry(info.chinese, limit);
+      return findAirportsByCountry(info.chinese, limit);
       }
     }
   }
