@@ -933,11 +933,8 @@ function checkSpecialRegionSearch(query: string, limit: number): AirportSearchRe
 
   // 检查是否为特殊行政区代码或名称
   for (const [code, info] of Object.entries(specialRegions)) {
-    if (code === queryLower || 
-        info.chinese === query ||
-        info.english.toLowerCase().includes(queryLower) ||
-        info.chinese.includes(query)) {
-      
+    // 精确匹配代码
+    if (code === queryLower) {
       // 对于香港和澳门，直接返回对应的机场
       if (info.airports.length > 0) {
         const results: AirportSearchResult[] = [];
@@ -950,10 +947,46 @@ function checkSpecialRegionSearch(query: string, limit: number): AirportSearchRe
         return results;
       } else {
         // 对于其他地区，使用国家搜索
-      return findAirportsByCountry(info.chinese, limit);
+        return findAirportsByCountry(info.chinese, limit);
       }
     }
-  }
+    
+    // 中文名称精确匹配或包含匹配
+    if (info.chinese === query || info.chinese.includes(query)) {
+      // 对于香港和澳门，直接返回对应的机场
+      if (info.airports.length > 0) {
+        const results: AirportSearchResult[] = [];
+        for (const airportCode of info.airports) {
+          const airport = findAirportByCode(airportCode);
+          if (airport) {
+            results.push(airport);
+          }
+        }
+        return results;
+      } else {
+        // 对于其他地区，使用国家搜索
+        return findAirportsByCountry(info.chinese, limit);
+      }
+    }
+    
+         // 英文名称匹配 - 只对长查询（3字符以上）进行部分匹配
+     if (query.length >= 3 && info.english.toLowerCase().includes(queryLower)) {
+       // 对于香港和澳门，直接返回对应的机场
+       if (info.airports.length > 0) {
+         const results: AirportSearchResult[] = [];
+         for (const airportCode of info.airports) {
+           const airport = findAirportByCode(airportCode);
+           if (airport) {
+             results.push(airport);
+           }
+         }
+         return results;
+       } else {
+         // 对于其他地区，使用国家搜索
+         return findAirportsByCountry(info.chinese, limit);
+       }
+     }
+   }
 
   return null;
 }
