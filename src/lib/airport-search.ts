@@ -1048,13 +1048,36 @@ export function searchAirports(query: string, limit: number = 10): AirportSearch
       continue;
     }
 
-    if (code.toLowerCase() === queryLower ||
-        info.chinese.includes(query) ||
-        info.english.toLowerCase().includes(queryLower) ||
-        info.country.includes(query)) {
+    // 精确匹配机场代码
+    if (code.toLowerCase() === queryLower) {
       results.push(formatAirportResult(code, info));
-      }
+      continue;
     }
+
+    // 中文名称匹配
+    if (info.chinese.includes(query)) {
+      results.push(formatAirportResult(code, info));
+      continue;
+    }
+
+    // 国家名称匹配
+    if (info.country.includes(query)) {
+      results.push(formatAirportResult(code, info));
+      continue;
+    }
+
+    // 英文名称匹配 - 对于短查询（2字符以下）避免部分匹配
+    if (query.length > 2 && info.english.toLowerCase().includes(queryLower)) {
+      results.push(formatAirportResult(code, info));
+      continue;
+    }
+
+    // 对于长查询（3字符以上），允许英文名称的开头匹配
+    if (query.length >= 3 && info.english.toLowerCase().startsWith(queryLower)) {
+      results.push(formatAirportResult(code, info));
+      continue;
+    }
+  }
 
   // 按优先级和类型排序
   return results
