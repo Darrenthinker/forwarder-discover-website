@@ -45,4 +45,42 @@ try {
   });
 } catch (error) {
   console.log('搜索尼日利亚错误:', error.message);
-} 
+}
+
+const { searchAirlines, findAirlinesByCountry } = require('./src/lib/airline-search.ts');
+
+console.log('🔍 测试航司搜索修复效果');
+console.log('================================');
+
+// 测试搜索 "NG"
+console.log('\n📝 搜索 "NG":');
+const ngResults = searchAirlines('NG');
+console.log(`找到 ${ngResults.length} 个航司结果:`);
+
+ngResults.slice(0, 10).forEach(airline => {
+  console.log(`   ${airline.code} - ${airline.name.chinese} (${airline.country}) [${airline.countryCode}]`);
+});
+
+// 测试搜索尼日利亚
+console.log('\n📝 按国家搜索 "尼日利亚":');
+const nigeriaAirlines = findAirlinesByCountry('尼日利亚');
+console.log(`找到 ${nigeriaAirlines.length} 个尼日利亚航司:`);
+
+nigeriaAirlines.forEach(airline => {
+  console.log(`   ${airline.code} - ${airline.name.chinese} (${airline.country})`);
+});
+
+// 测试搜索 "Nigeria"
+console.log('\n📝 按国家搜索 "Nigeria":');
+const nigeriaAirlinesEn = findAirlinesByCountry('Nigeria');
+console.log(`找到 ${nigeriaAirlinesEn.length} 个Nigeria航司:`);
+
+nigeriaAirlinesEn.forEach(airline => {
+  console.log(`   ${airline.code} - ${airline.name.chinese} (${airline.country})`);
+});
+
+// 对比修复前的问题
+console.log('\n🔧 修复说明:');
+console.log('修复前: 搜索"NG"会匹配所有英文名包含"ng"的航司');
+console.log('如: Shandong Airlines, Spring Airlines, Hong Kong Airlines等');
+console.log('修复后: 搜索"NG"只精确匹配国家代码NG的航司'); 

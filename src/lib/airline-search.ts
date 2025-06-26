@@ -2567,6 +2567,25 @@ export function searchAirlines(query: string): Airline[] {
   const normalizedQuery = query.toLowerCase().trim();
 
   return AIRLINES.filter(airline => {
+    // 如果是短查询（国家代码等），优先精确匹配
+    if (normalizedQuery.length <= 2) {
+      return (
+        // 航司代码匹配 (如: MU, CZ, CA)
+        airline.code.toLowerCase().includes(normalizedQuery) ||
+        // ICAO代码匹配 (如: CES, CSN, CCA)
+        airline.icao?.toLowerCase().includes(normalizedQuery) ||
+        // 提单号前缀匹配 (如: 781, 784, 999)
+        airline.prefix.includes(normalizedQuery) ||
+        // 中文名称匹配 (如: 中国东方航空, 东方航空)
+        airline.name.chinese.includes(normalizedQuery) ||
+        // 国家名称匹配 (如: 中国, 日本)
+        airline.country.includes(normalizedQuery) ||
+        // 国家代码精确匹配 (如: CN, JP, US, NG)
+        airline.countryCode.toLowerCase() === normalizedQuery
+      );
+    }
+
+    // 长查询支持完整匹配
     return (
       // 航司代码匹配 (如: MU, CZ, CA)
       airline.code.toLowerCase().includes(normalizedQuery) ||
@@ -2576,7 +2595,7 @@ export function searchAirlines(query: string): Airline[] {
       airline.prefix.includes(normalizedQuery) ||
       // 中文名称匹配 (如: 中国东方航空, 东方航空)
       airline.name.chinese.includes(normalizedQuery) ||
-      // 英文名称匹配 (如: China Eastern Airlines, Eastern)
+      // 英文名称匹配 (如: China Eastern Airlines, Eastern) - 只对长查询开放
       airline.name.english.toLowerCase().includes(normalizedQuery) ||
       // 国家名称匹配 (如: 中国, 日本)
       airline.country.includes(normalizedQuery) ||
