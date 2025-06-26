@@ -2557,6 +2557,74 @@ const AIRLINES: Airline[] = [
     hub: ['SSG'],
     fleetSize: 2,
     active: true
+  },
+
+  // 🇬🇧 英国航空公司 (按机队规模排序)
+  {
+    code: 'VS',
+    prefix: '932',
+    icao: 'VIR',
+    name: { chinese: '维珍航空', english: 'Virgin Atlantic' },
+    country: '英国',
+    countryCode: 'GB',
+    type: 'FSC',
+    hub: ['LHR', 'LGW', 'MAN'],
+    fleetSize: 45,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'BA',
+    prefix: '125',
+    icao: 'BAW',
+    name: { chinese: '英国航空', english: 'British Airways' },
+    country: '英国',
+    countryCode: 'GB',
+    type: 'FSC',
+    alliance: 'Oneworld',
+    hub: ['LHR', 'LGW'],
+    fleetSize: 273,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'D0',
+    prefix: '936',
+    icao: 'DHK',
+    name: { chinese: 'DHL航空', english: 'DHL Air' },
+    country: '英国',
+    countryCode: 'GB',
+    type: 'Cargo',
+    hub: ['EMA', 'CVT'],
+    fleetSize: 35,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'T3',
+    prefix: '467',
+    icao: 'EZE',
+    name: { chinese: '东方航空公司', english: 'Eastern Airways' },
+    country: '英国',
+    countryCode: 'GB',
+    type: 'Regional',
+    hub: ['HUY', 'ABZ'],
+    fleetSize: 28,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'LM',
+    prefix: '682',
+    icao: 'LOG',
+    name: { chinese: '洛根航空', english: 'Loganair' },
+    country: '英国',
+    countryCode: 'GB',
+    type: 'Regional',
+    hub: ['GLA', 'EDI'],
+    fleetSize: 43,
+    active: true,
+    isIata: true
   }
 ];
 
