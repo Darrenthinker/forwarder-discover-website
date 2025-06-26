@@ -87,6 +87,9 @@ import { timorLesteEnhancedAirports } from './airport-codes-timor-leste-enhanced
 import { nigerEnhancedAirports } from './airport-codes-niger-enhanced';
 import { getCityPriority, extractCityName } from './city-priority';
 import { formatCountryDisplay, getCountryInfoByCode, isCountryCode, searchCountries } from './country-codes';
+
+// 重新导出国家代码相关函数，方便外部使用
+export { getCountryInfoByCode, isCountryCode, searchCountries } from './country-codes';
 import { findStandardCountryName, shouldExcludeCountry, shouldExcludeAirportByName } from './country-aliases';
 import { completeCountriesDatabase, CountryInfo } from './complete-countries';
 
