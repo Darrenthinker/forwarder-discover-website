@@ -345,7 +345,7 @@ export function AirportSearch({
         // 欧洲国际机场
         'LHR', 'CDG', 'FRA', 'AMS', 'MAD', 'FCO', 'MUC', 'ZUR', 'VIE', 'CPH', 'PRN',
         // 亚洲国际机场
-        'NRT', 'ICN', 'BKK', 'SIN', 'KUL', 'CGK', 'MNL', 'HKG', 'TPE',
+        'NRT', 'ICN', 'BKK', 'SIN', 'KUL', 'CGK', 'MNL', 'HKG', 'TPE', 'FNJ',
         // 大洋洲国际机场
         'SYD', 'MEL', 'AKL', 'PER', 'BNE', 'ADL',
         // 中东国际机场

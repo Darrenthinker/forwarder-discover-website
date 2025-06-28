@@ -32,7 +32,7 @@ export const globalCountriesDatabase: CountryInfo[] = [
   { code: 'CN', chinese: '中国', english: 'China', continent: '亚洲', hasAirports: true, airportCount: 50, internationalAirports: 38, status: 'completed', capital: '北京' },
   { code: 'JP', chinese: '日本', english: 'Japan', continent: '亚洲', hasAirports: true, airportCount: 30, internationalAirports: 20, status: 'completed', capital: '东京' },
   { code: 'KR', chinese: '韩国', english: 'South Korea', continent: '亚洲', hasAirports: true, airportCount: 25, internationalAirports: 10, status: 'completed', capital: '首尔' },
-  { code: 'KP', chinese: '朝鲜', english: 'North Korea', continent: '亚洲', hasAirports: true, airportCount: 2, internationalAirports: 1, status: 'planned', capital: '平壤' },
+  { code: 'KP', chinese: '朝鲜', english: 'North Korea', continent: '亚洲', hasAirports: true, airportCount: 5, internationalAirports: 1, status: 'completed', capital: '平壤' },
   { code: 'MN', chinese: '蒙古', english: 'Mongolia', continent: '亚洲', hasAirports: true, airportCount: 3, internationalAirports: 1, status: 'planned', capital: '乌兰巴托' },
 
   // 东南亚

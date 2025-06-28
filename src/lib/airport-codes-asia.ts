@@ -241,7 +241,15 @@ export const asiaAirports: { [key: string]: AirportInfo } = {
   // 🇰🇵 朝鲜 NORTH KOREA - 国际机场
   // ================================================================
 
-  'FNJ': { chinese: '平壤', english: 'Pyongyang Sunan', country: '朝鲜' },
+  'FNJ': { chinese: '平壤', english: 'Pyongyang Sunan', country: '朝鲜', type: 'international', customs: true, priority: 90 },
+
+  // ================================================================
+  // 🇰🇵 朝鲜 NORTH KOREA - 国内机场
+  // ================================================================
+
+  'DSO': { chinese: '善德', english: 'Sondok', country: '朝鲜', type: 'domestic', customs: false, priority: 30 },
+  'YJS': { chinese: '三池渊', english: 'Samjiyon', country: '朝鲜', type: 'domestic', customs: false, priority: 25 },
+  'WOS': { chinese: '元山', english: 'Wonsan', country: '朝鲜', type: 'domestic', customs: false, priority: 35 },
 
   // ================================================================
   // 🇹🇭 泰国 THAILAND - 国际机场
