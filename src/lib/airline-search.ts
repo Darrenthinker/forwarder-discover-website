@@ -17,6 +17,9 @@ export interface Airline {
   isIata?: boolean;     // 是否为IATA成员
 }
 
+// 🌍 导入智能国家搜索功能
+import { searchCompleteCountries } from './complete-countries';
+
 // 航空公司数据库 - 按地区分类，按机队规模排序
 const AIRLINES: Airline[] = [
   // 🇯🇵 日本航空公司 (按机队规模排序) - 已更新IATA官方数据
@@ -220,7 +223,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['PVG'],
     fleetSize: 110,
-    active: true
+    active: true,
+    isIata: false  // ❌ 春秋航空不是IATA成员
   },
   {
     code: 'KN',
@@ -245,7 +249,8 @@ const AIRLINES: Airline[] = [
     type: 'Regional',
     hub: ['CTU'],
     fleetSize: 65,
-    active: true
+    active: true,
+    isIata: false  // ❌ 成都航空不是IATA成员
   },
   {
     code: 'O3',
@@ -477,7 +482,8 @@ const AIRLINES: Airline[] = [
     alliance: 'SkyTeam',
     hub: ['ICN'],
     fleetSize: 169,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'YP',
@@ -489,7 +495,8 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['ICN'],
     fleetSize: 9,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'OZ',
@@ -502,11 +509,12 @@ const AIRLINES: Airline[] = [
     alliance: 'Star Alliance',
     hub: ['ICN'],
     fleetSize: 93,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: '7C',
-    prefix: '042',
+    prefix: '806',
     icao: 'JJA',
     name: { chinese: '济州航空', english: 'Jeju Air' },
     country: '韩国',
@@ -514,11 +522,12 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['ICN', 'CJU'],
     fleetSize: 45,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'LJ',
-    prefix: '298',
+    prefix: '718',
     icao: 'JNA',
     name: { chinese: '真航空', english: 'Jin Air' },
     country: '韩国',
@@ -526,19 +535,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['ICN'],
     fleetSize: 42,
-    active: true
-  },
-  {
-    code: 'TW',
-    prefix: '649',
-    icao: 'TWB',
-    name: { chinese: 't\'way航空', english: 't\'way air' },
-    country: '韩国',
-    countryCode: 'KR',
-    type: 'LCC',
-    hub: ['ICN'],
-    fleetSize: 34,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'RS',
@@ -550,7 +548,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['ICN'],
     fleetSize: 14,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
 
   // 🇮🇳 印度航空公司 (按机队规模排序)
@@ -817,18 +816,7 @@ const AIRLINES: Airline[] = [
     active: true
   },
 
-  {
-    code: 'Y9',
-    prefix: '751',
-    icao: 'EPA',
-    name: { chinese: '圆通航空', english: 'YTO Cargo Airlines' },
-    country: '中国',
-    countryCode: 'CN',
-    type: 'Cargo',
-    hub: ['HGH', 'TSN'],
-    fleetSize: 18,
-    active: true
-  },
+
 
   // 🇮🇩 印尼航空公司补充 - 根据IATA官网核实
   {
@@ -2880,7 +2868,61 @@ const AIRLINES: Airline[] = [
     fleetSize: 43,
     active: true,
     isIata: true
-  }
+  },
+  {
+    code: 'YG',
+    prefix: '860',
+    icao: 'HYT',
+    name: { chinese: '圆通航空', english: 'YTO Cargo Airlines' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'Cargo',
+    hub: ['HGH', 'TSN'],
+    fleetSize: 18,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'TW',
+    prefix: '722',
+    icao: 'TWB',
+    name: { chinese: 'T\'way航空', english: 'T\'way Air' },
+    country: '韩国',
+    countryCode: 'KR',
+    type: 'LCC',
+    hub: ['ICN'],
+    fleetSize: 34,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'KJ',
+    prefix: '994',
+    icao: 'AIH',
+    name: { chinese: '仁川航空', english: 'Air Incheon' },
+    country: '韩国',
+    countryCode: 'KR',
+    type: 'Cargo',
+    hub: ['ICN'],
+    fleetSize: 8,
+    active: true,
+    isIata: true  // ✅ IATA成员 - 新增
+  },
+
+  // 🇰🇵 朝鲜航空公司
+  {
+    code: 'JS',
+    prefix: '120',
+    icao: 'KOR',
+    name: { chinese: '高丽航空', english: 'Air Koryo' },
+    country: '朝鲜',
+    countryCode: 'KP',
+    type: 'FSC',
+    hub: ['FNJ'],
+    fleetSize: 15,
+    active: true,
+    isIata: true  // ✅ IATA成员 - 新增
+  },
 ];
 
 // 搜索函数 - 支持提单号、航司代码、中英文名称搜索
@@ -2888,6 +2930,42 @@ export function searchAirlines(query: string): Airline[] {
   if (!query || query.length < 1) return [];
 
   const normalizedQuery = query.toLowerCase().trim();
+
+  // 🌍 新增：智能国家名搜索 - 支持中文、英文、代码搜索
+  const matchedCountries = searchCompleteCountries(query);
+  
+  if (matchedCountries.length > 0) {
+    // 如果找到匹配的国家，搜索所有属于这些国家的航司
+    const countrySearchResults = AIRLINES.filter(airline => {
+      // 检查是否匹配任何找到的国家
+      return matchedCountries.some((country: any) => 
+        airline.country.includes(country.chinese) || 
+        airline.country.toLowerCase().includes(country.english.toLowerCase()) ||
+        airline.countryCode.toLowerCase() === country.code.toLowerCase()
+      );
+    });
+    
+    if (countrySearchResults.length > 0) {
+      // 如果是纯国家搜索，优先返回国家搜索结果
+      const isCountryOnlySearch = matchedCountries.some((country: any) => 
+        country.chinese === query.trim() || 
+        country.english.toLowerCase() === normalizedQuery ||
+        country.code.toLowerCase() === normalizedQuery
+      );
+      
+      if (isCountryOnlySearch) {
+        return countrySearchResults.sort((a, b) => {
+          // IATA成员优先排序
+          const aIsIata = a.isIata !== false;
+          const bIsIata = b.isIata !== false;
+          if (aIsIata && !bIsIata) return -1;
+          if (!aIsIata && bIsIata) return 1;
+          // 按机队规模排序
+          return (b.fleetSize || 0) - (a.fleetSize || 0);
+        });
+      }
+    }
+  }
 
   return AIRLINES.filter(airline => {
     // 如果是短查询（国家代码等），优先精确匹配
@@ -2926,29 +3004,29 @@ export function searchAirlines(query: string): Airline[] {
       airline.countryCode.toLowerCase().includes(normalizedQuery)
     );
   }).sort((a, b) => {
-    // 1. 优先显示完全匹配航司代码的结果
+    // 🥇 1. IATA成员最优先排序 - 所有IATA成员排在非IATA成员前面
+    const aIsIata = a.isIata !== false; // 默认为true，只有明确设置为false才是非IATA
+    const bIsIata = b.isIata !== false;
+    if (aIsIata && !bIsIata) return -1;
+    if (!aIsIata && bIsIata) return 1;
+
+    // 2. 在相同IATA状态下，优先显示完全匹配航司代码的结果
     const aCodeExactMatch = a.code.toLowerCase() === normalizedQuery;
     const bCodeExactMatch = b.code.toLowerCase() === normalizedQuery;
     if (aCodeExactMatch && !bCodeExactMatch) return -1;
     if (!aCodeExactMatch && bCodeExactMatch) return 1;
 
-    // 2. 优先显示完全匹配提单号的结果
+    // 3. 优先显示完全匹配提单号的结果
     const aPrefixExactMatch = a.prefix === normalizedQuery;
     const bPrefixExactMatch = b.prefix === normalizedQuery;
     if (aPrefixExactMatch && !bPrefixExactMatch) return -1;
     if (!aPrefixExactMatch && bPrefixExactMatch) return 1;
 
-    // 3. 优先显示航司代码开头匹配的结果
+    // 4. 优先显示航司代码开头匹配的结果
     const aCodeStartsWith = a.code.toLowerCase().startsWith(normalizedQuery);
     const bCodeStartsWith = b.code.toLowerCase().startsWith(normalizedQuery);
     if (aCodeStartsWith && !bCodeStartsWith) return -1;
     if (!aCodeStartsWith && bCodeStartsWith) return 1;
-
-    // 4. IATA成员优先排序
-    const aIsIata = a.isIata !== false; // 默认为true，只有明确设置为false才是非IATA
-    const bIsIata = b.isIata !== false;
-    if (aIsIata && !bIsIata) return -1;
-    if (!aIsIata && bIsIata) return 1;
 
     // 5. 最后按机队规模排序
     return (b.fleetSize || 0) - (a.fleetSize || 0);

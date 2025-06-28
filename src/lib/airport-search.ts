@@ -92,7 +92,7 @@ import { formatCountryDisplay, getCountryInfoByCode, isCountryCode, searchCountr
 // 重新导出国家代码相关函数，方便外部使用
 export { getCountryInfoByCode, isCountryCode, searchCountries } from './country-codes';
 import { findStandardCountryName, shouldExcludeCountry, shouldExcludeAirportByName } from './country-aliases';
-import { completeCountriesDatabase, CountryInfo } from './complete-countries';
+import { completeCountriesDatabase, CountryInfo, searchCompleteCountries } from './complete-countries';
 
 // 🚀 新增：搜索性能优化系统
 const searchCache = new Map<string, AirportSearchResult[]>();
@@ -1077,7 +1077,48 @@ export function searchAirports(query: string, limit: number = 10): AirportSearch
   const countryResults = searchByCountryCode(query, limit);
   if (countryResults && countryResults.length > 0) {
     return countryResults;
+  }
+
+  // 🌍 新增：智能国家名搜索 - 支持中文、英文、代码搜索
+  const matchedCountries = searchCompleteCountries(query);
+  if (matchedCountries.length > 0) {
+    // 🔧 修复：直接模拟常规搜索逻辑，而不是调用findAirportsByCountry
+    const countrySearchResults: AirportSearchResult[] = [];
+    
+    for (const [code, info] of Object.entries(globalAirports)) {
+      if (shouldExcludeAirportByName(query, info.chinese, info.country) || shouldExcludeCountry(query, info.country)) {
+        continue;
+      }
+
+      // 检查是否匹配任何找到的国家
+      const matchesCountry = matchedCountries.some(country => 
+        info.country.includes(country.chinese) || 
+        info.country.toLowerCase().includes(country.english.toLowerCase())
+      );
+
+      if (matchesCountry) {
+        countrySearchResults.push(formatAirportResult(code, info));
+      }
     }
+    
+    if (countrySearchResults.length > 0) {
+      // 🔧 使用和常规搜索相同的排序逻辑
+      return countrySearchResults
+        .sort((a, b) => {
+          // 优先级排序
+          if (a.priority !== b.priority) {
+            return b.priority - a.priority;
+          }
+          // 国际机场优先
+          if (a.type !== b.type) {
+            return a.type === 'international' ? -1 : 1;
+          }
+          // 按代码字母顺序
+          return a.code.localeCompare(b.code);
+        })
+        .slice(0, limit); // 保持和常规搜索相同的limit行为
+    }
+  }
 
   // 常规搜索逻辑
   const results: AirportSearchResult[] = [];
@@ -1100,7 +1141,7 @@ export function searchAirports(query: string, limit: number = 10): AirportSearch
       continue;
     }
 
-    // 国家名称匹配
+    // 国家名称匹配（保留原有的中文国家名匹配作为备选）
     if (info.country.includes(query)) {
       results.push(formatAirportResult(code, info));
       continue;
