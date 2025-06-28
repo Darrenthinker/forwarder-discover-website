@@ -343,7 +343,7 @@ export function AirportSearch({
         // 美国国际机场
         'JFK', 'LAX', 'ORD', 'ATL', 'DFW', 'DEN', 'SFO', 'SEA', 'LAS', 'MCO',
         // 欧洲国际机场
-        'LHR', 'CDG', 'FRA', 'AMS', 'MAD', 'FCO', 'MUC', 'ZUR', 'VIE', 'CPH',
+        'LHR', 'CDG', 'FRA', 'AMS', 'MAD', 'FCO', 'MUC', 'ZUR', 'VIE', 'CPH', 'PRN',
         // 亚洲国际机场
         'NRT', 'ICN', 'BKK', 'SIN', 'KUL', 'CGK', 'MNL', 'HKG', 'TPE',
         // 大洋洲国际机场

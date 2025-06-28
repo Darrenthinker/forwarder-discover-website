@@ -55,6 +55,7 @@ import { bosniaEnhancedAirports } from './airport-codes-bosnia-enhanced';
 import { macedoniaEnhancedAirports } from './airport-codes-macedonia-enhanced';
 import { montenegroEnhancedAirports } from './airport-codes-montenegro-enhanced';
 import { albaniaEnhancedAirports } from './airport-codes-albania-enhanced';
+import { kosovoEnhancedAirports } from './airport-codes-kosovo-enhanced';
 import { irelandEnhancedAirports } from './airport-codes-ireland-enhanced';
 import { scotlandEnhancedAirports } from './airport-codes-scotland-enhanced';
 import { italySouthEnhancedAirports } from './airport-codes-italy-south-enhanced';
@@ -378,6 +379,9 @@ const montenegroBasicAirports = convertEnhancedToBasic(montenegroEnhancedAirport
 // 转换阿尔巴尼亚增强数据为基础格式
 const albaniaBasicAirports = convertEnhancedToBasic(albaniaEnhancedAirports);
 
+// 转换科索沃增强数据为基础格式
+const kosovoBasicAirports = convertEnhancedToBasic(kosovoEnhancedAirports);
+
 // 转换爱尔兰增强数据为基础格式
 const irelandBasicAirports = convertEnhancedToBasic(irelandEnhancedAirports);
 
@@ -585,6 +589,8 @@ export const globalAirports: GlobalAirports = {
   ...montenegroBasicAirports,
   // 增强的阿尔巴尼亚机场数据覆盖原有数据
   ...albaniaBasicAirports,
+  // 增强的科索沃机场数据覆盖原有数据
+  ...kosovoBasicAirports,
   // 增强的爱尔兰机场数据覆盖原有数据
   ...irelandBasicAirports,
   // 增强的苏格兰机场数据覆盖原有数据
@@ -712,6 +718,7 @@ export function getAirportContinent(code: string): string {
   if (macedoniaEnhancedAirports.some(a => a.iata === code)) return '欧洲';
   if (montenegroEnhancedAirports.some(a => a.iata === code)) return '欧洲';
   if (albaniaEnhancedAirports.some(a => a.iata === code)) return '欧洲';
+  if (kosovoEnhancedAirports.some(a => a.iata === code)) return '欧洲';
   if (irelandEnhancedAirports.some(a => a.iata === code)) return '欧洲';
   if (scotlandEnhancedAirports.some(a => a.iata === code)) return '欧洲';
   if (italySouthEnhancedAirports.some(a => a.iata === code)) return '欧洲';
