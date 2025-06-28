@@ -2935,10 +2935,25 @@ export function searchAirlines(query: string): Airline[] {
   const matchedCountries = searchCompleteCountries(query);
   
   if (matchedCountries.length > 0) {
+    // 特殊处理：如果是2字符查询且可能是国家代码，优先精确匹配
+    const isPossibleCountryCode = normalizedQuery.length === 2 && /^[a-z]+$/.test(normalizedQuery);
+    
+    let relevantCountries = matchedCountries;
+    if (isPossibleCountryCode) {
+      // 对于可能的国家代码，优先选择精确匹配的国家
+      const exactCodeMatches = matchedCountries.filter((country: any) => 
+        country.code.toLowerCase() === normalizedQuery
+      );
+      
+      if (exactCodeMatches.length > 0) {
+        relevantCountries = exactCodeMatches;
+      }
+    }
+    
     // 如果找到匹配的国家，搜索所有属于这些国家的航司
     const countrySearchResults = AIRLINES.filter(airline => {
       // 检查是否匹配任何找到的国家
-      return matchedCountries.some((country: any) => 
+      return relevantCountries.some((country: any) => 
         airline.country.includes(country.chinese) || 
         airline.country.toLowerCase().includes(country.english.toLowerCase()) ||
         airline.countryCode.toLowerCase() === country.code.toLowerCase()
@@ -2947,7 +2962,7 @@ export function searchAirlines(query: string): Airline[] {
     
     if (countrySearchResults.length > 0) {
       // 如果是纯国家搜索，优先返回国家搜索结果
-      const isCountryOnlySearch = matchedCountries.some((country: any) => 
+      const isCountryOnlySearch = relevantCountries.some((country: any) => 
         country.chinese === query.trim() || 
         country.english.toLowerCase() === normalizedQuery ||
         country.code.toLowerCase() === normalizedQuery
