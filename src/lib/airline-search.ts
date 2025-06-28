@@ -19,7 +19,7 @@ export interface Airline {
 
 // 航空公司数据库 - 按地区分类，按机队规模排序
 const AIRLINES: Airline[] = [
-  // 🇯🇵 日本航空公司 (按机队规模排序)
+  // 🇯🇵 日本航空公司 (按机队规模排序) - 已更新IATA官方数据
   {
     code: 'NH',
     prefix: '205',
@@ -31,7 +31,8 @@ const AIRLINES: Airline[] = [
     alliance: 'Star Alliance',
     hub: ['NRT', 'HND'],
     fleetSize: 272,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'JL',
@@ -44,7 +45,8 @@ const AIRLINES: Airline[] = [
     alliance: 'Oneworld',
     hub: ['NRT', 'HND'],
     fleetSize: 236,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'BC',
@@ -56,7 +58,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['HND'],
     fleetSize: 30,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
   {
     code: 'MM',
@@ -68,11 +71,12 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['KIX', 'NRT'],
     fleetSize: 27,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
   {
     code: 'NU',
-    prefix: '908',
+    prefix: '353',
     icao: 'JTA',
     name: { chinese: '日本越洋航空', english: 'Japan Transocean Air' },
     country: '日本',
@@ -81,7 +85,20 @@ const AIRLINES: Airline[] = [
     hub: ['OKA'],
     fleetSize: 18,
     active: true,
-    isIata: true
+    isIata: true  // ✅ IATA成员 - 修正前缀908→353
+  },
+  {
+    code: 'KZ',
+    prefix: '933',
+    icao: 'NCA',
+    name: { chinese: '日本货运航空', english: 'Nippon Cargo Airlines' },
+    country: '日本',
+    countryCode: 'JP',
+    type: 'Cargo',
+    hub: ['NRT', 'KIX'],
+    fleetSize: 8,
+    active: true,
+    isIata: true  // ✅ IATA成员 - 新增货运航司
   },
   {
     code: 'JW',
@@ -93,7 +110,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['NRT'],
     fleetSize: 0,
-    active: false
+    active: false,
+    isIata: false  // ❌ 非IATA成员，已停运
   },
 
   // 🇨🇳 中国大陆航空公司 (按机队规模排序)
@@ -108,7 +126,8 @@ const AIRLINES: Airline[] = [
     alliance: 'SkyTeam',
     hub: ['PVG', 'KMG'],
     fleetSize: 750,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: 'CZ',
@@ -121,7 +140,8 @@ const AIRLINES: Airline[] = [
     alliance: 'SkyTeam',
     hub: ['CAN', 'PKX'],
     fleetSize: 665,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: 'CA',
@@ -134,7 +154,8 @@ const AIRLINES: Airline[] = [
     alliance: 'Star Alliance',
     hub: ['PEK', 'PKX'],
     fleetSize: 460,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: 'HU',
@@ -146,7 +167,8 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['HAK', 'PEK'],
     fleetSize: 350,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: 'MF',
@@ -159,7 +181,8 @@ const AIRLINES: Airline[] = [
     alliance: 'SkyTeam',
     hub: ['XMN', 'PEK'],
     fleetSize: 210,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: '3U',
@@ -171,7 +194,8 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['CTU', 'CKG'],
     fleetSize: 180,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: 'SC',
@@ -183,7 +207,8 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['JNA', 'TSN'],
     fleetSize: 120,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: '9C',
@@ -199,7 +224,7 @@ const AIRLINES: Airline[] = [
   },
   {
     code: 'KN',
-    prefix: '990',
+    prefix: '822',
     icao: 'CUA',
     name: { chinese: '中国联合航空', english: 'China United Airlines' },
     country: '中国',
@@ -207,7 +232,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['PKX'],
     fleetSize: 85,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: 'EU',
@@ -231,7 +257,8 @@ const AIRLINES: Airline[] = [
     type: 'Cargo',
     hub: ['SZX'],
     fleetSize: 78,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: 'JG',
@@ -243,7 +270,8 @@ const AIRLINES: Airline[] = [
     type: 'Cargo',
     hub: ['NKG', 'SHA'],
     fleetSize: 12,
-    active: true
+    active: true,
+    isIata: true
   },
 
   // 🇭🇰 中国香港航空公司 (按机队规模排序)
@@ -906,19 +934,246 @@ const AIRLINES: Airline[] = [
     type: 'Cargo',
     hub: ['PVG'],
     fleetSize: 18,
-    active: true
+    active: true,
+    isIata: true
   },
   {
     code: 'Y8',
-    prefix: '296',
-    icao: 'EPA',
-    name: { chinese: '扬子江快运', english: 'Yangtze River Express' },
+    prefix: '871',
+    icao: 'YZR',
+    name: { chinese: '金鹏航空', english: 'Suparna Airlines' },
     country: '中国',
     countryCode: 'CN',
     type: 'Cargo',
-    hub: ['SHJ'],
+    hub: ['NKG'],
     fleetSize: 22,
-    active: true
+    active: true,
+    isIata: true
+  },
+
+  // 🇨🇳 中国大陆新增IATA航司
+  {
+    code: 'FM',
+    prefix: '774',
+    icao: 'CSH',
+    name: { chinese: '上海航空', english: 'Shanghai Airlines' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'FSC',
+    alliance: 'SkyTeam',
+    hub: ['PVG', 'SHA'],
+    fleetSize: 45,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'ZH',
+    prefix: '479',
+    icao: 'CSZ',
+    name: { chinese: '深圳航空', english: 'Shenzhen Airlines' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'FSC',
+    alliance: 'Star Alliance',
+    hub: ['SZX'],
+    fleetSize: 220,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'HO',
+    prefix: '018',
+    icao: 'DKH',
+    name: { chinese: '吉祥航空', english: 'Juneyao Airlines' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'FSC',
+    hub: ['PVG'],
+    fleetSize: 95,
+    active: true,
+    isIata: true
+  },
+  {
+    code: '8L',
+    prefix: '859',
+    icao: 'LKE',
+    name: { chinese: '祥鹏航空', english: 'Lucky Air' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'LCC',
+    hub: ['KMG'],
+    fleetSize: 48,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'GS',
+    prefix: '826',
+    icao: 'GCR',
+    name: { chinese: '天津航空', english: 'Tianjin Airlines' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'FSC',
+    hub: ['TSN'],
+    fleetSize: 42,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'PN',
+    prefix: '847',
+    icao: 'CHB',
+    name: { chinese: '西部航空', english: 'West Air' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'LCC',
+    hub: ['CKG'],
+    fleetSize: 35,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'KY',
+    prefix: '833',
+    icao: 'KNA',
+    name: { chinese: '昆明航空', english: 'Kunming Airlines' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'LCC',
+    hub: ['KMG'],
+    fleetSize: 32,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'TV',
+    prefix: '088',
+    icao: 'TBA',
+    name: { chinese: '西藏航空', english: 'Tibet Airlines' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'FSC',
+    hub: ['LXA'],
+    fleetSize: 28,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'FU',
+    prefix: '666',
+    icao: 'FZA',
+    name: { chinese: '福州航空', english: 'Fuzhou Airlines' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'LCC',
+    hub: ['FOC'],
+    fleetSize: 26,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'JD',
+    prefix: '898',
+    icao: 'CBJ',
+    name: { chinese: '首都航空', english: 'Capital Airlines' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'FSC',
+    hub: ['PEK', 'HGH'],
+    fleetSize: 24,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'QW',
+    prefix: '912',
+    icao: 'QDA',
+    name: { chinese: '青岛航空', english: 'Qingdao Airlines' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'LCC',
+    hub: ['TAO'],
+    fleetSize: 22,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'GJ',
+    prefix: '891',
+    icao: 'CDC',
+    name: { chinese: '龙江航空', english: 'Loong Air' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'LCC',
+    hub: ['HRB'],
+    fleetSize: 18,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'NS',
+    prefix: '836',
+    icao: 'HBH',
+    name: { chinese: '河北航空', english: 'Hebei Airlines' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'FSC',
+    hub: ['SJW'],
+    fleetSize: 16,
+    active: true,
+    isIata: true
+  },
+  {
+    code: '9H',
+    prefix: '856',
+    icao: 'CGN',
+    name: { chinese: '长安航空', english: 'Air Changan' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'LCC',
+    hub: ['XIY'],
+    fleetSize: 14,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'DR',
+    prefix: '299',
+    icao: 'RLH',
+    name: { chinese: '瑞丽航空', english: 'Ruili Airlines' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'LCC',
+    hub: ['KMG'],
+    fleetSize: 12,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'G5',
+    prefix: '987',
+    icao: 'HXA',
+    name: { chinese: '中华快递航空', english: 'China Express Airlines' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'FSC',
+    hub: ['CKG'],
+    fleetSize: 10,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'CF',
+    prefix: '804',
+    icao: 'CYZ',
+    name: { chinese: '中国邮政航空', english: 'China Postal Airlines' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'Cargo',
+    hub: ['NKG'],
+    fleetSize: 8,
+    active: true,
+    isIata: true
   },
   {
     code: 'FZ',
@@ -2700,23 +2955,66 @@ export function searchAirlines(query: string): Airline[] {
   });
 }
 
-// 按国家查找航空公司
+// 按国家查找航空公司 - 支持中国统一搜索
 export function findAirlinesByCountry(country: string): Airline[] {
   if (!country) return [];
 
   const normalizedCountry = country.toLowerCase().trim();
 
-  return AIRLINES.filter(airline =>
-    airline.country.toLowerCase().includes(normalizedCountry) ||
-    airline.countryCode.toLowerCase() === normalizedCountry
-  ).sort((a, b) => {
-    // 1. IATA成员优先排序
-    const aIsIata = a.isIata !== false; // 默认为true，只有明确设置为false才是非IATA
+  let airlines = AIRLINES.filter(airline => {
+    // 常规匹配
+    const basicMatch = airline.country.toLowerCase().includes(normalizedCountry) ||
+                       airline.countryCode.toLowerCase() === normalizedCountry;
+    
+    // 特殊处理：搜索"中国"时包含港澳台地区
+    if (normalizedCountry === '中国' || normalizedCountry === 'china' || normalizedCountry === 'cn') {
+      const isChinaRelated = airline.country === '中国' ||
+                            airline.country === '中国香港' ||
+                            airline.country === '中国澳门' ||
+                            airline.country === '中国台湾';
+      return basicMatch || isChinaRelated;
+    }
+    
+    return basicMatch;
+  });
+
+  // 为港澳台航司添加地区标识
+  airlines = airlines.map(airline => {
+    if (normalizedCountry === '中国' || normalizedCountry === 'china' || normalizedCountry === 'cn') {
+      if (airline.country === '中国香港' || airline.country === '中国澳门' || airline.country === '中国台湾') {
+        return {
+          ...airline,
+          displayCountry: airline.country // 保持原有的地区标识
+        };
+      }
+    }
+    return airline;
+  });
+
+  return airlines.sort((a, b) => {
+    // 1. 中国大陆航司优先显示
+    if (normalizedCountry === '中国' || normalizedCountry === 'china' || normalizedCountry === 'cn') {
+      const aIsMainland = a.country === '中国';
+      const bIsMainland = b.country === '中国';
+      if (aIsMainland && !bIsMainland) return -1;
+      if (!aIsMainland && bIsMainland) return 1;
+      
+      // 港澳台内部排序：香港 > 台湾 > 澳门
+      if (!aIsMainland && !bIsMainland) {
+        const regionOrder = { '中国香港': 1, '中国台湾': 2, '中国澳门': 3 };
+        const aOrder = regionOrder[a.country as keyof typeof regionOrder] || 4;
+        const bOrder = regionOrder[b.country as keyof typeof regionOrder] || 4;
+        if (aOrder !== bOrder) return aOrder - bOrder;
+      }
+    }
+
+    // 2. IATA成员优先排序
+    const aIsIata = a.isIata !== false;
     const bIsIata = b.isIata !== false;
     if (aIsIata && !bIsIata) return -1;
     if (!aIsIata && bIsIata) return 1;
 
-    // 2. 按机队规模排序
+    // 3. 按机队规模排序
     return (b.fleetSize || 0) - (a.fleetSize || 0);
   });
 }
