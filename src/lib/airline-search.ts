@@ -1476,7 +1476,7 @@ const AIRLINES: Airline[] = [
     active: true
   },
 
-  // 🇲🇳 蒙古航空公司
+  // 🇲🇳 蒙古IATA航空公司
   {
     code: 'OM',
     prefix: '289',
@@ -1487,7 +1487,21 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['ULN'],
     fleetSize: 11,
-    active: true
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'MG',
+    prefix: '116',
+    icao: 'EZA',
+    name: { chinese: '埃兹尼斯航空', english: 'Eznis Airways' },
+    country: '蒙古',
+    countryCode: 'MN',
+    type: 'FSC',
+    hub: ['ULN'],
+    fleetSize: 4,
+    active: true,
+    isIata: true
   },
 
   // 🇦🇫 阿富汗航空公司
