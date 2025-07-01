@@ -694,7 +694,7 @@ export const southeastAsiaEnhancedAirports: EnhancedAirportInfo[] = [
   {
     iata: 'BWN',
     icao: 'WBSB',
-    chinese: '斯里巴加湾机场',
+    chinese: '斯里巴加湾市机场',
     english: 'Bandar Seri Begawan Airport',
     city: '斯里巴加湾市',
     province: '文莱摩拉区',
@@ -935,7 +935,7 @@ export const southeastAsiaAirportStats = {
     '🏛️ 仰光国际机场 - 缅甸最大机场，佛塔之国门户',
     '🏛️ 金边国际机场 - 柬埔寨首都，高棉文化中心',
     '🏛️ 万象瓦岱机场 - 老挝首都，内陆佛教国家门户',
-    '🛢️ 斯里巴加湾机场 - 文莱首都，石油富国和平之邦',
+    '🛢️ 斯里巴加湾市机场 - 文莱首都，石油富国和平之邦',
     '🏛️ 暹粒-吴哥机场 - 吴哥窟世界遗产门户',
     '🏝️ 富国岛机场 - 越南最大岛屿，度假胜地',
     '🌊 宿务马克坦机场 - 菲律宾南部重要枢纽，旅游中心',
