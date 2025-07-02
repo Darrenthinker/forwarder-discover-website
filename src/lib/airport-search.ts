@@ -1092,8 +1092,8 @@ export function searchAirports(query: string, limit: number = 10): AirportSearch
 
       // 检查是否匹配任何找到的国家
       const matchesCountry = matchedCountries.some(country => 
-        info.country.includes(country.chinese) || 
-        info.country.toLowerCase().includes(country.english.toLowerCase())
+        info.country === country.chinese || 
+        info.country.toLowerCase() === country.english.toLowerCase()
       );
 
       if (matchesCountry) {

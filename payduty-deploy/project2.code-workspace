@@ -1,0 +1,62 @@
+{
+  "folders": [
+    {
+      "name": "项目2 - 税金代付专家",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "files.exclude": {
+      ".git": false
+    },
+    "search.exclude": {},
+    "terminal.integrated.cwd": "${workspaceFolder}",
+    "liveServer.settings.port": 3001,
+    "liveServer.settings.CustomBrowser": "chrome",
+    "liveServer.settings.donotShowInfoMsg": true
+  },
+  "extensions": {
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "ritwickdey.liveserver",
+      "ms-vscode.live-server",
+      "formulahendry.auto-rename-tag",
+      "christian-kohler.path-intellisense"
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "启动项目2静态服务器",
+        "type": "shell",
+        "command": "python -m http.server 3001",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "new"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "使用Node.js启动静态服务器",
+        "type": "shell",
+        "command": "npx http-server -p 3001 -o",
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "new"
+        }
+      }
+    ]
+  }
+} 

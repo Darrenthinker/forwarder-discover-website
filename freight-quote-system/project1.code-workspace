@@ -1,0 +1,90 @@
+{
+  "folders": [
+    {
+      "name": "项目1 - 智能货运报价系统",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "typescript.preferences.includePackageJsonAutoImports": "on",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "files.exclude": {
+      "node_modules": true,
+      ".next": true,
+      ".git": false
+    },
+    "search.exclude": {
+      "node_modules": true,
+      ".next": true
+    },
+    "terminal.integrated.cwd": "${workspaceFolder}",
+    "npm.packageManager": "npm",
+    "eslint.workingDirectories": ["."],
+    "typescript.preferences.importModuleSpecifier": "relative"
+  },
+  "extensions": {
+    "recommendations": [
+      "bradlc.vscode-tailwindcss",
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "ms-vscode.vscode-typescript-next",
+      "formulahendry.auto-rename-tag",
+      "christian-kohler.path-intellisense"
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "启动项目1开发服务器",
+        "type": "shell",
+        "command": "npm run dev",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "new"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "构建项目1",
+        "type": "shell",
+        "command": "npm run build",
+        "group": "build",
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "new"
+        }
+      }
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "启动项目1 (Chrome)",
+        "type": "node",
+        "request": "launch",
+        "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
+        "args": ["dev", "-p", "3000"],
+        "cwd": "${workspaceFolder}",
+        "runtimeExecutable": "node",
+        "skipFiles": ["<node_internals>/**"],
+        "env": {
+          "NODE_ENV": "development"
+        }
+      }
+    ]
+  }
+} 

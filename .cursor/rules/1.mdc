@@ -1,0 +1,10 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+项目1 http://localhost:3000/   端口3000 智能货运报价系统
+项目2 http://localhost:3001/   端口3001 美国DHL/UPS税金代付  
+项目3 http://localhost:3002/   端口3002 货代群
+每个项目都要独立，不能互相影响
+
