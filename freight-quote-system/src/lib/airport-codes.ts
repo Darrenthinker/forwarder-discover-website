@@ -166,6 +166,7 @@ export const airportCodes: { [key: string]: AirportInfo } = {
   'LOS': { chinese: '拉各斯', english: 'Lagos', country: '尼日利亚' },
   'ABV': { chinese: '阿布贾', english: 'Abuja', country: '尼日利亚' },
   'ACC': { chinese: '阿克拉', english: 'Accra', country: '加纳' },
+  'CKY': { chinese: '科纳克里', english: 'Conakry', country: '几内亚' }, // 新增
   'CAS': { chinese: '卡萨布兰卡', english: 'Casablanca', country: '摩洛哥' },
   'TUN': { chinese: '突尼斯', english: 'Tunis', country: '突尼斯' },
   'ALG': { chinese: '阿尔及尔', english: 'Algiers', country: '阿尔及利亚' },
