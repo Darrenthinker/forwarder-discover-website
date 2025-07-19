@@ -1691,6 +1691,21 @@ const AIRLINES: Airline[] = [
     isIata: true  // ✅ IATA成员
   },
 
+  // 🇧🇳 文莱航空公司
+  {
+    code: 'BI',
+    prefix: '672',
+    icao: 'RBA',
+    name: { chinese: '文莱皇家航空', english: 'Royal Brunei' },
+    country: '文莱',
+    countryCode: 'BN',
+    type: 'FSC',
+    hub: ['BWN'],
+    fleetSize: 14,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+
   // 🇹🇷 土耳其航空公司
   {
     code: 'TK',
