@@ -42,3 +42,6 @@ Thumbs.db
 
 # IDE specific
 .specstory/
+
+# Workspace files (keep local)
+*.code-workspace
