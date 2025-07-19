@@ -1627,6 +1627,21 @@ const AIRLINES: Airline[] = [
     isIata: true  // ✅ IATA成员
   },
 
+  // 🇳🇵 尼泊尔航空公司
+  {
+    code: 'H9',
+    prefix: '769',
+    icao: 'HIM',
+    name: { chinese: '喜马拉雅航空', english: 'Himalaya Airlines' },
+    country: '尼泊尔',
+    countryCode: 'NP',
+    type: 'FSC',
+    hub: ['KTM'],
+    fleetSize: 4,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+
   // 🇲🇻 马尔代夫航空公司
   {
     code: 'Q2',
