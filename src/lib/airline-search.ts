@@ -869,15 +869,16 @@ const AIRLINES: Airline[] = [
   // 🇻🇳 越南航空公司 (按机队规模排序)
   {
     code: 'VJ',
-    prefix: '171',
+    prefix: '978',
     icao: 'VJC',
-    name: { chinese: '越捷航空', english: 'VietJet Air' },
+    name: { chinese: '越捷航空', english: 'Vietjet' },
     country: '越南',
     countryCode: 'VN',
     type: 'LCC',
     hub: ['SGN', 'HAN'],
     fleetSize: 102,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'VN',
@@ -890,19 +891,21 @@ const AIRLINES: Airline[] = [
     alliance: 'SkyTeam',
     hub: ['SGN', 'HAN'],
     fleetSize: 98,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'QH',
     prefix: '926',
-    icao: 'BBA',
+    icao: 'BAV',
     name: { chinese: '竹子航空', english: 'Bamboo Airways' },
     country: '越南',
     countryCode: 'VN',
     type: 'FSC',
     hub: ['SGN', 'HAN'],
     fleetSize: 28,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'BL',
