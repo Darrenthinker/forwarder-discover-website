@@ -555,7 +555,7 @@ const AIRLINES: Airline[] = [
   // 🇮🇳 印度航空公司 (按机队规模排序)
   {
     code: '6E',
-    prefix: '589',
+    prefix: '312',
     icao: 'IGO',
     name: { chinese: '靛蓝航空', english: 'IndiGo' },
     country: '印度',
@@ -563,7 +563,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['DEL', 'BOM'],
     fleetSize: 285,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'AI',
@@ -576,11 +577,12 @@ const AIRLINES: Airline[] = [
     alliance: 'Star Alliance',
     hub: ['DEL', 'BOM'],
     fleetSize: 138,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'SG',
-    prefix: '870',
+    prefix: '775',
     icao: 'SEJ',
     name: { chinese: '香料航空', english: 'SpiceJet' },
     country: '印度',
@@ -588,7 +590,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['DEL', 'BOM'],
     fleetSize: 116,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'G8',
@@ -600,7 +603,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['BOM', 'DEL'],
     fleetSize: 56,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
   {
     code: 'UK',
@@ -612,7 +616,8 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['DEL'],
     fleetSize: 53,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
   {
     code: 'IX',
@@ -624,7 +629,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['COK', 'BOM'],
     fleetSize: 25,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
 
   // 🇹🇭 泰国航空公司 (按机队规模排序)
