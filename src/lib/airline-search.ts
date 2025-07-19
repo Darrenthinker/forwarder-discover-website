@@ -2943,6 +2943,47 @@ const AIRLINES: Airline[] = [
     active: true,
     isIata: true  // ✅ IATA成员 - 新增
   },
+
+  // 🇵🇭 菲律宾航空公司
+  {
+    code: 'PR',
+    prefix: '079',
+    icao: 'PAL',
+    name: { chinese: '菲律宾航空', english: 'Philippine Airlines' },
+    country: '菲律宾',
+    countryCode: 'PH',
+    type: 'FSC',
+    hub: ['MNL'],
+    fleetSize: 82,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: '5J',
+    prefix: '203',
+    icao: 'CEB',
+    name: { chinese: '宿务太平洋航空', english: 'Cebu Pacific' },
+    country: '菲律宾',
+    countryCode: 'PH',
+    type: 'LCC',
+    hub: ['MNL', 'CEB'],
+    fleetSize: 78,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: '2P',
+    prefix: '211',
+    icao: 'GAP',
+    name: { chinese: 'PAL快运', english: 'PAL Express' },
+    country: '菲律宾',
+    countryCode: 'PH',
+    type: 'Regional',
+    hub: ['MNL'],
+    fleetSize: 25,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
 ];
 
 // 搜索函数 - 支持提单号、航司代码、中英文名称搜索
