@@ -1701,7 +1701,7 @@ const AIRLINES: Airline[] = [
   // 🇧🇹 不丹航空公司
   {
     code: 'KB',
-    prefix: '551',
+    prefix: '838',  // 修正：不丹航空的正确前缀
     icao: 'BTN',
     name: { chinese: '不丹航空', english: 'Drukair' },
     country: '不丹',
@@ -1709,7 +1709,8 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['PBH'],
     fleetSize: 4,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
 
   // 🇲🇲 缅甸航空公司
@@ -2291,7 +2292,7 @@ const AIRLINES: Airline[] = [
     active: false
   },
 
-  // 🇵🇹 葡萄牙航空公司
+  // 🇵🇹 葡萄牙航空公司 (按机队规模排序)
   {
     code: 'TP',
     prefix: '047',
@@ -2303,7 +2304,21 @@ const AIRLINES: Airline[] = [
     alliance: 'Star Alliance',
     hub: ['LIS'],
     fleetSize: 104,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'YU',
+    prefix: '551',
+    icao: 'MMZ',
+    name: { chinese: '欧洲大西洋航空', english: 'EuroAtlantic Airways' },
+    country: '葡萄牙',
+    countryCode: 'PT',
+    type: 'Charter',
+    hub: ['LIS'],
+    fleetSize: 8,
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
 
   // 🇬🇷 希腊航空公司
