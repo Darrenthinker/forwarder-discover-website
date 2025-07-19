@@ -1571,6 +1571,47 @@ const AIRLINES: Airline[] = [
     isIata: false  // ❌ 非IATA成员
   },
 
+  // 🇧🇩 孟加拉国航空公司 (按机队规模排序)
+  {
+    code: 'BG',
+    prefix: '997',
+    icao: 'BBC',
+    name: { chinese: '孟加拉国航空', english: 'Biman Bangladesh Airlines' },
+    country: '孟加拉国',
+    countryCode: 'BD',
+    type: 'FSC',
+    hub: ['DAC'],
+    fleetSize: 21,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'BS',
+    prefix: '779',
+    icao: 'UBG',
+    name: { chinese: '美孟航空', english: 'US-Bangla Airlines' },
+    country: '孟加拉国',
+    countryCode: 'BD',
+    type: 'FSC',
+    hub: ['DAC'],
+    fleetSize: 20,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: '2A',
+    prefix: '610',
+    icao: 'AWA',
+    name: { chinese: '阿斯特拉航空', english: 'Air Astra' },
+    country: '孟加拉国',
+    countryCode: 'BD',
+    type: 'LCC',
+    hub: ['DAC'],
+    fleetSize: 8,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+
   // 🇲🇻 马尔代夫航空公司
   {
     code: 'Q2',
