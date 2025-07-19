@@ -1554,7 +1554,8 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['KHI', 'LHE'],
     fleetSize: 32,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'PA',
@@ -1566,7 +1567,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['KHI', 'ISB'],
     fleetSize: 7,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
 
   // 🇲🇻 马尔代夫航空公司
