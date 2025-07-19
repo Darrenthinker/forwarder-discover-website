@@ -1612,6 +1612,21 @@ const AIRLINES: Airline[] = [
     isIata: true  // ✅ IATA成员
   },
 
+  // 🇱🇰 斯里兰卡航空公司
+  {
+    code: 'UL',
+    prefix: '603',
+    icao: 'ALK',
+    name: { chinese: '斯里兰卡航空', english: 'SriLankan Airlines' },
+    country: '斯里兰卡',
+    countryCode: 'LK',
+    type: 'FSC',
+    hub: ['CMB'],
+    fleetSize: 27,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+
   // 🇲🇻 马尔代夫航空公司
   {
     code: 'Q2',
