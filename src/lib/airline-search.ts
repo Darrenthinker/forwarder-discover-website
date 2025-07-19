@@ -1632,6 +1632,21 @@ const AIRLINES: Airline[] = [
     isIata: false  // ❌ 非IATA成员
   },
 
+  // 🇰🇭 柬埔寨航空公司
+  {
+    code: 'K6',
+    prefix: '188',
+    icao: 'KHV',
+    name: { chinese: '柬埔寨航空', english: 'Air Cambodia' },
+    country: '柬埔寨',
+    countryCode: 'KH',
+    type: 'FSC',
+    hub: ['PNH'],
+    fleetSize: 8,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+
   // 🇹🇷 土耳其航空公司
   {
     code: 'TK',
