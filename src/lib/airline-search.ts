@@ -706,7 +706,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['KUL'],
     fleetSize: 174,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
   {
     code: 'MH',
@@ -719,19 +720,21 @@ const AIRLINES: Airline[] = [
     alliance: 'Oneworld',
     hub: ['KUL'],
     fleetSize: 88,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'OD',
-    prefix: '643',
+    prefix: '816',
     icao: 'MXD',
-    name: { chinese: '马印航空', english: 'Malindo Air' },
+    name: { chinese: '马来西亚巴泽航空', english: 'Batik Air Malaysia' },
     country: '马来西亚',
     countryCode: 'MY',
     type: 'FSC',
     hub: ['KUL'],
     fleetSize: 55,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'D7',
@@ -743,7 +746,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['KUL'],
     fleetSize: 32,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
   {
     code: 'FY',
@@ -755,7 +759,8 @@ const AIRLINES: Airline[] = [
     type: 'Regional',
     hub: ['KUL', 'JHB'],
     fleetSize: 21,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
 
   // 🇮🇩 印尼航空公司 (按机队规模排序) - 修正数据
