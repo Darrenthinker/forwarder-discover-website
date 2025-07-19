@@ -765,7 +765,8 @@ const AIRLINES: Airline[] = [
     alliance: 'SkyTeam',
     hub: ['CGK'],
     fleetSize: 142,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'JT',
@@ -777,7 +778,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['CGK'],
     fleetSize: 115,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'QG',
@@ -801,7 +803,8 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['CGK'],
     fleetSize: 68,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'IN',
