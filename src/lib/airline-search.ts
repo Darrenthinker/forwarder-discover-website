@@ -119,20 +119,6 @@ const AIRLINES: Airline[] = [
 
   // 🇨🇳 中国大陆航空公司 (按机队规模排序)
   {
-    code: 'MU',
-    prefix: '781',
-    icao: 'CES',
-    name: { chinese: '中国东方航空', english: 'China Eastern Airlines' },
-    country: '中国',
-    countryCode: 'CN',
-    type: 'FSC',
-    alliance: 'SkyTeam',
-    hub: ['PVG', 'KMG'],
-    fleetSize: 750,
-    active: true,
-    isIata: true
-  },
-  {
     code: 'CZ',
     prefix: '784',
     icao: 'CSN',
@@ -142,7 +128,21 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     alliance: 'SkyTeam',
     hub: ['CAN', 'PKX'],
-    fleetSize: 665,
+    fleetSize: 880,
+    active: true,
+    isIata: true
+  },
+  {
+    code: 'MU',
+    prefix: '781',
+    icao: 'CES',
+    name: { chinese: '中国东方航空', english: 'China Eastern Airlines' },
+    country: '中国',
+    countryCode: 'CN',
+    type: 'FSC',
+    alliance: 'SkyTeam',
+    hub: ['PVG', 'KMG'],
+    fleetSize: 720,
     active: true,
     isIata: true
   },
