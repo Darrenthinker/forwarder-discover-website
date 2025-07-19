@@ -791,7 +791,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['CGK'],
     fleetSize: 71,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
   {
     code: 'ID',
@@ -816,7 +817,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['CGK'],
     fleetSize: 16,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
 
 
@@ -845,7 +847,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['CGK'],
     fleetSize: 75,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
 
   // 🇦🇪 阿联酋航空公司
