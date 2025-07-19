@@ -1662,6 +1662,35 @@ const AIRLINES: Airline[] = [
     isIata: true  // ✅ IATA成员
   },
 
+  // 🇸🇬 新加坡航空公司
+  {
+    code: 'SQ',
+    prefix: '618',
+    icao: 'SIA',
+    name: { chinese: '新加坡航空', english: 'Singapore Airlines' },
+    country: '新加坡',
+    countryCode: 'SG',
+    type: 'FSC',
+    alliance: 'Star Alliance',
+    hub: ['SIN'],
+    fleetSize: 138,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'TR',
+    prefix: '668',
+    icao: 'TGW',
+    name: { chinese: '酷航', english: 'Scoot' },
+    country: '新加坡',
+    countryCode: 'SG',
+    type: 'LCC',
+    hub: ['SIN'],
+    fleetSize: 64,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+
   // 🇹🇷 土耳其航空公司
   {
     code: 'TK',
