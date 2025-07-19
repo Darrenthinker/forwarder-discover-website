@@ -652,7 +652,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['DMK', 'BKK'],
     fleetSize: 66,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
   {
     code: 'SL',
