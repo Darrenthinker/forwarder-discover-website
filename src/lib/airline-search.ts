@@ -1459,18 +1459,45 @@ const AIRLINES: Airline[] = [
     active: true
   },
 
-  // 🇰🇿 哈萨克斯坦航空公司
+  // 🇰🇿 哈萨克斯坦航空公司 (按机队规模排序)
+  {
+    code: 'DV',
+    prefix: '655',
+    icao: 'VSV',
+    name: { chinese: 'SCAT航空', english: 'SCAT Airlines' },
+    country: '哈萨克斯坦',
+    countryCode: 'KZ',
+    type: 'FSC',
+    hub: ['CIT', 'ALA'],
+    fleetSize: 32,
+    active: true,
+    isIata: true  // ✅ IATA成员 (2018年加入)
+  },
   {
     code: 'KC',
-    prefix: '465', // IATA官网修正
+    prefix: '465',
     icao: 'KZR',
     name: { chinese: '阿斯塔纳航空', english: 'Air Astana' },
     country: '哈萨克斯坦',
     countryCode: 'KZ',
     type: 'FSC',
     hub: ['ALA', 'NQZ'],
-    fleetSize: 36,
-    active: true
+    fleetSize: 60,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'IQ',
+    prefix: '',  // 没有3位数字前缀
+    icao: 'QAZ',
+    name: { chinese: '哈萨克航空', english: 'Qazaq Air' },
+    country: '哈萨克斯坦',
+    countryCode: 'KZ',
+    type: 'LCC',
+    hub: ['NQZ'],
+    fleetSize: 5,
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
 
   // 🇰🇬 吉尔吉斯斯坦航空公司
