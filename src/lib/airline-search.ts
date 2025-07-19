@@ -1647,6 +1647,21 @@ const AIRLINES: Airline[] = [
     isIata: true  // ✅ IATA成员
   },
 
+  // 🇱🇦 老挝航空公司
+  {
+    code: 'QV',
+    prefix: '627',
+    icao: 'LAO',
+    name: { chinese: '老挝航空', english: 'Lao Airlines' },
+    country: '老挝',
+    countryCode: 'LA',
+    type: 'FSC',
+    hub: ['VTE'],
+    fleetSize: 12,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+
   // 🇹🇷 土耳其航空公司
   {
     code: 'TK',
