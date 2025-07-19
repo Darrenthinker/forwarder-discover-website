@@ -639,7 +639,8 @@ const AIRLINES: Airline[] = [
     alliance: 'Star Alliance',
     hub: ['BKK'],
     fleetSize: 103,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'FD',
@@ -654,16 +655,17 @@ const AIRLINES: Airline[] = [
     active: true
   },
   {
-    code: 'WE',
-    prefix: '435',
-    icao: 'THD',
+    code: 'SL',
+    prefix: '310',
+    icao: 'TLM',
     name: { chinese: '泰国狮子航空', english: 'Thai Lion Air' },
     country: '泰国',
     countryCode: 'TH',
     type: 'LCC',
     hub: ['DMK'],
     fleetSize: 48,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'PG',
@@ -675,11 +677,12 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['BKK', 'USM'],
     fleetSize: 43,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'DD',
-    prefix: '615',
+    prefix: '596',
     icao: 'NOK',
     name: { chinese: '泰国鸟航', english: 'Nok Air' },
     country: '泰国',
@@ -687,7 +690,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['DMK'],
     fleetSize: 28,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
 
   // 🇲🇾 马来西亚航空公司 (按机队规模排序)
