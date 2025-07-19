@@ -1827,7 +1827,7 @@ const AIRLINES: Airline[] = [
     isIata: true  // ✅ IATA成员
   },
 
-  // 🇹🇷 土耳其航空公司
+  // 🇹🇷 土耳其航空公司 (按机队规模排序)
   {
     code: 'TK',
     prefix: '235',
@@ -1839,7 +1839,8 @@ const AIRLINES: Airline[] = [
     alliance: 'Star Alliance',
     hub: ['IST'],
     fleetSize: 389,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'PC',
@@ -1851,11 +1852,12 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['SAW'],
     fleetSize: 97,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
-    code: 'VF',
-    prefix: '405',
+    code: 'XQ',
+    prefix: '564',
     icao: 'SXS',
     name: { chinese: '太阳快运', english: 'SunExpress' },
     country: '土耳其',
@@ -1863,7 +1865,112 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['ADB', 'AYT'],
     fleetSize: 69,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'TI',
+    prefix: '768',
+    icao: 'TWI',
+    name: { chinese: '顺风航空', english: 'Tailwind Airlines' },
+    country: '土耳其',
+    countryCode: 'TR',
+    type: 'LCC',
+    hub: ['AYT'],
+    fleetSize: 22,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: '4M',
+    prefix: '734',
+    icao: 'MGH',
+    name: { chinese: '蓝天航空', english: 'Mavi Gök Airlines' },
+    country: '土耳其',
+    countryCode: 'TR',
+    type: 'LCC',
+    hub: ['IST'],
+    fleetSize: 12,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'XC',
+    prefix: '395',
+    icao: 'CAI',
+    name: { chinese: '科伦敦航空', english: 'Corendon Airlines' },
+    country: '土耳其',
+    countryCode: 'TR',
+    type: 'LCC',
+    hub: ['AYT'],
+    fleetSize: 10,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'FH',
+    prefix: '',
+    icao: 'FHY',
+    name: { chinese: '自由鸟航空', english: 'Freebird Airlines' },
+    country: '土耳其',
+    countryCode: 'TR',
+    type: 'LCC',
+    hub: ['AYT'],
+    fleetSize: 8,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'GO',
+    prefix: '444',
+    icao: 'KZU',
+    name: { chinese: 'ULS货运航空', english: 'ULS Airlines Cargo' },
+    country: '土耳其',
+    countryCode: 'TR',
+    type: 'Cargo',
+    hub: ['IST'],
+    fleetSize: 6,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'MB',
+    prefix: '716',
+    icao: 'MNB',
+    name: { chinese: 'MNG航空', english: 'MNG Airlines' },
+    country: '土耳其',
+    countryCode: 'TR',
+    type: 'Cargo',
+    hub: ['IST'],
+    fleetSize: 5,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: '2S',
+    prefix: '263',
+    icao: 'STW',
+    name: { chinese: '南风航空', english: 'Southwind Airlines' },
+    country: '土耳其',
+    countryCode: 'TR',
+    type: 'LCC',
+    hub: ['AYT'],
+    fleetSize: 4,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'B5',
+    prefix: '386',
+    icao: 'BBT',
+    name: { chinese: 'BBN航空', english: 'BBN Airlines' },
+    country: '土耳其',
+    countryCode: 'TR',
+    type: 'LCC',
+    hub: ['IST'],
+    fleetSize: 3,
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
 
   // 🇨🇾 塞浦路斯航空公司
