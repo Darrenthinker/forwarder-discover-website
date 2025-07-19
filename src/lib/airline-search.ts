@@ -1456,7 +1456,8 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['TAS'],
     fleetSize: 32,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
 
   // 🇰🇿 哈萨克斯坦航空公司 (按机队规模排序)
