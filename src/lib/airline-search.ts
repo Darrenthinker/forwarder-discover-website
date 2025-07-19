@@ -1515,7 +1515,20 @@ const AIRLINES: Airline[] = [
     active: true
   },
 
-  // 🇹🇯 塔吉克斯坦航空公司
+  // 🇹🇯 塔吉克斯坦航空公司 (按机队规模排序)
+  {
+    code: 'SZ',
+    prefix: '413',
+    icao: 'SMR',
+    name: { chinese: '索蒙航空', english: 'Somon Air' },
+    country: '塔吉克斯坦',
+    countryCode: 'TJ',
+    type: 'FSC',
+    hub: ['DYU'],
+    fleetSize: 12,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
   {
     code: '7J',
     prefix: '762',
@@ -1526,7 +1539,8 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['DYU'],
     fleetSize: 8,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
 
   // 🇲🇳 蒙古IATA航空公司
