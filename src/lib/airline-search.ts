@@ -1589,15 +1589,29 @@ const AIRLINES: Airline[] = [
   // 🇲🇲 缅甸航空公司
   {
     code: 'UB',
-    prefix: '209',
+    prefix: '665',
     icao: 'UBA',
-    name: { chinese: '缅甸国家航空', english: 'Myanmar Airways' },
+    name: { chinese: '缅甸国家航空', english: 'Myanmar National Airlines' },
     country: '缅甸',
     countryCode: 'MM',
     type: 'FSC',
     hub: ['RGN'],
     fleetSize: 12,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: '8M',
+    prefix: '599',
+    icao: 'MMA',
+    name: { chinese: '缅甸国际航空', english: 'Myanmar Airways International' },
+    country: '缅甸',
+    countryCode: 'MM',
+    type: 'FSC',
+    hub: ['RGN'],
+    fleetSize: 8,
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'K7',
@@ -1609,7 +1623,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['RGN'],
     fleetSize: 16,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员
   },
 
   // 🇹🇷 土耳其航空公司
