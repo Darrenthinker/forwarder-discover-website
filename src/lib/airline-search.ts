@@ -855,7 +855,7 @@ const AIRLINES: Airline[] = [
  
   {
     code: 'IW',
-    prefix: '838',
+    prefix: '895',  // 修正：Wings Air的正确前缀
     icao: 'WON',
     name: { chinese: '连城航空', english: 'Wings Air' },
     country: '印尼',
@@ -1701,14 +1701,14 @@ const AIRLINES: Airline[] = [
   // 🇧🇹 不丹航空公司
   {
     code: 'KB',
-    prefix: '838',  // 修正：不丹航空的正确前缀
-    icao: 'BTN',
+    prefix: '-',  // 不丹航空没有3位数字前缀
+    icao: 'DRK',  // 修正：正确的ICAO代码是DRK
     name: { chinese: '不丹航空', english: 'Drukair' },
     country: '不丹',
     countryCode: 'BT',
     type: 'FSC',
     hub: ['PBH'],
-    fleetSize: 4,
+    fleetSize: 5,  // 更新机队规模
     active: true,
     isIata: true  // ✅ IATA成员
   },
@@ -3326,6 +3326,21 @@ const AIRLINES: Airline[] = [
     type: 'Regional',
     hub: ['MNL'],
     fleetSize: 25,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+
+  // 🇨🇦 加拿大航空公司
+  {
+    code: 'WS',
+    prefix: '838',
+    icao: 'WJA',
+    name: { chinese: '西捷航空', english: 'WestJet' },
+    country: '加拿大',
+    countryCode: 'CA',
+    type: 'LCC',
+    hub: ['YYC'],
+    fleetSize: 180,
     active: true,
     isIata: true  // ✅ IATA成员
   },
