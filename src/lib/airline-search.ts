@@ -1287,7 +1287,7 @@ const AIRLINES: Airline[] = [
     active: true
   },
 
-  // 🇰🇼 科威特航空公司
+  // 🇰🇼 科威特航空公司 (按机队规模排序)
   {
     code: 'KU',
     prefix: '229',
@@ -1298,19 +1298,21 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['KWI'],
     fleetSize: 31,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'J9',
-    prefix: '414',
-    icao: 'KJU',
+    prefix: '486',
+    icao: 'JZR',
     name: { chinese: '贾兹拉航空', english: 'Jazeera Airways' },
     country: '科威特',
     countryCode: 'KW',
     type: 'LCC',
     hub: ['KWI'],
     fleetSize: 17,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
 
   // 🇧🇭 巴林航空公司
@@ -1353,7 +1355,7 @@ const AIRLINES: Airline[] = [
     active: true
   },
 
-  // 🇯🇴 约旦航空公司
+  // 🇯🇴 约旦航空公司 (按机队规模排序)
   {
     code: 'RJ',
     prefix: '512',
@@ -1365,7 +1367,21 @@ const AIRLINES: Airline[] = [
     alliance: 'Oneworld',
     hub: ['AMM'],
     fleetSize: 26,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'R5',
+    prefix: '151',
+    icao: 'JAV',
+    name: { chinese: '约旦航空', english: 'Jordan Aviation' },
+    country: '约旦',
+    countryCode: 'JO',
+    type: 'Charter',
+    hub: ['AMM'],
+    fleetSize: 8,
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
 
   // 🇱🇧 黎巴嫩航空公司
@@ -1380,7 +1396,8 @@ const AIRLINES: Airline[] = [
     alliance: 'SkyTeam',
     hub: ['BEY'],
     fleetSize: 20,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
 
   // 🇮🇶 伊拉克航空公司
@@ -2049,30 +2066,58 @@ const AIRLINES: Airline[] = [
     active: true
   },
 
-  // 🇮🇱 以色列航空公司
+  // 🇮🇱 以色列航空公司 (按机队规模排序)
   {
     code: 'LY',
     prefix: '114',
     icao: 'ELY',
-    name: { chinese: '以色列航空', english: 'El Al' },
+    name: { chinese: '以色列航空', english: 'EL AL' },
     country: '以色列',
     countryCode: 'IL',
     type: 'FSC',
     hub: ['TLV'],
     fleetSize: 48,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'IZ',
+    prefix: '238',
+    icao: 'AIZ',
+    name: { chinese: '阿基亚航空', english: 'Arkia Israeli Airlines' },
+    country: '以色列',
+    countryCode: 'IL',
+    type: 'Charter',
+    hub: ['TLV'],
+    fleetSize: 16,
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: '6H',
-    prefix: '238',
+    prefix: '818',
     icao: 'ISR',
-    name: { chinese: '以色列航空', english: 'Israir Airlines' },
+    name: { chinese: '以色列航空', english: 'Israir' },
     country: '以色列',
     countryCode: 'IL',
     type: 'Charter',
     hub: ['TLV'],
     fleetSize: 14,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: '5C',
+    prefix: '700',
+    icao: 'ICL',
+    name: { chinese: '挑战航空', english: 'Challenge Airlines (IL)' },
+    country: '以色列',
+    countryCode: 'IL',
+    type: 'Charter',
+    hub: ['TLV'],
+    fleetSize: 4,
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
 
   // 🇪🇬 埃及航空公司补充

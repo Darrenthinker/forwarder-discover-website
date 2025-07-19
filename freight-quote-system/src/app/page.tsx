@@ -21,8 +21,12 @@ export default function Home() {
       <div className="container mx-auto py-8 px-4">
         {/* 页面标题 */}
         <div className="text-center mb-8">
+          {/* 大号火箭logo，居中美观 */}
+          <div className="flex justify-center mb-2">
+            <span style={{ fontSize: '3.5rem', display: 'block' }}>🚀</span>
+          </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            🚀 智能货运报价系统
+            智能货运报价系统
           </h1>
           <p className="text-lg text-gray-600">
             智能识别货物信息 • 精准计算重量体积 • 快速生成报价
