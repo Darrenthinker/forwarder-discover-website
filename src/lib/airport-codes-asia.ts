@@ -414,15 +414,24 @@ export const asiaAirports: { [key: string]: AirportInfo } = {
   'RKT': { chinese: '哈伊马角', english: 'Ras Al Khaimah', country: '阿联酋' },
 
   // ================================================================
-  // 🇸🇦 沙特阿拉伯 SAUDI ARABIA - 国际机场
+  // 🇸🇦 沙特阿拉伯 SAUDI ARABIA - 国际机场（按重要性和货运量排序）
   // ================================================================
 
-  'RUH': { chinese: '利雅得', english: 'Riyadh King Khalid', country: '沙特阿拉伯' },
-  'JED': { chinese: '吉达', english: 'Jeddah King Abdulaziz', country: '沙特阿拉伯' },
-  'DMM': { chinese: '达曼', english: 'Dammam King Fahd', country: '沙特阿拉伯' },
-  'MED': { chinese: '麦地那', english: 'Medina Prince Mohammad bin Abdulaziz', country: '沙特阿拉伯' },
-  'AHB': { chinese: '阿卜哈', english: 'Abha', country: '沙特阿拉伯' },
-  'TUU': { chinese: '塔布克', english: 'Tabuk', country: '沙特阿拉伯' },
+  // 第一等级：超级枢纽国际机场 - 朝觐门户
+  'JED': { chinese: '吉达', english: 'Jeddah King Abdulaziz', country: '沙特阿拉伯', type: 'international', priority: 95 },
+  
+  // 第二等级：首都枢纽国际机场
+  'RUH': { chinese: '利雅得', english: 'Riyadh King Khalid', country: '沙特阿拉伯', type: 'international', priority: 90 },
+  
+  // 第三等级：重要区域国际机场
+  'DMM': { chinese: '达曼', english: 'Dammam King Fahd', country: '沙特阿拉伯', type: 'international', priority: 85 },
+  
+  // 第四等级：朝觐相关国际机场
+  'MED': { chinese: '麦地那', english: 'Medina Prince Mohammad bin Abdulaziz', country: '沙特阿拉伯', type: 'international', priority: 80 },
+  
+  // 第五等级：地区性国际机场
+  'AHB': { chinese: '阿卜哈', english: 'Abha', country: '沙特阿拉伯', type: 'international', priority: 70 },
+  'TUU': { chinese: '塔布克', english: 'Tabuk', country: '沙特阿拉伯', type: 'international', priority: 65 },
 
   // ================================================================
   // 🇶🇦 卡塔尔 QATAR - 国际机场

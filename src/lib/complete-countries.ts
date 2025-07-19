@@ -1,7 +1,7 @@
 // 完整的全球国家和地区数据库
 // Complete Global Countries and Territories Database
 
-import { shouldExcludeCountry } from './country-aliases';
+import { shouldExcludeCountry, COUNTRY_ALIASES } from './country-aliases';
 
 export interface CountryInfo {
   chinese: string;
@@ -389,12 +389,21 @@ export function searchCompleteCountries(query: string): CountryInfo[] {
     const codeMatch = country.code.toLowerCase().includes(searchTerm);
     const capitalMatch = country.capital?.toLowerCase().includes(searchTerm);
 
+    // 🔥 新增：别名匹配支持
+    let aliasMatch = false;
+    const countryAlias = COUNTRY_ALIASES.find(alias => alias.standard === country.chinese);
+    if (countryAlias) {
+      aliasMatch = countryAlias.aliases.some(alias => 
+        alias.toLowerCase().includes(searchTerm) || searchTerm.includes(alias.toLowerCase())
+      );
+    }
+
     // 如果有匹配但应该被排除，则跳过 (防止印度/印尼混淆)
-    if ((chineseMatch || englishMatch) && shouldExcludeCountry(query.trim(), country.chinese)) {
+    if ((chineseMatch || englishMatch || aliasMatch) && shouldExcludeCountry(query.trim(), country.chinese)) {
       return false;
     }
 
-    return chineseMatch || englishMatch || codeMatch || capitalMatch;
+    return chineseMatch || englishMatch || codeMatch || capitalMatch || aliasMatch;
   });
 
   // 按匹配优先级排序：精确匹配 > 开头匹配 > 包含匹配

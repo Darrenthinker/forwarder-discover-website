@@ -19,6 +19,7 @@ export interface Airline {
 
 // 🌍 导入智能国家搜索功能
 import { searchCompleteCountries } from './complete-countries';
+import { COUNTRY_ALIASES } from './country-aliases';
 
 // 航空公司数据库 - 按地区分类，按机队规模排序
 const AIRLINES: Airline[] = [
@@ -867,7 +868,7 @@ const AIRLINES: Airline[] = [
     isIata: false  // ❌ 非IATA成员
   },
 
-  // 🇦🇪 阿联酋航空公司
+  // 🇦🇪 阿联酋航空公司 (按机队规模排序)
   {
     code: 'EK',
     prefix: '176',
@@ -879,7 +880,47 @@ const AIRLINES: Airline[] = [
     alliance: 'Star Alliance',
     hub: ['DXB'],
     fleetSize: 271,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'EY',
+    prefix: '607',
+    icao: 'ETD',
+    name: { chinese: '阿提哈德航空', english: 'Etihad Airways' },
+    country: '阿联酋',
+    countryCode: 'AE',
+    type: 'FSC',
+    hub: ['AUH'],
+    fleetSize: 96,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'FZ',
+    prefix: '141',
+    icao: 'FDB',
+    name: { chinese: '迪拜航空', english: 'flydubai' },
+    country: '阿联酋',
+    countryCode: 'AE',
+    type: 'LCC',
+    hub: ['DXB'],
+    fleetSize: 76,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'G9',
+    prefix: '514',
+    icao: 'ABY',
+    name: { chinese: '阿拉伯航空', english: 'Air Arabia' },
+    country: '阿联酋',
+    countryCode: 'AE',
+    type: 'LCC',
+    hub: ['SHJ'],
+    fleetSize: 58,
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
 
   // 🇻🇳 越南航空公司 (按机队规模排序)
@@ -1188,20 +1229,8 @@ const AIRLINES: Airline[] = [
     active: true,
     isIata: true
   },
-  {
-    code: 'FZ',
-    prefix: '141',
-    icao: 'FDB',
-    name: { chinese: '迪拜航空', english: 'flydubai' },
-    country: '阿联酋',
-    countryCode: 'AE',
-    type: 'LCC',
-    hub: ['DXB'],
-    fleetSize: 76,
-    active: true
-  },
 
-  // 🇸🇦 沙特阿拉伯航空公司
+  // 🇸🇦 沙特阿拉伯航空公司 (按机队规模排序)
   {
     code: 'SV',
     prefix: '065',
@@ -1213,19 +1242,21 @@ const AIRLINES: Airline[] = [
     alliance: 'SkyTeam',
     hub: ['RUH', 'JED'],
     fleetSize: 144,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'XY',
     prefix: '593',
-    icao: 'NAS',
-    name: { chinese: '纳斯航空', english: 'flynas' },
+    icao: 'KNE',  // 修正：正确的ICAO代码
+    name: { chinese: '纳斯航空', english: 'Flynas' },
     country: '沙特阿拉伯',
     countryCode: 'SA',
     type: 'LCC',
     hub: ['RUH'],
     fleetSize: 38,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
     code: 'F3',
@@ -1237,7 +1268,8 @@ const AIRLINES: Airline[] = [
     type: 'LCC',
     hub: ['RUH', 'JED'],
     fleetSize: 18,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
 
   // 🇶🇦 卡塔尔航空公司
@@ -1353,19 +1385,33 @@ const AIRLINES: Airline[] = [
 
   // 🇮🇶 伊拉克航空公司
   {
-    code: 'IA',
-    prefix: '096',
-    icao: 'IAW',
-    name: { chinese: '伊拉克航空', english: 'Iraqi Airways' },
+    code: 'IF',
+    prefix: '017',
+    icao: 'FBA',
+    name: { chinese: '巴格达飞行', english: 'Fly Baghdad' },
     country: '伊拉克',
     countryCode: 'IQ',
     type: 'FSC',
     hub: ['BGW'],
-    fleetSize: 34,
-    active: true
+    fleetSize: 8,
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
 
-  // 🇮🇷 伊朗航空公司
+  // 🇮🇷 伊朗航空公司 (按机队规模排序)
+  {
+    code: 'W5',
+    prefix: '537',
+    icao: 'MRM',
+    name: { chinese: '马汉航空', english: 'Mahan Air' },
+    country: '伊朗',
+    countryCode: 'IR',
+    type: 'FSC',
+    hub: ['IKA'],
+    fleetSize: 65,
+    active: true,
+    isIata: false  // ❌ 非IATA成员
+  },
   {
     code: 'IR',
     prefix: '096',
@@ -1376,19 +1422,34 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['IKA'],
     fleetSize: 43,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
   {
-    code: 'W5',
-    prefix: '135',
-    icao: 'MRM',
-    name: { chinese: '马汉航空', english: 'Mahan Air' },
+    code: 'EP',
+    prefix: '815',
+    icao: 'IRC',
+    name: { chinese: '伊朗阿塞曼航空', english: 'Iran Aseman Airlines' },
     country: '伊朗',
     countryCode: 'IR',
     type: 'FSC',
+    hub: ['IKA', 'MHD'],
+    fleetSize: 35,
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+  {
+    code: 'B9',
+    prefix: '491',
+    icao: 'IRB',
+    name: { chinese: '伊朗旅游航空', english: 'Iran Airtour Airline' },
+    country: '伊朗',
+    countryCode: 'IR',
+    type: 'Charter',
     hub: ['IKA'],
-    fleetSize: 65,
-    active: true
+    fleetSize: 12,
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
 
   // 🇦🇲 亚美尼亚航空公司
@@ -2776,7 +2837,23 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['NOU'],
     fleetSize: 7,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员
+  },
+
+  // 🇵🇫 法属波利尼西亚航空公司
+  {
+    code: 'VT',
+    prefix: '135',
+    icao: 'VTA',
+    name: { chinese: '大溪地航空', english: 'Air Tahiti' },
+    country: '法属波利尼西亚',
+    countryCode: 'PF',
+    type: 'Regional',
+    hub: ['PPT'],
+    fleetSize: 12,
+    active: true,
+    isIata: true  // ✅ IATA成员
   },
 
   // 🇻🇪 委内瑞拉航空补充
@@ -3382,12 +3459,26 @@ export function searchAirlines(query: string): Airline[] {
     });
     
     if (countrySearchResults.length > 0) {
-      // 如果是纯国家搜索，优先返回国家搜索结果
-      const isCountryOnlySearch = relevantCountries.some((country: any) => 
-        country.chinese === query.trim() || 
-        country.english.toLowerCase() === normalizedQuery ||
-        country.code.toLowerCase() === normalizedQuery
-      );
+      // 如果是纯国家搜索，优先返回国家搜索结果（包括别名匹配）
+      const isCountryOnlySearch = relevantCountries.some((country: any) => {
+        // 精确匹配
+        if (country.chinese === query.trim() || 
+            country.english.toLowerCase() === normalizedQuery ||
+            country.code.toLowerCase() === normalizedQuery) {
+          return true;
+        }
+        
+                 // 🔥 新增：别名匹配检查
+         const countryAlias = COUNTRY_ALIASES.find(alias => alias.standard === country.chinese);
+         if (countryAlias) {
+           return countryAlias.aliases.some((alias: string) => 
+             alias.toLowerCase() === normalizedQuery || 
+             normalizedQuery === alias.toLowerCase()
+           );
+         }
+        
+        return false;
+      });
       
       if (isCountryOnlySearch) {
         return countrySearchResults.sort((a, b) => {

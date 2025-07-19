@@ -1,5 +1,5 @@
-// 🕌 西亚中东六国机场数据库 - 增强版本
-// West Asia Middle East Six Nations Enhanced Airport Database
+// 🕌 西亚中东八国机场数据库 - 增强版本
+// West Asia Middle East Eight Nations Enhanced Airport Database
 // 第七十三批机场数据库 - 中东航空枢纽网络
 
 export interface EnhancedAirportInfo {
@@ -24,8 +24,8 @@ export interface EnhancedAirportInfo {
 }
 
 // ================================================================
-// 🕌 西亚中东六国机场数据库 - 60个主要机场
-// 覆盖伊朗、伊拉克、约旦、黎巴嫩、叙利亚、以色列
+// 🕌 西亚中东八国机场数据库 - 65个主要机场
+// 覆盖伊朗、伊拉克、约旦、黎巴嫩、叙利亚、以色列、巴勒斯坦、科威特
 // 中东航空枢纽网络，连接亚欧非三大洲的古代文明航空走廊
 // ================================================================
 
@@ -536,6 +536,100 @@ export const westAsiaMiddleEastEnhancedAirports: EnhancedAirportInfo[] = [
     runways: 1,
     priority: 80, // 🏜️ 内盖夫沙漠机场
     cargo: false
+  },
+
+  // ================================================================
+  // 🇵🇸 巴勒斯坦 - 圣地
+  // ================================================================
+
+  {
+    iata: 'GZA',
+    icao: 'LVGZ',
+    chinese: '亚西尔·阿拉法特国际机场',
+    english: 'Yasser Arafat International Airport',
+    city: '加沙',
+    province: '加沙地带',
+    country: '巴勒斯坦',
+    isInternational: true,
+    hasCustoms: true,
+    timezone: 'PST',
+    coordinates: { lat: 31.2464, lng: 34.2761 },
+    runways: 1,
+    priority: 75, // 🕊️ 巴勒斯坦主要国际机场（已停用）
+    cargo: false
+  },
+
+  {
+    iata: 'GHK',
+    icao: 'LLAZ',
+    chinese: '古什卡蒂夫机场',
+    english: 'Gush Katif Airport',
+    city: '汗尤尼斯',
+    province: '加沙地带',
+    country: '巴勒斯坦',
+    isInternational: false,
+    hasCustoms: false,
+    timezone: 'PST',
+    coordinates: { lat: 31.2833, lng: 34.2833 },
+    runways: 1,
+    priority: 65, // 🏜️ 加沙地带小型机场（已停用）
+    cargo: false
+  },
+
+  {
+    iata: 'JRS',
+    icao: 'LLJR',
+    chinese: '耶路撒冷国际机场',
+    english: 'Jerusalem International Airport',
+    city: '耶路撒冷',
+    province: '约旦河西岸',
+    country: '巴勒斯坦',
+    isInternational: true,
+    hasCustoms: true,
+    timezone: 'PST',
+    coordinates: { lat: 31.8647, lng: 35.2192 },
+    runways: 1,
+    priority: 85, // 🕊️ 三大宗教圣地机场（历史机场）
+    cargo: false
+  },
+
+  // ================================================================
+  // 🇰🇼 科威特 - 海湾明珠
+  // ================================================================
+
+  {
+    iata: 'KWI',
+    icao: 'OKBK',
+    chinese: '科威特国际机场',
+    english: 'Kuwait International Airport',
+    city: '科威特城',
+    province: '首都省',
+    country: '科威特',
+    isInternational: true,
+    hasCustoms: true,
+    timezone: 'AST',
+    coordinates: { lat: 29.2267, lng: 47.9689 },
+    runways: 2,
+    priority: 90, // 🛢️ 海湾地区重要航空枢纽
+    hub: ['Kuwait Airways', 'Jazeera Airways'],
+    cargo: true
+  },
+
+  {
+    iata: 'XIJ',
+    icao: 'OKAJ',
+    chinese: '艾哈迈德·贾比尔空军基地',
+    english: 'Ahmed al Jaber Air Base Airport',
+    city: '艾哈迈德港',
+    province: '艾哈迈迪省',
+    country: '科威特',
+    isInternational: false,
+    hasCustoms: false,
+    timezone: 'AST',
+    coordinates: { lat: 28.9356, lng: 47.7981 },
+    runways: 2,
+    priority: 70, // 🎖️ 军用机场兼民用
+    cargo: false
   }
 
 ];
@@ -549,7 +643,7 @@ export const westAsiaMiddleEastAirportStats = {
   countries: [...new Set(westAsiaMiddleEastEnhancedAirports.map(apt => apt.country))].length,
   provinces: [...new Set(westAsiaMiddleEastEnhancedAirports.map(apt => apt.province))].length,
   hubAirports: westAsiaMiddleEastEnhancedAirports.filter(apt => apt.hub && apt.hub.length > 0).length,
-  coverage: '西亚中东六国完整覆盖',
+  coverage: '西亚中东八国完整覆盖',
   specialFeatures: [
     '🥇 德黑兰伊玛目霍梅尼机场 - 伊朗最大机场，中东重要枢纽',
     '🏛️ 巴格达国际机场 - 伊拉克首都，两河流域文明中心',
@@ -557,6 +651,8 @@ export const westAsiaMiddleEastAirportStats = {
     '🏛️ 贝鲁特拉菲克·哈里里机场 - 黎巴嫩首都，地中海东岸门户',
     '🏛️ 大马士革国际机场 - 叙利亚首都，古代丝绸之路重镇',
     '🥇 特拉维夫本古里安机场 - 以色列最大机场，中东科技中心',
+    '🇵🇸 亚西尔·阿拉法特机场 - 巴勒斯坦主要国际机场（历史意义）',
+    '🇰🇼 科威特国际机场 - 海湾地区重要航空枢纽',
     '🏛️ 耶路撒冷门户 - 三大宗教圣地航空网络',
     '🏺 两河流域文明 - 巴比伦、亚述古代文明航空门户',
     '🕌 伊斯兰文化中心 - 什叶派、逊尼派文化重要航空网络',
