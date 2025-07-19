@@ -336,6 +336,14 @@ export const airportCodes: AirportInfo[] = [
     country: "United States",
     continent: "North America",
     type: "international"
+  },
+  {
+    code: "CKY",
+    name: "Conakry International Airport",
+    city: "Conakry",
+    country: "Guinea",
+    continent: "Africa",
+    type: "international"
   }
 ];
 
