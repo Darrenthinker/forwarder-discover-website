@@ -523,13 +523,19 @@ export function AirportSearch({
         const trimmedQuery = query.trim();
         const isExactMatch = trimmedQuery.length === 3 && findAirportByCode(trimmedQuery.toUpperCase());
         
+        // 调试信息
+        console.log(`🔍 渲染检查: query="${trimmedQuery}", length=${trimmedQuery.length}, isExactMatch=${!!isExactMatch}`);
+        
         // 如果是精确匹配，绝对不显示下拉框
         if (isExactMatch) {
+          console.log('✅ 精确匹配，阻止下拉框显示');
           return false;
         }
         
         // 其他情况按原逻辑
-        return isOpen && (results.length > 0 || airlineResults.length > 0);
+        const shouldShow = isOpen && (results.length > 0 || airlineResults.length > 0);
+        console.log(`📋 常规逻辑: isOpen=${isOpen}, results=${results.length}, airlines=${airlineResults.length}, shouldShow=${shouldShow}`);
+        return shouldShow;
       })() && (
         <div
           ref={resultsRef}
