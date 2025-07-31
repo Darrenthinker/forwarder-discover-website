@@ -773,11 +773,13 @@ function getCountryCodeByName(countryName: string): string {
 }
 
 // 获取机场类型对应的显示颜色
-function getDisplayColorByType(type: 'international' | 'domestic' | 'regional'): string {
+function getDisplayColorByType(type: 'international' | 'domestic' | 'regional' | 'military' | 'private'): string {
   const colors = {
     'international': '#3b82f6', // 蓝色
     'domestic': '#10b981',      // 绿色
-    'regional': '#6b7280'       // 灰色
+    'regional': '#6b7280',      // 灰色
+    'military': '#dc2626',      // 红色
+    'private': '#7c3aed'        // 紫色
   };
   return colors[type];
 }
