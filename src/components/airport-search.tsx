@@ -146,39 +146,38 @@ export function AirportSearch({
       return;
     }
 
-    // 🚀 检查是否为精确的3字机场代码匹配 - 优先级最高
-    if (query.trim().length === 3) {
-      const exactMatch = findAirportByCode(query.trim().toUpperCase());
-      if (exactMatch) {
-        // 🔥 立即清除所有搜索状态，防止显示下拉框
-        setResults([]);
-        setAllResults([]);
-        setAirlineResults([]);
-        setAllAirlineResults([]);
-        setIsOpen(false);
-        setShowAirlineTab(false);
-        setActiveTab('airports');
-        setSearchStats(null);
-        setDisplayedCount(30);
-        setDisplayedAirlineCount(30);
-        setHighlightedIndex(-1);
-        
-        // 设置选中的机场
-        setSelectedAirport(exactMatch);
-        
-        // 通知父组件
-        if (onChange) {
-          onChange(exactMatch);
-        }
-        if (onCodeChange) {
-          onCodeChange(exactMatch.code);
-        }
-        return; // 🔥 关键：精确匹配时直接返回，不执行后续任何搜索逻辑
+    // 🚀 检查是否为精确的3字机场代码匹配 - 最高优先级，完全阻止其他逻辑
+    const trimmedQuery = query.trim();
+    const isExactMatch = trimmedQuery.length === 3 && findAirportByCode(trimmedQuery.toUpperCase());
+    
+    if (isExactMatch) {
+      const exactMatch = findAirportByCode(trimmedQuery.toUpperCase())!; // 已通过isExactMatch检查，不会为null
+      // 🔥 精确匹配：彻底清除所有搜索状态并设置选中项
+      setResults([]);
+      setAllResults([]);
+      setAirlineResults([]);
+      setAllAirlineResults([]);
+      setIsOpen(false);
+      setShowAirlineTab(false);
+      setActiveTab('airports');
+      setSearchStats(null);
+      setDisplayedCount(30);
+      setDisplayedAirlineCount(30);
+      setHighlightedIndex(-1);
+      setSelectedAirport(exactMatch);
+      
+      // 通知父组件
+      if (onChange) {
+        onChange(exactMatch);
       }
+      if (onCodeChange) {
+        onCodeChange(exactMatch.code);
+      }
+      return; // 🔥 关键：精确匹配时直接返回，不执行任何后续逻辑
     }
 
-    // 🚀 常规搜索逻辑 - 排除3字符精确匹配情况
-    if (query.trim().length >= 1 && !(query.trim().length === 3 && findAirportByCode(query.trim().toUpperCase()))) {
+    // 🚀 常规搜索逻辑 - 只有在不是精确匹配时才执行
+    if (query.trim().length >= 1) {
       // 🚀 智能搜索：获取所有搜索结果，然后分页显示
       let searchResults = searchAirports(query, 500); // 获取更多结果
       
