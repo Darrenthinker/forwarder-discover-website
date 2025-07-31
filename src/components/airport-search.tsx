@@ -518,25 +518,9 @@ export function AirportSearch({
       </div>
 
       {/* 搜索结果下拉框 - 优化设计，添加标签页 */}
-      {(() => {
-        // 🔥 关键修复：直接在渲染时检查是否为精确匹配
-        const trimmedQuery = query.trim();
-        const isExactMatch = trimmedQuery.length === 3 && findAirportByCode(trimmedQuery.toUpperCase());
-        
-        // 调试信息
-        console.log(`🔍 渲染检查: query="${trimmedQuery}", length=${trimmedQuery.length}, isExactMatch=${!!isExactMatch}`);
-        
-        // 如果是精确匹配，绝对不显示下拉框
-        if (isExactMatch) {
-          console.log('✅ 精确匹配，阻止下拉框显示');
-          return false;
-        }
-        
-        // 其他情况按原逻辑
-        const shouldShow = isOpen && (results.length > 0 || airlineResults.length > 0);
-        console.log(`📋 常规逻辑: isOpen=${isOpen}, results=${results.length}, airlines=${airlineResults.length}, shouldShow=${shouldShow}`);
-        return shouldShow;
-      })() && (
+      {/* 🔥 关键修复：精确匹配时不显示下拉框 */}
+      {!((query.trim().length === 3 && findAirportByCode(query.trim().toUpperCase()))) && 
+       isOpen && (results.length > 0 || airlineResults.length > 0) && (
         <div
           ref={resultsRef}
           className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-96 overflow-y-auto"
