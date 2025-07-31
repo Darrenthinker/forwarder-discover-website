@@ -1272,7 +1272,7 @@ const AIRLINES: Airline[] = [
     isIata: true  // ✅ IATA成员
   },
 
-  // 🇶🇦 卡塔尔航空公司
+  // 🇶🇦 卡塔尔航空公司 (按机队规模排序)
   {
     code: 'QR',
     prefix: '157',
@@ -1283,8 +1283,9 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     alliance: 'Oneworld',
     hub: ['DOH'],
-    fleetSize: 256,
-    active: true
+    fleetSize: 280,
+    active: true,
+    isIata: true  // ✅ IATA成员，世界级航空公司
   },
 
   // 🇰🇼 科威特航空公司 (按机队规模排序)
@@ -1315,7 +1316,7 @@ const AIRLINES: Airline[] = [
     isIata: true  // ✅ IATA成员
   },
 
-  // 🇧🇭 巴林航空公司
+  // 🇧🇭 巴林航空公司 (按机队规模排序)
   {
     code: 'GF',
     prefix: '072',
@@ -1326,10 +1327,24 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['BAH'],
     fleetSize: 39,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员，海湾地区主要航空公司
+  },
+  {
+    code: 'ES',
+    prefix: '155',
+    icao: 'DHX',
+    name: { chinese: 'DHL航空', english: 'DHL Aviation' },
+    country: '巴林',
+    countryCode: 'BH',
+    type: 'Cargo',
+    hub: ['BAH'],
+    fleetSize: 15,
+    active: true,
+    isIata: true  // ✅ IATA成员，国际快递货运
   },
 
-  // 🇴🇲 阿曼航空公司
+  // 🇴🇲 阿曼航空公司 (按机队规模排序)
   {
     code: 'WY',
     prefix: '910',
@@ -1340,19 +1355,21 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['MCT'],
     fleetSize: 50,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员，阿曼国家航空公司
   },
   {
     code: 'OV',
-    prefix: '289',
-    icao: 'SLM',
-    name: { chinese: '萨拉姆航空', english: 'SalamAir' },
+    prefix: '960',
+    icao: 'OMS',
+    name: { chinese: '萨拉姆航空', english: 'Salam Air' },
     country: '阿曼',
     countryCode: 'OM',
     type: 'LCC',
     hub: ['MCT'],
     fleetSize: 12,
-    active: true
+    active: true,
+    isIata: true  // ✅ IATA成员，阿曼低成本航空
   },
 
   // 🇯🇴 约旦航空公司 (按机队规模排序)
@@ -1649,7 +1666,7 @@ const AIRLINES: Airline[] = [
     isIata: true
   },
 
-  // 🇦🇫 阿富汗航空公司
+  // 🇦🇫 阿富汗航空公司 (按机队规模排序)
   {
     code: 'FG',
     prefix: '255',
@@ -1660,7 +1677,21 @@ const AIRLINES: Airline[] = [
     type: 'FSC',
     hub: ['KBL'],
     fleetSize: 10,
-    active: true
+    active: true,
+    isIata: false  // ❌ 非IATA成员，曾被欧盟禁飞
+  },
+  {
+    code: 'RQ',
+    prefix: '384',
+    icao: 'KMF',
+    name: { chinese: '卡姆航空', english: 'Kam Air' },
+    country: '阿富汗',
+    countryCode: 'AF',
+    type: 'FSC',
+    hub: ['KBL'],
+    fleetSize: 8,
+    active: true,
+    isIata: true  // ✅ IATA成员，阿富汗私人航空公司
   },
 
   // 🇵🇰 巴基斯坦航空公司
@@ -3508,7 +3539,7 @@ export function searchAirlines(query: string): Airline[] {
       const isCountryOnlySearch = relevantCountries.some((country: any) => {
         // 精确匹配
         if (country.chinese === query.trim() || 
-            country.english.toLowerCase() === normalizedQuery ||
+        country.english.toLowerCase() === normalizedQuery ||
             country.code.toLowerCase() === normalizedQuery) {
           return true;
         }

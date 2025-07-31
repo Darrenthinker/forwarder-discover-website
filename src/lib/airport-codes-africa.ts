@@ -3,6 +3,9 @@ export interface AirportInfo {
   chinese: string;
   english: string;
   country: string;
+  type?: 'international' | 'domestic' | 'regional' | 'military';
+  customs?: boolean;
+  priority?: number;
 }
 
 // ================================================================
@@ -53,8 +56,38 @@ export const africaAirports: { [key: string]: AirportInfo } = {
   // 🇱🇾 利比亚 LIBYA - 国际机场
   // ================================================================
 
-  'TIP': { chinese: '的黎波里', english: 'Tripoli Mitiga', country: '利比亚' },
-  'BEN': { chinese: '班加西', english: 'Benghazi Benina', country: '利比亚' },
+  'TIP': { 
+    chinese: '的黎波里国际机场', 
+    english: 'Tripoli International Airport', 
+    country: '利比亚',
+    type: 'international',
+    customs: true,
+    priority: 95  // 🥇 利比亚最主要国际机场，北非重要门户
+  },
+  'BEN': { 
+    chinese: '班加西贝尼纳国际机场', 
+    english: 'Benghazi Benina International Airport', 
+    country: '利比亚',
+    type: 'international',
+    customs: true,
+    priority: 92  // 🏛️ 利比亚东部最重要机场
+  },
+  'MRA': { 
+    chinese: '米苏拉塔国际机场', 
+    english: 'Misrata International Airport', 
+    country: '利比亚',
+    type: 'international',
+    customs: true,
+    priority: 85  // 🏭 重要工业城市机场
+  },
+  'SEB': { 
+    chinese: '塞卜哈机场', 
+    english: 'Sabha Airport', 
+    country: '利比亚',
+    type: 'domestic',
+    customs: false,
+    priority: 75  // 🏜️ 南部沙漠地区机场
+  },
 
   // ================================================================
   // 🇸🇩 苏丹 SUDAN - 国际机场

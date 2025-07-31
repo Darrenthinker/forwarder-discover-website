@@ -7,14 +7,15 @@ export interface AirportInfo {
 
 export const airportCodes: { [key: string]: AirportInfo } = {
   // 中东地区
-  'DOH': { chinese: '多哈', english: 'Doha', country: '卡塔尔' },
+  'DOH': { chinese: '多哈哈马德国际机场', english: 'Doha Hamad International Airport', country: '卡塔尔' },
   'DXB': { chinese: '迪拜', english: 'Dubai', country: '阿联酋' },
   'AUH': { chinese: '阿布扎比', english: 'Abu Dhabi', country: '阿联酋' },
   'KWI': { chinese: '科威特', english: 'Kuwait', country: '科威特' },
-  'BAH': { chinese: '巴林', english: 'Bahrain', country: '巴林' },
+  'BAH': { chinese: '巴林国际机场', english: 'Bahrain International Airport', country: '巴林' },
   'RUH': { chinese: '利雅得', english: 'Riyadh', country: '沙特阿拉伯' },
   'JED': { chinese: '吉达', english: 'Jeddah', country: '沙特阿拉伯' },
-  'MCT': { chinese: '马斯喀特', english: 'Muscat', country: '阿曼' },
+  'MCT': { chinese: '马斯喀特国际机场', english: 'Muscat International Airport', country: '阿曼' },
+  'SLL': { chinese: '塞拉莱机场', english: 'Salalah Airport', country: '阿曼' },
   'TLV': { chinese: '特拉维夫', english: 'Tel Aviv', country: '以色列' },
   'AMM': { chinese: '安曼', english: 'Amman', country: '约旦' },
   'BGW': { chinese: '巴格达', english: 'Baghdad', country: '伊拉克' },

@@ -3,7 +3,7 @@ export interface AirportInfo {
   chinese: string;
   english: string;
   country: string;
-  type?: 'international' | 'domestic' | 'regional';
+  type?: 'international' | 'domestic' | 'regional' | 'military';
   customs?: boolean;
   priority?: number;
 }
@@ -437,8 +437,22 @@ export const asiaAirports: { [key: string]: AirportInfo } = {
   // 🇶🇦 卡塔尔 QATAR - 国际机场
   // ================================================================
 
-  'DOH': { chinese: '多哈', english: 'Doha Hamad', country: '卡塔尔' },
-  'XJD': { chinese: '乌代德', english: 'Al Udeid', country: '卡塔尔' },
+  'DOH': { 
+    chinese: '多哈哈马德国际机场', 
+    english: 'Doha Hamad International Airport', 
+    country: '卡塔尔',
+    type: 'international',
+    customs: true,
+    priority: 100  // 🥇 世界级航空枢纽，卡塔尔航空总部
+  },
+  'XJD': { 
+    chinese: '乌代德空军基地', 
+    english: 'Al Udeid Air Base', 
+    country: '卡塔尔',
+    type: 'military',
+    customs: false,
+    priority: 70   // 军用机场
+  },
 
   // ================================================================
   // 🇰🇼 科威特 KUWAIT - 国际机场
@@ -450,14 +464,35 @@ export const asiaAirports: { [key: string]: AirportInfo } = {
   // 🇧🇭 巴林 BAHRAIN - 国际机场
   // ================================================================
 
-  'BAH': { chinese: '巴林国际机场', english: 'Bahrain International Airport', country: '巴林' },
+  'BAH': { 
+    chinese: '巴林国际机场', 
+    english: 'Bahrain International Airport', 
+    country: '巴林',
+    type: 'international',
+    customs: true,
+    priority: 95  // 🥇 海湾地区重要航空枢纽，Gulf Air总部
+  },
 
   // ================================================================
   // 🇴🇲 阿曼 OMAN - 国际机场
   // ================================================================
 
-  'MCT': { chinese: '马斯喀特', english: 'Muscat', country: '阿曼' },
-  'SLL': { chinese: '塞拉莱', english: 'Salalah', country: '阿曼' },
+  'MCT': { 
+    chinese: '马斯喀特国际机场', 
+    english: 'Muscat International Airport', 
+    country: '阿曼',
+    type: 'international',
+    customs: true,
+    priority: 90  // 🥇 阿曼最大航空枢纽，Oman Air总部
+  },
+  'SLL': { 
+    chinese: '塞拉莱机场', 
+    english: 'Salalah Airport', 
+    country: '阿曼',
+    type: 'international',
+    customs: true,
+    priority: 80  // 🥈 阿曼南部重要国际机场
+  },
 
   // ================================================================
   // 🇮🇷 伊朗 IRAN - 国际机场
@@ -517,9 +552,30 @@ export const asiaAirports: { [key: string]: AirportInfo } = {
   // 🇦🇫 阿富汗 AFGHANISTAN - 国际机场
   // ================================================================
 
-  'KBL': { chinese: '喀布尔', english: 'Kabul Hamid Karzai', country: '阿富汗' },
-  'HEA': { chinese: '赫拉特', english: 'Herat', country: '阿富汗' },
-  'MZR': { chinese: '马扎里沙里夫', english: 'Mazar-i-Sharif', country: '阿富汗' },
+  'KBL': { 
+    chinese: '喀布尔哈米德·卡尔扎伊国际机场', 
+    english: 'Kabul Hamid Karzai International Airport', 
+    country: '阿富汗',
+    type: 'international',
+    customs: true,
+    priority: 85  // 🏛️ 阿富汗首都，山国门户
+  },
+  'HEA': { 
+    chinese: '赫拉特机场', 
+    english: 'Herat Airport', 
+    country: '阿富汗',
+    type: 'international',
+    customs: true,
+    priority: 75  // 🏜️ 阿富汗西部重要城市
+  },
+  'MZR': { 
+    chinese: '马扎里沙里夫机场', 
+    english: 'Mazar-i-Sharif Airport', 
+    country: '阿富汗',
+    type: 'international',
+    customs: true,
+    priority: 75  // 🏔️ 阿富汗北部重要城市
+  },
 
   // ================================================================
   // 🇱🇦 老挝 LAOS - 国际机场
@@ -573,4 +629,41 @@ export const asiaAirports: { [key: string]: AirportInfo } = {
   // ================================================================
 
   'ULN': { chinese: '乌兰巴托', english: 'Ulaanbaatar Chinggis Khaan', country: '蒙古' },
+
+  // ================================================================
+  // 🇱🇷 利比里亚 LIBERIA - 机场
+  // ================================================================
+
+  'ROB': { 
+    chinese: '罗伯茨国际机场', 
+    english: 'Roberts International Airport', 
+    country: '利比里亚',
+    type: 'international',
+    customs: true,
+    priority: 90  // 🛫 利比里亚主要国际门户
+  },
+  'LRB': { 
+    chinese: '蒙罗维亚斯普里格斯佩恩机场', 
+    english: 'Monrovia Spriggs Payne Airport', 
+    country: '利比里亚',
+    type: 'domestic',
+    customs: false,
+    priority: 70  // 🏢 首都国内机场
+  },
+  'THR': { 
+    chinese: '哈珀机场', 
+    english: 'Harper Airport', 
+    country: '利比里亚',
+    type: 'domestic',
+    customs: false,
+    priority: 50  // 🏘️ 地区性机场
+  },
+  'VOI': { 
+    chinese: '沃因贾马机场', 
+    english: 'Voinjama Airport', 
+    country: '利比里亚',
+    type: 'domestic',
+    customs: false,
+    priority: 45  // 🏘️ 地区性机场
+  }
 };

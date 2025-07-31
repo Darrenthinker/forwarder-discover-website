@@ -200,15 +200,15 @@ export const mexicoAirportsEnhanced: { [key: string]: AirportInfo } = {
   },
 
   // ================================================================
-  // 第四等级：地区性机场 (Priority: 65-74)
+  // 第四等级：新兴国际机场 (Priority: 65-74)
   // ================================================================
 
   'NLU': {
     chinese: '墨西哥城圣卢西亚',
     english: 'Felipe Ángeles International',
     country: '墨西哥',
-    type: 'domestic',
-    customs: false,
+    type: 'international',
+    customs: true,
     priority: 74
   }
 
@@ -217,10 +217,10 @@ export const mexicoAirportsEnhanced: { [key: string]: AirportInfo } = {
 // 导出机场数量统计
 export const MEXICO_AIRPORT_STATS = {
   total: 20,
-  international: 19,
-  domestic: 1,
+  international: 20,
+  domestic: 0,
   regional: 0,
-  withCustoms: 19,
+  withCustoms: 20,
   topTier: 3,       // Priority 95+
   secondTier: 6,    // Priority 85-94
   thirdTier: 10,    // Priority 75-84

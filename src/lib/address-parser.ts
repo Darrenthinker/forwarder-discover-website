@@ -1070,7 +1070,41 @@ class AsiaAddressParser {
 
   // 卡塔尔机场映射
   private static QATAR_CITY_AIRPORT_MAPPING: { [key: string]: AirportMatch[] } = {
-    'doha': [{ code: 'DOH', name: '哈马德国际机场', distance: 1, priority: 1 }]
+    'doha': [{ code: 'DOH', name: '多哈哈马德国际机场', distance: 1, priority: 1 }],
+    'al udeid': [{ code: 'XJD', name: '乌代德空军基地', distance: 1, priority: 2 }],
+    'udeid': [{ code: 'XJD', name: '乌代德空军基地', distance: 1, priority: 2 }],
+    'ras laffan': [{ code: 'XQP', name: '拉斯拉凡机场', distance: 1, priority: 3 }],
+    'laffan': [{ code: 'XQP', name: '拉斯拉凡机场', distance: 1, priority: 3 }]
+  };
+
+  // 巴林机场映射
+  private static BAHRAIN_CITY_AIRPORT_MAPPING: { [key: string]: AirportMatch[] } = {
+    'manama': [{ code: 'BAH', name: '巴林国际机场', distance: 1, priority: 1 }],
+    'muharraq': [{ code: 'BAH', name: '巴林国际机场', distance: 1, priority: 1 }],
+    'riffa': [{ code: 'SHK', name: '谢赫伊萨空军基地', distance: 1, priority: 2 }],
+    'sheikh isa': [{ code: 'SHK', name: '谢赫伊萨空军基地', distance: 1, priority: 2 }],
+    'isa': [{ code: 'SHK', name: '谢赫伊萨空军基地', distance: 1, priority: 2 }]
+  };
+
+  // 阿曼机场映射
+  private static OMAN_CITY_AIRPORT_MAPPING: { [key: string]: AirportMatch[] } = {
+    'muscat': [{ code: 'MCT', name: '马斯喀特国际机场', distance: 1, priority: 1 }],
+    'salalah': [{ code: 'SLL', name: '塞拉莱机场', distance: 1, priority: 2 }],
+    'sohar': [{ code: 'OHS', name: '苏哈尔机场', distance: 1, priority: 3 }],
+    'duqm': [{ code: 'DQM', name: '杜古姆机场', distance: 1, priority: 4 }],
+    'masirah': [{ code: 'MSH', name: '马西拉空军基地', distance: 1, priority: 5 }],
+    'khasab': [{ code: 'KHS', name: '哈西卜机场', distance: 1, priority: 6 }]
+  };
+
+  // 阿富汗机场映射
+  private static AFGHANISTAN_CITY_AIRPORT_MAPPING: { [key: string]: AirportMatch[] } = {
+    'kabul': [{ code: 'KBL', name: '喀布尔哈米德·卡尔扎伊国际机场', distance: 1, priority: 1 }],
+    'herat': [{ code: 'HEA', name: '赫拉特机场', distance: 1, priority: 2 }],
+    'mazar-i-sharif': [{ code: 'MZR', name: '马扎里沙里夫机场', distance: 1, priority: 3 }],
+    'mazar': [{ code: 'MZR', name: '马扎里沙里夫机场', distance: 1, priority: 3 }],
+    'kandahar': [{ code: 'KDH', name: '坎大哈机场', distance: 1, priority: 4 }],
+    'bamyan': [{ code: 'BIN', name: '巴米扬机场', distance: 1, priority: 5 }],
+    'bagram': [{ code: 'OAI', name: '巴格拉姆空军基地', distance: 1, priority: 6 }]
   };
 
   // 🇮🇩 印尼地址格式和机场映射
@@ -1909,6 +1943,147 @@ class ChinaAddressParser {
   }
 }
 
+// 🌍 非洲地址解析器
+class AfricaAddressParser {
+  // 🇱🇷 利比里亚地址格式
+  private static LIBERIA_ADDRESS_PATTERNS = [
+    // 完整格式: 123 Broad Street, Monrovia, Liberia
+    /^(.+?),\s*([A-Za-z\s]+),\s*(?:Liberia|LR)$/i,
+    // 简化格式: Monrovia, Liberia
+    /^([A-Za-z\s]+),\s*(?:Liberia|LR)$/i
+  ];
+
+  // 利比里亚城市到机场映射
+  private static LIBERIA_CITY_AIRPORT_MAPPING: { [key: string]: AirportMatch[] } = {
+    'monrovia': [
+      { code: 'ROB', name: '罗伯茨国际机场', distance: 1, priority: 1 },
+      { code: 'LRB', name: '蒙罗维亚斯普里格斯佩恩机场', distance: 2, priority: 2 }
+    ],
+    'harper': [{ code: 'THR', name: '哈珀机场', distance: 1, priority: 1 }],
+    'voinjama': [{ code: 'VOI', name: '沃因贾马机场', distance: 1, priority: 1 }]
+  };
+
+  // 🇱🇾 利比亚地址格式
+  private static LIBYA_ADDRESS_PATTERNS = [
+    // 完整格式: 123 Omar Al-Mukhtar Street, Tripoli, Libya
+    /^(.+?),\s*([A-Za-z\s]+),\s*(?:Libya|LY)$/i,
+    // 简化格式: Tripoli, Libya
+    /^([A-Za-z\s]+),\s*(?:Libya|LY)$/i
+  ];
+
+  // 利比亚城市到机场映射
+  private static LIBYA_CITY_AIRPORT_MAPPING: { [key: string]: AirportMatch[] } = {
+    'tripoli': [
+      { code: 'TIP', name: '的黎波里国际机场', distance: 1, priority: 1 },
+      { code: 'MJI', name: '的黎波里米蒂加机场', distance: 2, priority: 2 }
+    ],
+    'benghazi': [{ code: 'BEN', name: '班加西贝尼纳国际机场', distance: 1, priority: 1 }],
+    'misrata': [{ code: 'MRA', name: '米苏拉塔国际机场', distance: 1, priority: 1 }],
+    'sabha': [{ code: 'SEB', name: '塞卜哈机场', distance: 1, priority: 1 }]
+  };
+
+  // 解析非洲地址
+  static parseAfricaAddress(address: string): AddressParseResult {
+    const cleanAddress = address.trim();
+
+    // 🇱🇷 利比里亚地址解析
+    for (const pattern of this.LIBERIA_ADDRESS_PATTERNS) {
+      const match = cleanAddress.match(pattern);
+      if (match) {
+        let city: string;
+        let street: string | undefined;
+
+        if (match.length === 3) {
+          // 简化格式: Monrovia, Liberia
+          city = match[1].trim();
+        } else if (match.length === 4) {
+          // 完整格式: 123 Broad Street, Monrovia, Liberia
+          street = match[1].trim();
+          city = match[2].trim();
+        } else {
+          continue;
+        }
+
+        const addressInfo: AddressInfo = {
+          street,
+          city,
+          country: '利比里亚',
+          continent: '非洲'
+        };
+
+        // 查找匹配的机场
+        const cityKey = city.toLowerCase().trim();
+        const airports = this.LIBERIA_CITY_AIRPORT_MAPPING[cityKey];
+
+        if (airports && airports.length > 0) {
+          return {
+            success: true,
+            address: addressInfo,
+            primaryAirport: airports[0],
+            alternativeAirports: airports.slice(1),
+            confidence: 85
+          };
+        }
+
+        return {
+          success: true,
+          address: addressInfo,
+          confidence: 60 // 地址解析成功但无机场匹配
+        };
+      }
+    }
+
+    // 🇱🇾 利比亚地址解析
+    for (const pattern of this.LIBYA_ADDRESS_PATTERNS) {
+      const match = cleanAddress.match(pattern);
+      if (match) {
+        let city: string;
+        let street: string | undefined;
+
+        if (match.length === 3) {
+          // 简化格式: Tripoli, Libya
+          city = match[1].trim();
+        } else if (match.length === 4) {
+          // 完整格式: 123 Omar Al-Mukhtar Street, Tripoli, Libya
+          street = match[1].trim();
+          city = match[2].trim();
+        } else {
+          continue;
+        }
+
+        const addressInfo: AddressInfo = {
+          street,
+          city,
+          country: '利比亚',
+          continent: '非洲'
+        };
+
+        // 查找匹配的机场
+        const cityKey = city.toLowerCase().trim();
+        const airports = this.LIBYA_CITY_AIRPORT_MAPPING[cityKey];
+
+        if (airports && airports.length > 0) {
+          return {
+            success: true,
+            address: addressInfo,
+            primaryAirport: airports[0],
+            alternativeAirports: airports.slice(1),
+            confidence: 85
+          };
+        }
+
+        return {
+          success: true,
+          address: addressInfo,
+          confidence: 60 // 地址解析成功但无机场匹配
+        };
+      }
+    }
+
+    return { success: false, confidence: 0 };
+  }
+}
+
 // 🌍 主地址解析函数 - 智能识别地址格式并调用相应解析器
 export function parseAddressAndFindAirports(address: string): AddressParseResult {
   const cleanAddress = address.trim();
@@ -1957,8 +2132,15 @@ export function parseAddressAndFindAirports(address: string): AddressParseResult
     return southAmericaResult;
   }
 
+  // 🌍 非洲地址解析
+  const africaResult = AfricaAddressParser.parseAfricaAddress(cleanAddress);
+  if (africaResult.success && africaResult.confidence >= 75) {
+    console.log(`✅ 非洲地址解析成功:`, africaResult);
+    return africaResult;
+  }
+
   // 返回置信度最高的结果（如果有的话）
-  const allResults = [northAmericaResult, europeResult, asiaResult, oceaniaResult, southAmericaResult]
+  const allResults = [northAmericaResult, europeResult, asiaResult, oceaniaResult, southAmericaResult, africaResult]
     .filter(r => r.success)
     .sort((a, b) => b.confidence - a.confidence);
 
