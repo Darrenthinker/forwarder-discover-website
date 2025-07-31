@@ -148,16 +148,28 @@ export function AirportSearch({
 
     // 🚀 检查是否为精确的3字机场代码匹配
     if (query.trim().length === 3) {
-      const exactMatch = findAirportByCode(query.trim());
+      const exactMatch = findAirportByCode(query.trim().toUpperCase());
       if (exactMatch) {
         // 精确匹配时，自动选择并关闭下拉列表
         setSelectedAirport(exactMatch);
         setResults([]);
+        setAllResults([]);
+        setAirlineResults([]);
+        setAllAirlineResults([]);
         setIsOpen(false);
+        setShowAirlineTab(false);
+        setActiveTab('airports');
+        setSearchStats(null);
+        setDisplayedCount(30);
+        setDisplayedAirlineCount(30);
+        setHighlightedIndex(-1);
         if (onChange) {
           onChange(exactMatch);
         }
-        return;
+        if (onCodeChange) {
+          onCodeChange(exactMatch.code);
+        }
+        return; // 🔥 关键：精确匹配时直接返回，不执行后续搜索逻辑
       }
     }
 
