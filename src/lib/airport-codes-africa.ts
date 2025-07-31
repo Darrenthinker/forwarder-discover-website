@@ -72,6 +72,14 @@ export const africaAirports: { [key: string]: AirportInfo } = {
     customs: true,
     priority: 92  // 🏛️ 利比亚东部最重要机场
   },
+  'MJI': { 
+    chinese: '的黎波里米蒂加机场', 
+    english: 'Tripoli Mitiga Airport', 
+    country: '利比亚',
+    type: 'international',
+    customs: true,
+    priority: 88  // 🛡️ 的黎波里替代机场，重要民用机场
+  },
   'MRA': { 
     chinese: '米苏拉塔国际机场', 
     english: 'Misrata International Airport', 
