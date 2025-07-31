@@ -177,7 +177,8 @@ export function AirportSearch({
     }
 
     // 🚀 常规搜索逻辑 - 只有在不是精确匹配时才执行
-    if (query.trim().length >= 1 && !isExactMatch) {
+    const isRegularSearch = query.trim().length >= 1 && !(trimmedQuery.length === 3 && findAirportByCode(trimmedQuery.toUpperCase()));
+    if (isRegularSearch) {
       // 🚀 智能搜索：获取所有搜索结果，然后分页显示
       let searchResults = searchAirports(query, 500); // 获取更多结果
       
