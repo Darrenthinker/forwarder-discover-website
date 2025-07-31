@@ -131,7 +131,10 @@ export function AirportSearch({
 
   // 搜索机场和航空公司
   useEffect(() => {
-    if (query.trim().length === 0) {
+    const trimmedQuery = query.trim();
+    
+    // 🔥 最高优先级：空查询处理
+    if (trimmedQuery.length === 0) {
       setResults([]);
       setAllResults([]);
       setAirlineResults([]);
@@ -146,39 +149,39 @@ export function AirportSearch({
       return;
     }
 
-    // 🚀 检查是否为精确的3字机场代码匹配 - 最高优先级，完全阻止其他逻辑
-    const trimmedQuery = query.trim();
-    const isExactMatch = trimmedQuery.length === 3 && findAirportByCode(trimmedQuery.toUpperCase());
-    
-    if (isExactMatch) {
-      const exactMatch = findAirportByCode(trimmedQuery.toUpperCase())!; // 已通过isExactMatch检查，不会为null
-      // 🔥 精确匹配：彻底清除所有搜索状态并设置选中项
-      setResults([]);
-      setAllResults([]);
-      setAirlineResults([]);
-      setAllAirlineResults([]);
-      setIsOpen(false);
-      setShowAirlineTab(false);
-      setActiveTab('airports');
-      setSearchStats(null);
-      setDisplayedCount(30);
-      setDisplayedAirlineCount(30);
-      setHighlightedIndex(-1);
-      setSelectedAirport(exactMatch);
-      
-      // 通知父组件
-      if (onChange) {
-        onChange(exactMatch);
+    // 🔥 第二优先级：精确匹配检查 - 阻止所有后续逻辑
+    if (trimmedQuery.length === 3) {
+      const exactMatch = findAirportByCode(trimmedQuery.toUpperCase());
+      if (exactMatch) {
+        console.log('🎯 JFK精确匹配检测到，阻止所有搜索');
+        // 精确匹配：只设置选中项，清除所有搜索结果
+        setResults([]);
+        setAllResults([]);
+        setAirlineResults([]);
+        setAllAirlineResults([]);
+        setIsOpen(false);
+        setShowAirlineTab(false);
+        setActiveTab('airports');
+        setSearchStats(null);
+        setDisplayedCount(30);
+        setDisplayedAirlineCount(30);
+        setHighlightedIndex(-1);
+        setSelectedAirport(exactMatch);
+        
+        // 通知父组件
+        if (onChange) {
+          onChange(exactMatch);
+        }
+        if (onCodeChange) {
+          onCodeChange(exactMatch.code);
+        }
+        return; // 🚫 完全阻止后续逻辑
       }
-      if (onCodeChange) {
-        onCodeChange(exactMatch.code);
-      }
-      return; // 🔥 关键：精确匹配时直接返回，不执行任何后续逻辑
     }
 
-    // 🚀 常规搜索逻辑 - 只有在不是精确匹配时才执行
-    const isRegularSearch = query.trim().length >= 1 && !(trimmedQuery.length === 3 && findAirportByCode(trimmedQuery.toUpperCase()));
-    if (isRegularSearch) {
+    // 🚀 常规搜索逻辑 - 执行到这里说明不是精确匹配
+    console.log('📋 执行常规搜索逻辑，query=', trimmedQuery);
+    if (trimmedQuery.length >= 1) {
       // 🚀 智能搜索：获取所有搜索结果，然后分页显示
       let searchResults = searchAirports(query, 500); // 获取更多结果
       
