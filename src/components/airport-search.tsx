@@ -126,6 +126,15 @@ export function AirportSearch({
 
   // 同步外部value变化到内部query状态
   useEffect(() => {
+    // 🔥 防止精确匹配时的循环触发
+    const trimmedValue = value.trim();
+    if (trimmedValue.length === 3 && findAirportByCode(trimmedValue.toUpperCase())) {
+      // 如果新值是精确匹配，直接设置但不触发搜索
+      console.log('🔄 同步精确匹配值，不触发搜索:', trimmedValue);
+      setQuery(value);
+      return;
+    }
+    console.log('🔄 同步普通值:', value);
     setQuery(value);
   }, [value]);
 
@@ -168,13 +177,11 @@ export function AirportSearch({
         setHighlightedIndex(-1);
         setSelectedAirport(exactMatch);
         
-        // 通知父组件
+        // 通知父组件 - 只通知onChange，不调用onCodeChange避免循环
         if (onChange) {
           onChange(exactMatch);
         }
-        if (onCodeChange) {
-          onCodeChange(exactMatch.code);
-        }
+        console.log('🎯 精确匹配完成，不调用onCodeChange避免循环');
         return; // 🚫 完全阻止后续逻辑
       }
     }
