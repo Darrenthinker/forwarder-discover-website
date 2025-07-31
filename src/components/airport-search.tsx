@@ -177,7 +177,7 @@ export function AirportSearch({
     }
 
     // 🚀 常规搜索逻辑 - 只有在不是精确匹配时才执行
-    if (query.trim().length >= 1) {
+    if (query.trim().length >= 1 && !isExactMatch) {
       // 🚀 智能搜索：获取所有搜索结果，然后分页显示
       let searchResults = searchAirports(query, 500); // 获取更多结果
       
@@ -487,7 +487,14 @@ export function AirportSearch({
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
           onFocus={() => {
-            if (results.length > 0 || airlineResults.length > 0) {
+            // 🔥 修复：如果是3字符精确匹配，不显示下拉框
+            const trimmedQuery = query.trim();
+            const isExactMatch = trimmedQuery.length === 3 && findAirportByCode(trimmedQuery.toUpperCase());
+            
+            if (isExactMatch) {
+              // 精确匹配时不显示下拉框
+              setIsOpen(false);
+            } else if (results.length > 0 || airlineResults.length > 0) {
               setIsOpen(true);
             } else if (query.trim().length === 0) {
               setShowStats(true);
