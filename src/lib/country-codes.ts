@@ -48,7 +48,7 @@ export interface CountryCodeInfo {
 export function isCountryCode(code: string): boolean {
   if (!code || code.length !== 2) return false;
   const upperCode = code.toUpperCase();
-  return Object.hasOwn(countryCodeToChineseName, upperCode);
+  return countryCodeToChineseName.hasOwnProperty(upperCode);
 }
 
 /**

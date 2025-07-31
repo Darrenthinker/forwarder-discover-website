@@ -167,7 +167,7 @@ export interface BaseAirportInfo {
 
 // 增强机场信息接口
 export interface EnhancedAirportInfo {
-  type: 'international' | 'domestic' | 'regional';
+  type: 'international' | 'domestic' | 'regional' | 'military' | 'private';
   customs: boolean;
   priority: number;
 }
