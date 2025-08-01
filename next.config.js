@@ -5,6 +5,10 @@ const nextConfig = {
     unoptimized: true
   },
   poweredByHeader: false,
+  // Netlify部署配置
+  output: 'export',
+  distDir: 'out',
+  trailingSlash: true,
   // 优化构建和热重载
   webpack: (config, { dev }) => {
     if (dev) {
@@ -24,7 +28,6 @@ const nextConfig = {
     pagesBufferLength: 2,
   },
   // 添加路由配置
-  trailingSlash: false,
   experimental: {
     optimizePackageImports: ['@radix-ui/react-icons'],
   },
