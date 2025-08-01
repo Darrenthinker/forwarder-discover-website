@@ -126,6 +126,12 @@ export function AirportSearch({
 
   // 同步外部value变化到内部query状态
   useEffect(() => {
+    // 🔥 如果当前有选中的机场，不要被外部value覆盖
+    if (selectedAirport) {
+      console.log('🚫 已有选中机场，忽略外部value更新:', value);
+      return;
+    }
+    
     // 🔥 防止精确匹配时的循环触发
     const trimmedValue = value.trim();
     if (trimmedValue.length === 3 && findAirportByCode(trimmedValue.toUpperCase())) {
@@ -136,7 +142,7 @@ export function AirportSearch({
     }
     console.log('🔄 同步普通值:', value);
     setQuery(value);
-  }, [value]);
+  }, [value, selectedAirport]);
 
   // 搜索机场和航空公司
   useEffect(() => {
