@@ -26,7 +26,7 @@ export const usaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '美国',
     type: 'international',
     customs: true,
-    priority: 100
+    priority: 105  // 🥇 美国最重要的国际门户，优先于所有区域机场
   },
 
   'LAX': {
@@ -35,7 +35,7 @@ export const usaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '美国',
     type: 'international',
     customs: true,
-    priority: 99
+    priority: 104  // 🥈 美国西海岸最重要机场
   },
 
   'ORD': {
@@ -44,7 +44,7 @@ export const usaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '美国',
     type: 'international',
     customs: true,
-    priority: 98
+    priority: 103  // 🥉 美国中部最重要枢纽
   },
 
   'ATL': {
@@ -53,7 +53,7 @@ export const usaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '美国',
     type: 'international',
     customs: true,
-    priority: 97
+    priority: 102  // 🏆 全球最繁忙机场
   },
 
   'DFW': {
@@ -62,7 +62,7 @@ export const usaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '美国',
     type: 'international',
     customs: true,
-    priority: 96
+    priority: 101  // 🛫 美国南部重要枢纽
   },
 
   'SFO': {
@@ -71,7 +71,7 @@ export const usaAirportsEnhanced: { [key: string]: AirportInfo } = {
     country: '美国',
     type: 'international',
     customs: true,
-    priority: 95
+    priority: 100  // 🌉 旧金山湾区国际门户
   },
 
   // ================================================================

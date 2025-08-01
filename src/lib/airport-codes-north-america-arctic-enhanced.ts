@@ -48,7 +48,7 @@ export const northAmericaArcticEnhancedAirports: EnhancedAirportInfo[] = [
     timezone: 'AKST',
     coordinates: { lat: 61.2181, lng: -149.9003 },
     runways: 3,
-    priority: 100, // 🥇 阿拉斯加最大机场，北极圈重要枢纽
+    priority: 90, // 🌨️ 阿拉斯加最大机场，北极圈重要枢纽（区域性重要）
     hub: ['Alaska Airlines'],
     cargo: true
   },
@@ -66,7 +66,7 @@ export const northAmericaArcticEnhancedAirports: EnhancedAirportInfo[] = [
     timezone: 'AKST',
     coordinates: { lat: 64.8378, lng: -147.8560 },
     runways: 2,
-    priority: 95, // 🌌 北极光观赏中心，阿拉斯加内陆最大机场
+    priority: 85, // 🌌 北极光观赏中心，阿拉斯加内陆最大机场
     hub: ['Alaska Airlines'],
     cargo: true
   },
