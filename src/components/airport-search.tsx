@@ -172,7 +172,8 @@ export function AirportSearch({
        if (exactMatch) {
         console.log('🎯 JFK精确匹配检测到，阻止所有搜索');
         console.log('🔍 exactMatch详情:', exactMatch);
-        // 精确匹配：只设置选中项，清除所有搜索结果
+        // 精确匹配：强制清空所有状态，确保下拉框消失
+        setSelectedAirport(exactMatch);
         setResults([]);
         setAllResults([]);
         setAirlineResults([]);
@@ -184,7 +185,13 @@ export function AirportSearch({
         setDisplayedCount(30);
         setDisplayedAirlineCount(30);
         setHighlightedIndex(-1);
-        setSelectedAirport(exactMatch);
+        
+        // 强制在下一个事件循环中再次确保状态
+        setTimeout(() => {
+          setResults([]);
+          setAirlineResults([]);
+          setIsOpen(false);
+        }, 0);
         
         // 通知父组件 - 只通知onChange，不调用onCodeChange避免循环
         if (onChange) {
@@ -538,15 +545,20 @@ export function AirportSearch({
       </div>
 
       {/* 搜索结果下拉框 - 优化设计，添加标签页 */}
-      {/* 🔥 调试：检查selectedAirport状态 */}
+      {/* 🔥 最终修复：3字符精确匹配绝对不显示下拉框 */}
       {(() => {
-        const shouldShow = !selectedAirport && isOpen && (results.length > 0 || airlineResults.length > 0);
-        console.log('🔍 下拉框显示检查:', {
-          selectedAirport: selectedAirport ? selectedAirport.code : null,
+        const trimmedQuery = query.trim();
+        const isExactMatch = trimmedQuery.length === 3 && findAirportByCode(trimmedQuery.toUpperCase());
+        const shouldShow = !isExactMatch && isOpen && (results.length > 0 || airlineResults.length > 0);
+        
+        console.log('🔥 最终渲染检查:', {
+          query: trimmedQuery,
+          isExactMatch: !!isExactMatch,
           isOpen,
           resultsLength: results.length,
           shouldShow
         });
+        
         return shouldShow;
       })() && (
         <div
