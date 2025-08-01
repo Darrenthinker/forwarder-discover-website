@@ -532,22 +532,8 @@ export function AirportSearch({
       </div>
 
       {/* 搜索结果下拉框 - 优化设计，添加标签页 */}
-      {/* 🔥 终极修复：直接在渲染时检查精确匹配 */}
-      {(() => {
-        const trimmedQuery = query.trim();
-        const hasExactMatch = trimmedQuery.length === 3 && findAirportByCode(trimmedQuery.toUpperCase());
-        const shouldShowDropdown = !hasExactMatch && isOpen && (results.length > 0 || airlineResults.length > 0);
-        
-        console.log('🔥 最终渲染检查:', {
-          query: trimmedQuery,
-          hasExactMatch: !!hasExactMatch,
-          isOpen,
-          resultsLength: results.length,
-          shouldShow: shouldShowDropdown
-        });
-        
-        return shouldShowDropdown;
-      })() && (
+      {/* 🔥 最简单修复：有选中机场就不显示下拉框 */}
+      {!selectedAirport && isOpen && (results.length > 0 || airlineResults.length > 0) && (
         <div
           ref={resultsRef}
           className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-96 overflow-y-auto"
