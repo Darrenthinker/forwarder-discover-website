@@ -2,7 +2,7 @@
   remote_images = ["https://source.unsplash.com/.*", "https://images.unsplash.com/.*", "https://ext.same-assets.com/.*", "https://ugc.same-assets.com/.*"]
 
 [build]
-  command = "NEXT_PUBLIC_DISABLE_ESLINT=true npm run build"
+  command = "npm run build"
   publish = ".next"
 
 [build.environment]
