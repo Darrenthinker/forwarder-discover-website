@@ -545,22 +545,9 @@ export function AirportSearch({
       </div>
 
       {/* 搜索结果下拉框 - 优化设计，添加标签页 */}
-      {/* 🔥 最终修复：3字符精确匹配绝对不显示下拉框 */}
-      {(() => {
-        const trimmedQuery = query.trim();
-        const isExactMatch = trimmedQuery.length === 3 && findAirportByCode(trimmedQuery.toUpperCase());
-        const shouldShow = !isExactMatch && isOpen && (results.length > 0 || airlineResults.length > 0);
-        
-        console.log('🔥 最终渲染检查:', {
-          query: trimmedQuery,
-          isExactMatch: !!isExactMatch,
-          isOpen,
-          resultsLength: results.length,
-          shouldShow
-        });
-        
-        return shouldShow;
-      })() && (
+      {/* 🔥 终极修复：直接检查3字符精确匹配，如果是就返回null */}
+      {query.trim().length === 3 && findAirportByCode(query.trim().toUpperCase()) ? null : 
+       isOpen && (results.length > 0 || airlineResults.length > 0) ? (
         <div
           ref={resultsRef}
           className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-96 overflow-y-auto"
@@ -834,7 +821,7 @@ export function AirportSearch({
             </>
           )}
         </div>
-      )}
+      ) : null}
 
       {/* 选中的机场信息显示 - 简化设计 */}
       {selectedAirport && !isOpen && (
