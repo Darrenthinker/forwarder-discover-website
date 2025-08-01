@@ -532,7 +532,18 @@ export function AirportSearch({
       {(() => {
         const trimmedQuery = query.trim();
         const isExactMatch = trimmedQuery.length === 3 && findAirportByCode(trimmedQuery.toUpperCase());
-        return !isExactMatch && isOpen && (results.length > 0 || airlineResults.length > 0);
+        const shouldShow = !isExactMatch && isOpen && (results.length > 0 || airlineResults.length > 0);
+        
+        console.log('🔍 渲染检查:', {
+          query: trimmedQuery,
+          isExactMatch,
+          isOpen,
+          resultsLength: results.length,
+          airlinesLength: airlineResults.length,
+          shouldShow
+        });
+        
+        return shouldShow;
       })() && (
         <div
           ref={resultsRef}
