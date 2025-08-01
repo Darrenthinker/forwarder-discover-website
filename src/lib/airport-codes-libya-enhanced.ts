@@ -35,34 +35,14 @@ export const LIBYA_AIRPORTS: EnhancedAirportInfo[] = [
   // ================================================================
 
   {
-    iata: 'TIP',
-    icao: 'HLLT',
-    chinese: '的黎波里国际机场',
-    english: 'Tripoli International Airport',
-    country: '利比亚',
-    type: 'international',
-    customs: true,
-    priority: 95, // 🥇 利比亚最主要国际机场，北非重要门户
-    hub: true,
-    cargo: true,
-    coordinates: {
-      latitude: 32.6694,
-      longitude: 13.1581
-    },
-    runways: 2,
-    timezone: 'EET',
-    elevation: 80 // 263英尺 = 80米
-  },
-
-  {
-    iata: 'MJI', // 注：一些资料显示为无IATA代码或使用TIP作为主要代码
+    iata: 'MJI',
     icao: 'HLLM',
     chinese: '的黎波里米蒂加机场',
     english: 'Tripoli Mitiga Airport',
     country: '利比亚',
     type: 'international',
     customs: true,
-    priority: 88, // 🛡️ 军民两用机场，目前民航主要使用
+    priority: 98, // 🥇 目前利比亚实际运营的主要国际机场，首都门户
     hub: false,
     cargo: true,
     coordinates: {
@@ -72,6 +52,26 @@ export const LIBYA_AIRPORTS: EnhancedAirportInfo[] = [
     runways: 1,
     timezone: 'EET',
     elevation: 11 // 36英尺 = 11米
+  },
+
+  {
+    iata: 'TIP',
+    icao: 'HLLT',
+    chinese: '的黎波里国际机场',
+    english: 'Tripoli International Airport',
+    country: '利比亚',
+    type: 'international',
+    customs: true,
+    priority: 85, // ⚠️ 因安全原因暂停运营，但仍为重要国际机场
+    hub: true,
+    cargo: true,
+    coordinates: {
+      latitude: 32.6694,
+      longitude: 13.1581
+    },
+    runways: 2,
+    timezone: 'EET',
+    elevation: 80 // 263英尺 = 80米
   },
 
   // ================================================================

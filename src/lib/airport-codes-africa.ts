@@ -56,13 +56,13 @@ export const africaAirports: { [key: string]: AirportInfo } = {
   // 🇱🇾 利比亚 LIBYA - 国际机场
   // ================================================================
 
-  'TIP': { 
-    chinese: '的黎波里国际机场', 
-    english: 'Tripoli International Airport', 
+  'MJI': { 
+    chinese: '的黎波里米蒂加机场', 
+    english: 'Tripoli Mitiga Airport', 
     country: '利比亚',
     type: 'international',
     customs: true,
-    priority: 95  // 🥇 利比亚最主要国际机场，北非重要门户
+    priority: 98  // 🥇 目前利比亚实际运营的主要国际机场，首都门户
   },
   'BEN': { 
     chinese: '班加西贝尼纳国际机场', 
@@ -72,13 +72,13 @@ export const africaAirports: { [key: string]: AirportInfo } = {
     customs: true,
     priority: 92  // 🏛️ 利比亚东部最重要机场
   },
-  'MJI': { 
-    chinese: '的黎波里米蒂加机场', 
-    english: 'Tripoli Mitiga Airport', 
+  'TIP': { 
+    chinese: '的黎波里国际机场', 
+    english: 'Tripoli International Airport', 
     country: '利比亚',
     type: 'international',
     customs: true,
-    priority: 88  // 🛡️ 的黎波里替代机场，重要民用机场
+    priority: 85  // ⚠️ 因安全原因暂停运营，但仍为重要国际机场
   },
   'MRA': { 
     chinese: '米苏拉塔国际机场', 
