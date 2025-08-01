@@ -159,10 +159,13 @@ export function AirportSearch({
     }
 
     // 🔥 第二优先级：精确匹配检查 - 阻止所有后续逻辑
-    if (trimmedQuery.length === 3) {
-      const exactMatch = findAirportByCode(trimmedQuery.toUpperCase());
-      if (exactMatch) {
+         if (trimmedQuery.length === 3) {
+       console.log('🔧 测试3字符查询:', trimmedQuery.toUpperCase());
+       const exactMatch = findAirportByCode(trimmedQuery.toUpperCase());
+       console.log('🔧 findAirportByCode结果:', exactMatch);
+       if (exactMatch) {
         console.log('🎯 JFK精确匹配检测到，阻止所有搜索');
+        console.log('🔍 exactMatch详情:', exactMatch);
         // 精确匹配：只设置选中项，清除所有搜索结果
         setResults([]);
         setAllResults([]);
