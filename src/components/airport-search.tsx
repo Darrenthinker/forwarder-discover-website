@@ -545,9 +545,23 @@ export function AirportSearch({
       </div>
 
       {/* 搜索结果下拉框 - 优化设计，添加标签页 */}
-      {/* 🔥 终极修复：直接检查3字符精确匹配，如果是就返回null */}
-      {query.trim().length === 3 && findAirportByCode(query.trim().toUpperCase()) ? null : 
-       isOpen && (results.length > 0 || airlineResults.length > 0) ? (
+      {/* 🔥 最终修复：立即计算是否为精确匹配，不依赖异步状态更新 */}
+      {(() => {
+        const trimmed = query.trim();
+        const hasExactMatch = trimmed.length === 3 && findAirportByCode(trimmed.toUpperCase());
+        
+        // 如果是精确匹配，立即返回null，不渲染下拉框
+        if (hasExactMatch) {
+          console.log('🚫 渲染阶段检测到精确匹配，不渲染下拉框:', trimmed);
+          return null;
+        }
+        
+        // 否则检查是否应该显示下拉框
+        const shouldShow = isOpen && (results.length > 0 || airlineResults.length > 0);
+        console.log('📋 渲染检查:', { trimmed, hasExactMatch: false, isOpen, resultsLength: results.length, shouldShow });
+        
+        return shouldShow;
+      })() ? (
         <div
           ref={resultsRef}
           className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-96 overflow-y-auto"
