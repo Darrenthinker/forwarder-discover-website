@@ -53,6 +53,7 @@ export function AirportSearch({
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [selectedAirport, setSelectedAirport] = useState<AirportSearchResult | null>(null);
+  const [isAirportSelected, setIsAirportSelected] = useState(false);
   const [showStats, setShowStats] = useState(false);
   const [searchStats, setSearchStats] = useState<{
     isCountrySearch: boolean;
@@ -156,6 +157,7 @@ export function AirportSearch({
       setAllAirlineResults([]);
       setIsOpen(false);
       setSelectedAirport(null);
+      setIsAirportSelected(false); // 空查询时重置标志
       setSearchStats(null);
       setDisplayedCount(30);
       setDisplayedAirlineCount(30);
@@ -174,6 +176,7 @@ export function AirportSearch({
         console.log('🔍 exactMatch详情:', exactMatch);
         // 精确匹配：强制清空所有状态，确保下拉框消失
         setSelectedAirport(exactMatch);
+        setIsAirportSelected(true); // 设置机场已选择标志
         setResults([]);
         setAllResults([]);
         setAirlineResults([]);
@@ -299,6 +302,7 @@ export function AirportSearch({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
     setQuery(newValue);
+    setIsAirportSelected(false); // 在输入变化时重置标志
 
     // 实时反馈给父组件
     if (onCodeChange) {
@@ -419,6 +423,7 @@ export function AirportSearch({
   const selectAirport = (airport: AirportSearchResult) => {
     setQuery(airport.code);
     setSelectedAirport(airport);
+    setIsAirportSelected(true); // 在选择机场时设置标志
     setIsOpen(false);
     setHighlightedIndex(-1);
 
@@ -545,18 +550,8 @@ export function AirportSearch({
       </div>
 
       {/* 搜索结果下拉框 - 优化设计，添加标签页 */}
-      {/* 🔥 最终修复：用户提供的正确方案 */}
-      {(() => {
-        const trimmed = query.trim();
-        const isExactMatch = trimmed.length === 3 && findAirportByCode(trimmed.toUpperCase());
-        
-        // 如果是精确匹配，直接不显示下拉框
-        if (isExactMatch) {
-          return null;
-        }
-        
-        // 否则按正常逻辑显示
-        return isOpen && (results.length > 0 || airlineResults.length > 0) ? (
+      {/* 🔥 最终修复：使用专门的标志状态控制下拉框显示 */}
+      {!isAirportSelected && isOpen && (results.length > 0 || airlineResults.length > 0) ? (
         <div
           ref={resultsRef}
           className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-96 overflow-y-auto"
@@ -830,8 +825,7 @@ export function AirportSearch({
             </>
           )}
         </div>
-        ) : null;
-      })()}
+      ) : null}
 
       {/* 选中的机场信息显示 - 简化设计 */}
       {selectedAirport && !isOpen && (
