@@ -532,8 +532,17 @@ export function AirportSearch({
       </div>
 
       {/* 搜索结果下拉框 - 优化设计，添加标签页 */}
-      {/* 🔥 最简单修复：有选中机场就不显示下拉框 */}
-      {!selectedAirport && isOpen && (results.length > 0 || airlineResults.length > 0) && (
+      {/* 🔥 调试：检查selectedAirport状态 */}
+      {(() => {
+        const shouldShow = !selectedAirport && isOpen && (results.length > 0 || airlineResults.length > 0);
+        console.log('🔍 下拉框显示检查:', {
+          selectedAirport: selectedAirport ? selectedAirport.code : null,
+          isOpen,
+          resultsLength: results.length,
+          shouldShow
+        });
+        return shouldShow;
+      })() && (
         <div
           ref={resultsRef}
           className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-96 overflow-y-auto"
