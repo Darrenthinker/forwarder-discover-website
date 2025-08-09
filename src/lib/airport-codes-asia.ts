@@ -57,6 +57,7 @@ export const asiaAirports: { [key: string]: AirportInfo } = {
 
   // 华中地区
   'WUH': { chinese: '武汉', english: 'Wuhan', country: '中国' },
+  'EHU': { chinese: '鄂州', english: 'Ezhou', country: '中国' },
   'CSX': { chinese: '长沙', english: 'Changsha', country: '中国' },
   'CKG': { chinese: '重庆', english: 'Chongqing', country: '中国' },
   'CGO': { chinese: '郑州', english: 'Zhengzhou', country: '中国' },

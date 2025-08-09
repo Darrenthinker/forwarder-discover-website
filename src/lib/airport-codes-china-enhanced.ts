@@ -165,6 +165,16 @@ export const chinaAirportsEnhanced: { [key: string]: AirportInfo } = {
     continent: '亚洲'
   },
 
+  'EHU': {
+    chinese: '鄂州花湖',
+    english: 'Ezhou Huahu International',
+    country: '中国',
+    type: 'international',
+    customs: true,
+    priority: 85, // 🚛 专业货运机场，顺丰全球航空枢纽
+    continent: '亚洲'
+  },
+
   'CGO': {
     chinese: '郑州新郑',
     english: 'Zhengzhou Xinzheng International',

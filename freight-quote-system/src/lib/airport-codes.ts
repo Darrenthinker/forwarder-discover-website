@@ -125,6 +125,7 @@ export const airportCodes: { [key: string]: AirportInfo } = {
   'KMG': { chinese: '昆明', english: 'Kunming', country: '中国' },
   'XIY': { chinese: '西安', english: 'Xi\'an', country: '中国' },
   'WUH': { chinese: '武汉', english: 'Wuhan', country: '中国' },
+  'EHU': { chinese: '鄂州花湖', english: 'Ezhou Huahu', country: '中国' },
   'CSX': { chinese: '长沙', english: 'Changsha', country: '中国' },
   'NKG': { chinese: '南京', english: 'Nanjing', country: '中国' },
   'HGH': { chinese: '杭州', english: 'Hangzhou', country: '中国' },

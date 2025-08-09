@@ -1904,7 +1904,11 @@ class ChinaAddressParser {
     '厦门': [{ code: 'XMN', name: '厦门高崎国际机场', distance: 1, priority: 1 }],
     'xiamen': [{ code: 'XMN', name: '厦门高崎国际机场', distance: 1, priority: 1 }],
     '青岛': [{ code: 'TAO', name: '青岛流亭国际机场', distance: 1, priority: 1 }],
-    'qingdao': [{ code: 'TAO', name: '青岛流亭国际机场', distance: 1, priority: 1 }]
+    'qingdao': [{ code: 'TAO', name: '青岛流亭国际机场', distance: 1, priority: 1 }],
+    '武汉': [{ code: 'WUH', name: '武汉天河国际机场', distance: 1, priority: 1 }],
+    'wuhan': [{ code: 'WUH', name: '武汉天河国际机场', distance: 1, priority: 1 }],
+    '鄂州': [{ code: 'EHU', name: '鄂州花湖国际机场', distance: 1, priority: 1 }],
+    'ezhou': [{ code: 'EHU', name: '鄂州花湖国际机场', distance: 1, priority: 1 }]
   };
 
   // 中国地址格式
